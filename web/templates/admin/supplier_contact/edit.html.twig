@@ -1,0 +1,38 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+
+    <h1 class="fs-2">{{ supplier.ciName }}</h1>
+    
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/supplier_contact/_form.html.twig') }}
+
+                <div class="float-start">
+                    <button class="btn btn-success">{{ 'action.update'|trans }}</button>
+                    <a href="{{ path('app_admin_supplier_contact_index', {'supplierId': supplierId}) }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+                </div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/supplier_contact/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript-function/supplier.html.twig') }}
+
+{% endblock %}

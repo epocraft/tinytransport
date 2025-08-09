@@ -1,0 +1,31 @@
+quote_item:
+    description_not_blank: Popis nesmí být prázdný
+    height_unit_required: Pokud je zadána výška, jednotka výšky je vyžadována, a naopak
+    width_unit_required: Pokud je zadána šířka, jednotka šířky je vyžadována, a naopak
+    depth_unit_required: Pokud je zadána délka, jednotka délky je vyžadována, a naopak
+    weight_unit_required: Pokud je zadána váha, jednotka váhy je vyžadována, a naopak
+    width_of_staircase: Nejužší šířka schodiště
+    rough_estimates_ok: Hrubý odhad je v pořádku.
+    height: Výška
+    width: Šířka
+    depth: Hloubka
+    weight: Hmotnost
+    height_tooltip_title: Co je výška a jak ji měřit?
+    height_tooltip_content: |
+        Výška je svislý rozměr předmětu, od základny k nejvyššímu bodu.
+        Příklad: U krabice změřte vzdálenost od země k hornímu okraji.
+        <br><img src="assets/web/media/images/height.jpg" alt="Příklad obrázku" class="img-fluid mt-2" />
+    width_tooltip_title: Co je šířka a jak ji měřit?
+    width_tooltip_content: |
+        Šířka je druhý nejdelší rozměr předmětu, kolmý na délku.
+        Příklad: U krabice změřte stranu vedle délky.
+        <br><img src="assets/web/media/images/width.jpg" alt="Příklad obrázku" class="img-fluid mt-2" />
+    depth_tooltip_title: Co je hloubka a jak ji měřit?
+    depth_tooltip_content: |
+        Hloubka je třetí rozměr předmětu, kolmý na délku a šířku.
+        Příklad: U krabice změřte vzdálenost od přední strany k zadní straně.
+        <br><img src="assets/web/media/images/depth.jpg" alt="Příklad obrázku" class="img-fluid mt-2" />
+    weight_tooltip_title: Co je hmotnost a jak ji měřit?
+    weight_tooltip_content: |
+        Hmotnost je hmotnost předmětu. Pokud neznáte přesnou hmotnost, zkuste ji alespoň odhadnout.
+        Příklad: Kávovar může vážit 5 kg, lednice 80 kg.

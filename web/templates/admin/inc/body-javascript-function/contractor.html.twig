@@ -1,0 +1,58 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const inputConfigs = [
+        { id: 'ciPhone', action: updateTelLink },
+        { id: 'ciMobile', action: updateTelLink },
+        { id: 'ciEmail', action: updateEmailLink },
+    ];
+
+    inputConfigs.forEach(({ id, action }) => {
+        const input = document.getElementById(id);
+        const button = document.getElementById(`button-${id}`);
+
+        if (input && button) {
+            // Nastavit stav tlačítka na začátku
+            action(id);
+
+            input.addEventListener('input', function () {
+                action(id);
+            });
+        }
+    });
+});
+
+// Aktualizace tlačítka pro ciWeb (aktivace/deaktivace)
+function updateWebButton(inputId) {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(`button-${inputId}`);
+    const url = input.value.trim();
+
+    if (url.length > 0) {
+        button.disabled = false;
+        button.onclick = function () {
+            window.open(url, '_blank');
+        };
+    } else {
+        button.disabled = true;
+        button.onclick = null;
+    }
+}
+
+// Aktivace a úprava odkazu pro telefonní číslo
+function updateTelLink(inputId) {
+    const input = document.getElementById(inputId);
+    const phoneNumber = input.value.replace(/\s+/g, '');
+    const link = document.getElementById(`button-${inputId}`);
+
+    link.href = phoneNumber ? `tel:${phoneNumber}` : '#';
+    link.classList.toggle('disabled', phoneNumber === '');
+}
+
+// Aktivace a úprava odkazu pro e-mail
+function updateEmailLink(inputId) {
+    const input = document.getElementById(inputId);
+    const email = input.value.trim();
+    const link = document.getElementById(`button-${inputId}`);
+
+    link.href = email ? `mailto:${email}` : '#';
+    link.classList.toggle('disabled', email === '');
+}

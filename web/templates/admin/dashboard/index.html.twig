@@ -1,0 +1,116 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_css %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/head-css/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block head_stylesheet %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/head-stylesheet/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block body_content %}
+
+    {{ parent() }}
+
+    {% if app.request.attributes.get('user').userUserSettings.separatorOfThousands is defined and app.request.attributes.get('user').userUserSettings.separatorOfThousands|default(false) %}
+        {% set separatorOfThousands = app.request.attributes.get('user').userUserSettings.separatorOfThousands %}
+    {% else %}
+        {% set separatorOfThousands = ' ' %}
+    {% endif %}
+
+    {% if app.request.attributes.get('user').userUserSettings.decimalPoint is defined and app.request.attributes.get('user').userUserSettings.decimalPoint|default(false) %}
+        {% set decimalPoint = app.request.attributes.get('user').userUserSettings.decimalPoint %}
+    {% else %}
+        {% set decimalPoint = ',' %}
+    {% endif %}
+
+    {% if is_granted('ROLE_SUPERADMIN') %}
+        <div class="row">
+
+            <div class="col-xl-4">
+
+                <div class="card">
+
+                    <div class="card-header text-white bg-primary"><strong><i class="mdi mdi-state-machine"></i> Stav systému</strong></div>
+
+                    <div class="card-body">
+                        <table class="table table-sm table-striped table-nowrap mb-0">
+                            <tr>
+                                <th scope="row">Web</th>
+                                <td class="text-center">{% if (projectService.maintenance == 1) %}<span class="text-danger">maintenance</span>{% else %}<i class="mdi mdi-check-bold text-success"></i>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">HTTPS</th>
+                                <td class="text-center">{% if (system.https) %}<i class="mdi mdi-check-bold text-success"></i>{% else %}<i class="mdi mdi-close-thick text-danger"></i>{% endif %}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PHP</th>
+                                <td class="text-center">{{ system.phpVersion }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Memory limit</th>
+                                <td class="text-center">{{ system.memoryLimit }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Post max size</th>
+                                <td class="text-center">{{ system.postMaxSize }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Upload max filesize</th>
+                                <td class="text-center">{{ system.uploadMaxFilesize }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Symfony</th>
+                                <td class="text-center">{{ system.symfonyVersion }}</td>
+                            </tr>
+                            {% if symfonyData %}
+                                <tr>
+                                    <th>- nejnovější verze</th>
+                                    <td class="text-center">{{ symfonyData.version }}</td>
+                                </tr>
+                                <tr>
+                                    <th>- datum vydání</th>
+                                    <td class="text-center">{{ symfonyData.release_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th>- podporováno do</th>
+                                    <td class="text-center">{{ symfonyData.eol }}</td>
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <th scope="row">TWIG</th>
+                                <td class="text-center">{{ system.twigVersion }}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Nová poptávka | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+    <h1 class="h3">Zadat poptávku</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.name) }}
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="h5 mt-3">Nakládka</h2>
+                {{ form_row(form.loadingAddress) }}
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.loadingAddressAssistance) }}</div>
+                    <div class="col-md-6">{{ form_row(form.loadingAddressAssistanceNumberOfPersons) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.loadingAddressFloor) }}</div>
+                    <div class="col-md-4">{{ form_row(form.loadingAddressLift) }}</div>
+                    <div class="col-md-4">{{ form_row(form.loadingAddressWidthOfStaircase) }}</div>
+                </div>
+                {{ form_row(form.loadingAddressRamp) }}
+            </div>
+            <div class="col-md-6">
+                <h2 class="h5 mt-3">Vykládka</h2>
+                {{ form_row(form.unloadingAddress) }}
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.unloadingAddressAssistance) }}</div>
+                    <div class="col-md-6">{{ form_row(form.unloadingAddressAssistanceNumberOfPersons) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.unloadingAddressFloor) }}</div>
+                    <div class="col-md-4">{{ form_row(form.unloadingAddressLift) }}</div>
+                    <div class="col-md-4">{{ form_row(form.unloadingAddressWidthOfStaircase) }}</div>
+                </div>
+                {{ form_row(form.unloadingAddressRamp) }}
+            </div>
+        </div>
+
+        {{ form_row(form.deliveryTimeframe) }}
+
+        <h2 class="h5 mt-4">Položky</h2>
+        {{ form_widget(form.items) }}
+
+        {{ form_row(form.note) }}
+
+        <div class="mt-3">
+            <button class="btn btn-success" type="submit">Odeslat poptávku</button>
+            <a class="btn btn-link" href="{{ path('app_web_search') }}">Zpět</a>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

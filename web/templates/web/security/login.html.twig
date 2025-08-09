@@ -1,0 +1,110 @@
+{% extends 'web/base.html.twig' %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	<div class="auth-page-wrapper pt-5">
+
+		<!-- auth page content -->
+		<div class="auth-page-content">
+			<div class="container">
+
+				{% if error %}
+					<div class="alert alert-danger">
+						{{ error.messageKey|trans(error.messageData, 'security') }}
+					</div>
+				{% endif %}
+
+				<div class="row justify-content-center">
+					<div class="col-md-8 col-lg-6 col-xl-5">
+						<div class="card mt-4">
+
+							<div class="card-body p-4">
+
+								{% if not app.user %}
+									<div class="text-center mt-2">
+										<h5 class="text-primary">{{ 'header.login'|trans([], 'security') }}</h5>
+										<p class="text-muted">{{ 'text.you_must_login_to_continue'|trans([], 'security') }}</p>
+									</div>
+								{% endif %}
+								
+								<div class="p-2 mt-4">
+
+									<form action="{{ path('app_web_login') }}" method="post">
+
+										{% if error %}
+
+											<div class="alert alert-danger">{{ error.messageKey }}</div>
+
+										{% endif %}
+
+										{% if app.user %}
+
+											<div class="mb-3 text-center">
+												<p>{{ 'text.logged_in_as'|trans([], 'security') }} <a href="{{ path('app_web_logout') }}" title="{{ 'text.log_out'|trans([], 'security') }}">{{ app.user.userIdentifier }}</a></p>
+												{#<p><a href="{{ path('app_web_dashboard') }}" title="{{ 'menu.dashboard'|trans([], 'dashboard') }}">{{ 'menu.dashboard'|trans([], 'dashboard') }}</a></p>#}
+											</div>
+
+										{% else %}
+
+											<div class="mb-3">
+												<label for="username" class="form-label">{{ 'label.email'|trans([], 'security') }}</label>
+												<input type="email" id="username" name="_username" value="{{ lastUsername }}" placeholder="{{ 'placeholder.email'|trans([], 'security') }}" class="form-control" autocomplete="email" required autofocus>
+											</div>
+
+											<div class="mb-3">
+												<div class="float-end">
+													<a href="#" title="{{ 'text.forgot_password'|trans([], 'security') }}" class="text-muted">{{ 'text.forgot_password'|trans([], 'security') }}</a>
+												</div>
+												<label class="form-label" for="password">{{ 'label.password'|trans([], 'security') }}</label>
+												<div class="position-relative auth-pass-inputgroup mb-3">
+													<input type="password" id="password" name="_password" class="form-control pe-5 password-input" placeholder="{{ 'placeholder.password'|trans([], 'security') }}" autocomplete="current-password" required>
+													<button type="button" id="password-addon" class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon">
+														<i class="mdi mdi-eye align-middle"></i>
+													</button>
+												</div>
+											</div>
+
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" value="" id="remember-me" name="_remember_me">
+												<label class="form-check-label" for="remember-me">{{ 'label.remember_me'|trans([], 'security') }}</label>
+											</div>
+
+											<input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
+											<div class="mt-4">
+												<button class="btn btn-success w-100" type="submit">{{ 'action.log_in'|trans([], 'security') }}</button>
+											</div>
+
+										{% endif %}
+
+									</form>
+
+								</div>
+							</div>
+							<!-- end card body -->
+						</div>
+						<!-- end card -->
+
+						<div class="mt-4 text-center">
+							<p class="mb-0">{{ 'text.dont_have_an_account'|trans([], 'security') }}? 
+								<a href="#" title="{{ 'sign up'|trans }}" class="fw-semibold text-primary text-decoration-underline">
+									{{ 'text.sign_up'|trans([], 'security') }}
+								</a>
+							</p>
+						</div>
+
+					</div>
+				</div>
+				<!-- end row -->
+
+			</div>
+			<!-- end container -->
+		</div>
+		<!-- end auth page content -->
+
+	</div>
+	<!-- end auth-page-wrapper -->
+
+{% endblock %}

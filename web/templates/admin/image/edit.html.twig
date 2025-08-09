@@ -1,0 +1,28 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            {{ include('admin/image/_form.html.twig') }}
+
+            <div class="float-start">
+                <button class="btn btn-success">{{ 'action.update'|trans }}</button>
+                <a href="{{ path('app_admin_image_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/image/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+{% endblock %}

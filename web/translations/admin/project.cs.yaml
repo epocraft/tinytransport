@@ -1,0 +1,204 @@
+action:
+  create_new_project_api: Vytvořit nové API projektu
+  create_new_project_contact: Vytvořit nový kontakt projektu
+  create_new_project_text: Vytvořit nový text projektu
+  create_new_project_module: Vytvořit nový modul projektu
+  create_new_project: Vytvořit nový projekt
+  create_new_project_cookie_consent: Vytvořit nový souhlas se soubory cookie
+  edit_project_api: Upravit API projektu
+  edit_project_contact: Upravit kontakt projektu
+  edit_project_cookie_consent: Upravit souhlas se soubory cookie
+  edit_project_module: Upravit modul projektu
+  edit_project_text: Upravit text projektu
+  edit_project: Upravit projekt
+
+alert:
+
+breadcrumbs:
+  edit_project_api: Úprava API projektu
+  edit_project_contact: Úprava kontaktu projektu
+  edit_project_module: Úprava modulu projektu
+  edit_project_text: Úprava text projektu
+  edit_project: Úprava projektu
+  edit_project_cookie_consent: Úprava souhlasu se souboryx cookies
+  new_project_api: Nové API projektu
+  new_project_contact: Nový kontakt projektu
+  new_project_module: Nový modul projektu
+  new_project_cookie_consent: Nový souhlas se soubory cookie
+  new_project_text: Nový text projektu
+  new_project: Nový projekt
+  overview_of_project_apis: Přehled API projektu
+  overview_of_project_contacts: Přehled kontaktů projektu
+  overview_of_project_modules: Přehled modulů projektu
+  overview_of_project_texts: Přehled textů projektu
+  overview_of_projects: Přehled projektů
+  overview_of_project_cookie_consents: Přehled souhlasů se soubory cookies
+  project_apis: API projektu
+  project_contacts: Kontakty projektu
+  project_detail: Detail projektu
+  project_api_detail: Detail API projektu
+  project_contact_detail: Detail kontaktu projektu
+  project_cookie_consent_detail: Detail souhlasu se soubory cookies
+  project_modules: Moduly projektu
+  project_text_detail: Detail textu projektu
+  project_module_detail: Detail modulu projektu
+  project_texts: Texty projektu
+  projects: Projekty
+  project_cookie_consents: Souhlasy se soubory cookies
+
+consent_type:
+  implied: Směrnice ePrivacy
+  express: Směrnice GDPR
+  select: Zvolte
+
+error:
+
+fieldset:
+  bank_information: Bankovní údaje
+  billing_information: Fakturační údaje
+  company_information: Údaje o společnosti
+  company_registration: Registrace společnosti
+  contact_information: Kontaktní údaje
+  delivery_information: Dodací údaje
+  maintenance: Údržba webu
+  publication: Publikace
+  social_site: Sociální sítě
+
+help:
+  ci_registered_city: Název města zadejte v prvním pádu jednotného čísla
+  ci_registered_file_number: Číslo jednací pro OR zadejte ve tvaru např. "odd. C, vl. 15324", pro ŽR "č.j. ŽÚ/001/01/ABC"
+
+label:
+  consent_type: Typ souhlasu
+  description: Popis
+  api_key: API klíč
+  bi_city: Město
+  bi_country: Země
+  bi_name: Jméno
+  bi_street: Ulice a č. p.
+  bi_zipcode: PSČ
+  ci_ba: Bankovní účet
+  ci_bc: Kód banky
+  ci_data_box: Datová schránka
+  ci_duns: DUNS
+  ci_email: E-mail
+  ci_fax: Fax
+  ci_iban: IBAN
+  ci_in: IČ
+  ci_mobile: Mobil
+  ci_name: Název společnosti
+  ci_phone: Telefon
+  ci_phone_code: Telefonní předčíslí
+  ci_registered_register: Rejstřík
+  ci_registered_office: Úřad
+  ci_registered_city: Město
+  ci_registered_file_number: Číslo jednací
+  ci_swift: SWIFT
+  ci_tin: DIČ
+  ci_vat_payer: Plátce DPH
+  ci_web: Web
+  di_city: Město
+  di_country: Země
+  di_name: Jméno
+  di_street: Ulice a č. p.
+  di_zipcode: PSČ
+  id: Id
+  maintenance: Web v režimu údržby
+  maintenance_text: Text
+  name: Název
+  notice_banner_reject_button_hide: Skrýt tlačítko pro odmítnutí cookies na banneru souhlasu
+  notice_banner_type: Typ banneru
+  page_refresh_confirmation_buttons: Skrýt tlačítko pro potvrzení obnovení stránky
+  palette: Barevné schéma
+  pi_name: Jméno
+  pi_mobile: Mobil
+  pi_phone: Telefon
+  pi_email: E-mail
+  pi_fax: Fax
+  preferences_center_close_button_hide: Skrýt tlačítko pro zavření v Centru preferencí
+  project: Projekt
+  language: Jazyková mutace
+  publication: Publikace
+  search_in_ares: Hledat v ARES
+
+menu:
+  api: API
+  contact: Kontakt
+  cookie_consent: Souhlas s cookies
+  module: Moduly
+  overview: Přehled
+  projects: Projekty
+  text: Text
+
+message:
+
+notice_banner_type:
+  simple: Jednoduchý
+  headline: Banner s výrazným titulkem
+  interstitial: Nápadný banner
+  select: Zvolte
+  standalone: Celoobrazovkový banner
+
+palette:
+  light: Světlé
+  dark: Tmavé
+  select: Zvolte
+
+placeholder:
+  bi_city: Zadejte město
+  bi_country: Země
+  bi_name: Zadejte jméno
+  bi_street: Zadejte ulici a č. p.
+  bi_zipcode: Zadejte PSČ
+  ci_ba: Zadejte číslo bankovního účtu
+  ci_bc: Zadejte kód banky
+  ci_data_box: Zadejte ID datové schránky
+  ci_duns: Zadejte DUNS
+  ci_email: Zadejte platnou e-mailovou adresu
+  ci_fax: Zadejte fax
+  ci_iban: Zadejte IBAN
+  ci_in: Zadejte IČ
+  ci_mobile: Zadejte mobilní číslo
+  ci_name: Zadejte název společnosti
+  ci_phone: Zadejte telefonní číslo
+  ci_phone_code: Zadejte telefonní předčíslí
+  ci_registered_register: Zvolte typ rejstříku
+  ci_registered_office: Zvolte druh úřadu
+  ci_registered_city: Zadejte město
+  ci_registered_file_number: Zadejte číslo jednací
+  ci_swift: Zadejte SWIFT
+  ci_tin: Zadejte DIČ
+  ci_web: Zadejte URL webu
+  di_city: Zadejte město
+  di_country: Země
+  di_name: Zadejte jméno
+  di_street: Zadejte ulici a č. p.
+  di_zipcode: Zadejte PSČ
+  description: Zadejte popis
+  api_key: Zadejte API klíč
+  maintenance_text: Zadejte text
+  name: Zadejte název
+  pi_name: Jméno
+  pi_phone: Zadejte telefonní číslo
+  pi_mobile: Zadejte mobilní číslo
+  pi_fax: Zadejte faxové číslo
+  pi_email: Zadejte platnou e-mailovou adresu
+
+post:
+
+register:
+  select: zvolte
+  or: Obchodní rejstřík
+  zr: Živnostenský rejstřík
+
+office:
+  select: zvolte
+  ks: Krajský soud
+  mu: Městský úřad
+  ou: Obecní úřad
+  
+status:
+
+text:
+
+title:

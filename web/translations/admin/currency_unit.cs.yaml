@@ -1,0 +1,30 @@
+action:
+  create_new_currency_unit: Vytvořit novou měnovou jednotku
+  edit_currency_unit: Upravit měnovou jednotku
+
+breadcrumbs:
+  overview_of_currency_units: Přehled měnových jednotek
+  currency_units: Měnové jednotky
+  currency_unit_detail: Detail měnové jednotky
+  new_currency_unit: Nová měnová jednotka
+  edit_currency_unit: Úprava měnové jednotky
+
+label:
+  id: Id
+  code: Kód
+  description: Popis
+  name: Název
+  symbol: Symbol
+  rate: Měnový kurz
+  currency_unit: Měnová jednotka
+
+menu:
+  currency_units: Měnové jednotky
+  overview: Přehled
+
+placeholder:
+  code: Zadejte kód
+  description: Zadejte popis
+  name: Zadejte název
+  symbol: Zadejte symbol
+  rate: Zadejte měnový kurz

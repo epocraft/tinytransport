@@ -1,0 +1,37 @@
+action:
+  create_new_image: Vytvořit nový obrázek
+  edit_image: Upravit obrázek
+
+breadcrumbs:
+  edit_image: Úprava obrázku
+  images: Obrázky
+  image_detail: Detail obrázku
+  new_image: Nový obrázek
+  overview_of_images: Přehled obrázků
+
+fieldset:
+  basic_data: Základní údaje
+  image_data: Obrázek
+
+label:
+  id: Id
+  name: Název
+  image: Obrázek
+  description: Popis
+  version: Verze
+  file_name: Název souboru
+  file_size: Datový objem
+  file_path: Cesta k souboru
+  file_type: Typ souboru
+  width: Šířka
+  height: Výška
+
+menu:
+  images: Obrázky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  version: Zadejte verzi
+  file_name: Zadejte název souboru

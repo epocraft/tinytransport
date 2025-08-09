@@ -1,0 +1,16 @@
+{% if projectService is not null and projectService is defined %}
+
+	<div class="container-fluid impressum-wrapper-fluid">
+
+		<div class="container impressum-wrapper">
+
+			<section class="impressum">
+				<p>&copy;&nbsp;2025-{{ 'now'|format_datetime(pattern="y", locale=locale) }} {{ projectService.ciName }}</p>
+				<p>Tento web vypotilo <a href="http://www.sauneo.cz" title="°SAUNEO, vypotíme to za Vás!" target="_blank">°SAUNEO</a></p>
+			</section>
+
+		</div>
+
+	</div>
+
+{% endif %}

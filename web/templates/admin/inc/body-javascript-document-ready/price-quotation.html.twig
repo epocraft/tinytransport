@@ -1,0 +1,81 @@
+$(".global-add-item-link").hide();
+		
+// Inicializujeme součty při načtení stránky
+updateTotalSums();
+		
+// Přidání event listeneru pro změnu hodnot v řádcích
+$(document).on("input change", 'input[id$="_ammount"], input[id$="_sellingPrice"], select[id$="_sellingVatOfRate"]', function() {
+	var $row = $(this).closest('.row');
+	updateRow($row);
+	updateTotalSums();
+});
+
+// Debounce funkce pro zpoždění AJAX volání
+function debounce(func, delay) {
+    let timeout;
+    return function() {
+        const context = this, args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), delay);
+    };
+}
+
+// Event listener pro automatické doplňování
+document.addEventListener('input', debounce(function(event) {
+	const target = event.target;
+	if (target.classList.contains('autocomplete-enabled')) {
+	    const input = target.value;
+		
+	    if (input.length >= 3) {
+	        const url = new URL('{{ path('app_admin_price_quotation_autocomplete') }}', window.location.origin);
+	        url.searchParams.append('query', input);
+		
+	        fetch(url, {
+	            method: 'GET',
+	            headers: {
+	                'Content-Type': 'application/json',
+	            },
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            const indexMatch = target.id.match(/price_quotation_priceQuotationPriceQuotationItems_(\d+)_name/);
+	            const index = indexMatch ? indexMatch[1] : null;
+		
+	            if (index !== null) {
+		            const suggestionsElementId = `suggestions-${index}`;
+		            const suggestionsElement = document.getElementById(suggestionsElementId);
+		            if (suggestionsElement) {
+		                suggestionsElement.innerHTML = '';
+		                data.forEach(item => {
+		                    const li = document.createElement('li');
+		                    li.textContent = item.name;
+		                    li.dataset.item = JSON.stringify(item);
+		                    li.addEventListener('click', function() {
+		                        const itemData = JSON.parse(this.dataset.item);
+								console.log(itemData);
+		                        document.getElementById('price_quotation_priceQuotationPriceQuotationItems_' + index + '_name').value = itemData.name;
+		                        document.getElementById('price_quotation_priceQuotationPriceQuotationItems_' + index + '_sellingPrice').value = itemData.sellingPrice;
+		                        document.getElementById('price_quotation_priceQuotationPriceQuotationItems_' + index + '_sellingCurrencyUnit').value = itemData.sellingCurrencyUnitId;
+		                        document.getElementById('price_quotation_priceQuotationPriceQuotationItems_' + index + '_sellingMeasureUnit').value = itemData.sellingMeasureUnitId;
+		                        document.getElementById('price_quotation_priceQuotationPriceQuotationItems_' + index + '_sellingVatOfRate').value = itemData.sellingVatOfRateId;
+		                    });
+		                    suggestionsElement.appendChild(li);
+		                });
+		                suggestionsElement.style.display = 'block';
+		            }
+		        }
+		    })
+		    .catch(error => console.error('Error:', error));
+	    }
+	}
+}, 1000)); // Zpoždění 1000 ms
+		
+// Event listener pro skrytí našeptávače při kliknutí mimo něj
+document.addEventListener('click', function(event) {
+	const suggestionsElements = document.querySelectorAll('ul[id^="suggestions-"]');
+	suggestionsElements.forEach((suggestionsElement) => {
+	    if (!suggestionsElement.contains(event.target)) {
+	        suggestionsElement.style.display = 'none';
+	    }
+	});
+});

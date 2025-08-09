@@ -1,0 +1,319 @@
+<div class="form-errors">
+    {{ form_errors(form) }}
+</div>
+
+<div class="row" data-controller="quote">
+
+    <div class="col-md-12 col-12">{{ form_row(form.name) }}</div>
+
+    <div class="col-md-6 col-12">{{ form_row(form.loadingAddress) }}</div>
+    <div class="col-md-2 col-12 d-flex align-items-center">
+        <div class="form-check form-switch form-switch-lg" dir="ltr">
+            {{ form_widget(form.loadingAddressAssistance, {
+                'attr': {
+                    'data-quote-target': 'loadingAssistance',
+                    'data-action': 'change->quote#toggleFields'
+                }
+            }) }}
+        </div>
+    </div>
+    <div class="col-md-4 col-12" data-quote-target="loadingPersons">{{ form_row(form.loadingAddressAssistanceNumberOfPersons) }}</div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-3 col-12">{{ form_row(form.loadingAddressFloor) }}</div>
+            <div class="col-md-3 col-12">{{ form_row(form.loadingAddressLift) }}</div>
+            <div class="col-md-3 col-12">
+                <label class="form-label">Šířka schodiště</label>
+                <div class="input-group">
+                    {{ form_widget(form.loadingAddressWidthOfStaircase) }}
+                    <span class="input-group-text">cm</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.loadingAddressRamp, {}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 col-12">{{ form_row(form.unloadingAddress) }}</div>
+    <div class="col-md-2 col-12 d-flex align-items-center">
+        <div class="form-check form-switch form-switch-lg" dir="ltr">
+            {{ form_widget(form.unloadingAddressAssistance, {
+                'attr': {
+                    'data-quote-target': 'unloadingAssistance',
+                    'data-action': 'change->quote#toggleFields'
+                }
+            }) }}
+        </div>
+    </div>
+    <div class="col-md-4 col-12" data-quote-target="unloadingPersons">{{ form_row(form.unloadingAddressAssistanceNumberOfPersons) }}</div>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-md-3 col-12">{{ form_row(form.unloadingAddressFloor) }}</div>
+            <div class="col-md-3 col-12">{{ form_row(form.unloadingAddressLift) }}</div>
+            <div class="col-md-3 col-12">
+                <label class="form-label">Šířka schodiště</label>
+                <div class="input-group">
+                    {{ form_widget(form.unloadingAddressWidthOfStaircase) }}
+                    <span class="input-group-text">cm</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-12">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.unloadingAddressRamp, {}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12 col-12">{{ form_row(form.deliveryTimeframe) }}</div>
+
+    <hr>
+
+    {# Vnořený formulář pro QuoteItem #}
+    <div class="col-md-12 col-12">
+
+        <h3>Položky poptávky</h3>
+
+        <p class="">Přidejte položky, které chcete přepravit. Pro každou položku zadejte popis, rozměry a hmotnost.</p>
+
+        {# Definice prototype jako proměnné, bez vnitřního |e na widgetech #}
+        {% set prototype %}
+            <li class="mb-4 p-3" style="list-style-type: none;">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col-md-12 col-12">
+                                <div class="mb-3">
+                                    {{ form_label(form.quoteQuoteItems.vars.prototype.description) }}
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.description) }}
+                                    {{ form_errors(form.quoteQuoteItems.vars.prototype.description) }}
+                                </div>
+                            </div>
+
+                            {# Skupina pro Height (hodnota + jednotku) #}
+                            <div class="col-md-3 col-12">
+                                <label class="form-label">
+                                    {{ 'quote_item.height'|trans({}, 'validators') }}
+                                    <i class="fas fa-info-circle ms-2"
+                                       data-bs-trigger="hover focus"
+                                       data-bs-toggle="popover"
+                                       data-bs-html="true"
+                                       data-bs-placement="top"
+                                       data-bs-title="{{ 'quote_item.height_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                       data-bs-content="{{ 'quote_item.height_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                       tabindex="0"
+                                    ></i>
+                                </label>
+                                <div class="input-group">
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.height, {'attr': {'placeholder': 'Value'}}) }}
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.heightUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                </div>
+                                {{ form_help(form.quoteQuoteItems.vars.prototype.height) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.height) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.heightUnit) }}
+                            </div>
+
+                            {# Skupina pro Width (hodnota + jednotku) #}
+                            <div class="col-md-3 col-12">
+                                <label class="form-label">
+                                    {{ 'quote_item.width'|trans({}, 'validators') }}
+                                    <i class="fas fa-info-circle ms-2"
+                                       data-bs-trigger="hover focus"
+                                       data-bs-toggle="popover"
+                                       data-bs-html="true"
+                                       data-bs-placement="top"
+                                       data-bs-title="{{ 'quote_item.width_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                       data-bs-content="{{ 'quote_item.width_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                       tabindex="0"
+                                    ></i>
+                                </label>
+                                <div class="input-group">
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.width, {'attr': {'placeholder': 'Value'}}) }}
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.widthUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                </div>
+                                {{ form_help(form.quoteQuoteItems.vars.prototype.width) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.width) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.widthUnit) }}
+                            </div>
+
+                            {# Skupina pro depth (hodnota + jednotku) #}
+                            <div class="col-md-3 col-12">
+                                <label class="form-label">
+                                    {{ 'quote_item.depth'|trans({}, 'validators') }}
+                                    <i class="fas fa-info-circle ms-2"
+                                       data-bs-trigger="hover focus"
+                                       data-bs-toggle="popover"
+                                       data-bs-html="true"
+                                       data-bs-placement="top"
+                                       data-bs-title="{{ 'quote_item.depth_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                       data-bs-content="{{ 'quote_item.depth_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                       tabindex="0"
+                                    ></i>
+                                </label>
+                                <div class="input-group">
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.depth, {'attr': {'placeholder': 'Value'}}) }}
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.depthUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                </div>
+                                {{ form_help(form.quoteQuoteItems.vars.prototype.depth) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.depth) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.depthUnit) }}
+                            </div>
+
+                            {# Skupina pro Weight (hodnota + jednotku) #}
+                            <div class="col-md-3 col-12">
+                                <label class="form-label">
+                                    {{ 'quote_item.weight'|trans({}, 'validators') }}
+                                    <i class="fas fa-info-circle ms-2"
+                                       data-bs-trigger="hover focus"
+                                       data-bs-toggle="popover"
+                                       data-bs-html="true"
+                                       data-bs-placement="top"
+                                       data-bs-title="{{ 'quote_item.weight_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                       data-bs-content="{{ 'quote_item.weight_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                       tabindex="0"
+                                    ></i>
+                                </label>
+                                <div class="input-group">
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.weight, {'attr': {'placeholder': 'Value'}}) }}
+                                    {{ form_widget(form.quoteQuoteItems.vars.prototype.weightUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                </div>
+                                {{ form_help(form.quoteQuoteItems.vars.prototype.weight) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.weight) }}
+                                {{ form_errors(form.quoteQuoteItems.vars.prototype.weightUnit) }}
+                            </div>
+
+                            <div class="col-md-12 col-12 text-end">
+                                <button type="button" class="btn btn-danger remove-item mt-3 mb-0">Odebrat položku</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </li>
+        {% endset %}
+
+        <ul id="quote-quote-items-fields-list" data-prototype="{{ prototype|e('html_attr') }}">
+            {% for quoteItem in form.quoteQuoteItems %}
+                <li class="mb-4 p-3" style="list-style-type: none;">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-md-12 col-12">
+                                    <div class="mb-3">
+                                        {{ form_label(quoteItem.description) }}
+                                        {{ form_widget(quoteItem.description) }}
+                                        {{ form_errors(quoteItem.description) }}
+                                    </div>
+                                </div>
+
+                                {# Height #}
+                                <div class="col-md-3 col-12">
+                                    <label class="form-label">
+                                        {{ 'quote_item.height'|trans({}, 'validators') }}
+                                        <i class="fas fa-info-circle ms-2"
+                                           data-bs-trigger="hover focus"
+                                           data-bs-toggle="popover"
+                                           data-bs-html="true"
+                                           data-bs-placement="top"
+                                           data-bs-title="{{ 'quote_item.height_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                           data-bs-content="{{ 'quote_item.height_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                           tabindex="0"
+                                        ></i>
+                                    </label>
+                                    <div class="input-group">
+                                        {{ form_widget(quoteItem.height, {'attr': {'placeholder': 'Value'}}) }}
+                                        {{ form_widget(quoteItem.heightUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                    </div>
+                                    {{ form_help(quoteItem.height) }}
+                                    {{ form_errors(quoteItem.height) }}
+                                    {{ form_errors(quoteItem.heightUnit) }}
+                                </div>
+
+                                {# Width #}
+                                <div class="col-md-3 col-12">
+                                    <label class="form-label">
+                                        {{ 'quote_item.width'|trans({}, 'validators') }}
+                                        <i class="fas fa-info-circle ms-2"
+                                           data-bs-trigger="hover focus"
+                                           data-bs-toggle="popover"
+                                           data-bs-html="true"
+                                           data-bs-placement="top"
+                                           data-bs-title="{{ 'quote_item.width_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                           data-bs-content="{{ 'quote_item.width_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                           tabindex="0"
+                                        ></i>
+                                    </label>
+                                    <div class="input-group">
+                                        {{ form_widget(quoteItem.width, {'attr': {'placeholder': 'Value'}}) }}
+                                        {{ form_widget(quoteItem.widthUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                    </div>
+                                    {{ form_help(quoteItem.width) }}
+                                    {{ form_errors(quoteItem.width) }}
+                                    {{ form_errors(quoteItem.widthUnit) }}
+                                </div>
+
+                                {# Skupina pro depth (hodnota + jednotku) #}
+                                <div class="col-md-3 col-12">
+                                    <label class="form-label">
+                                        {{ 'quote_item.depth'|trans({}, 'validators') }}
+                                        <i class="fas fa-info-circle ms-2"
+                                           data-bs-trigger="hover focus"
+                                           data-bs-toggle="popover"
+                                           data-bs-html="true"
+                                           data-bs-placement="top"
+                                           data-bs-title="{{ 'quote_item.depth_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                           data-bs-content="{{ 'quote_item.depth_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                           tabindex="0"
+                                        ></i>
+                                    </label>
+                                    <div class="input-group">
+                                        {{ form_widget(quoteItem.depth, {'attr': {'placeholder': 'Value'}}) }}
+                                        {{ form_widget(quoteItem.depthUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                    </div>
+                                    {{ form_help(quoteItem.depth) }}
+                                    {{ form_errors(quoteItem.depth) }}
+                                    {{ form_errors(quoteItem.depthUnit) }}
+                                </div>
+
+                                {# Weight #}
+                                <div class="col-md-3 col-12">
+                                    <label class="form-label">
+                                        {{ 'quote_item.weight'|trans({}, 'validators') }}
+                                        <i class="fas fa-info-circle ms-2"
+                                           data-bs-trigger="hover focus"
+                                           data-bs-toggle="popover"
+                                           data-bs-html="true"
+                                           data-bs-placement="top"
+                                           data-bs-title="{{ 'quote_item.weight_tooltip_title'|trans({}, 'validators')|e('html_attr') }}"
+                                           data-bs-content="{{ 'quote_item.weight_tooltip_content'|trans({}, 'validators')|raw|e('html_attr') }}"
+                                           tabindex="0"
+                                        ></i>
+                                    </label>
+                                    <div class="input-group">
+                                        {{ form_widget(quoteItem.weight, {'attr': {'placeholder': 'Value'}}) }}
+                                        {{ form_widget(quoteItem.weightUnit, {'attr': {'class': 'form-select unit-select'}}) }}
+                                    </div>
+                                    {{ form_help(quoteItem.weight) }}
+                                    {{ form_errors(quoteItem.weight) }}
+                                    {{ form_errors(quoteItem.weightUnit) }}
+                                </div>
+
+                                <div class="col-md-12 col-12 text-end">
+                                    <button type="button" class="btn btn-danger remove-item mt-3 mb-0">Odebrat položku</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <button type="button" class="btn btn-primary add-item mt-3 mb-0">Přidat položku</button>
+    </div>
+</div>

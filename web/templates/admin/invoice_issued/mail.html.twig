@@ -1,0 +1,159 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/head-stylesheet/select2.html.twig') }}
+
+{% endblock %}
+
+{% block head_css %}
+
+	{{ parent() }}
+
+	<style type="text/css">
+
+		.select2-selection,
+        .select2-results__option {
+            font-size: .825rem !important;
+            padding: 0.5rem 0.9rem .25rem .9rem !important; /* Vnitřní odsazení */
+        }
+
+        .select2-selection__choice__display {
+            color: #000;
+        }
+
+        /* Přizpůsobení aktivní položky (hover nebo focus) */
+        .select2-container--bootstrap-5 .select2-results__option--highlighted {
+            background-color: #f8f9fa !important; /* Světlé pozadí */
+            color: #212529 !important; /* Tmavý text */
+            font-weight: bold; /* Zvýraznění textu */
+        }
+
+        /* Přizpůsobení označených položek */
+        .select2-container--bootstrap-5 .select2-selection__choice {
+            background-color: #e9ecef !important; /* Světle šedé pozadí */
+            color: #495057 !important; /* Tmavý text */
+            border: 1px solid #ced4da !important; /* Barva rámečku */
+            border-radius: 0.375rem; /* Zaoblené rohy */
+            padding: 0.5rem 0.9rem; /* Vnitřní odsazení */
+            font-size: 0.75rem !important; /* Velikost textu */
+        }
+
+	</style>
+
+{% endblock %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <h1 class="fs-2 d-flex justify-content-between">
+		<span>{{ invoiceIssued.number }}</span>
+		<span>{{ invoiceIssued.customer.ciName }}</span>
+	</h1>
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/mail/_form.html.twig') }}
+
+                <div class="float-start">
+                    <button type="submit" class="btn btn-success" name="submit">{{ 'action.submit'|trans }}</button>
+                    <button type="submit" class="btn btn-info" name="preview">{{ 'action.preview'|trans }}</button>
+                </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/select2.html.twig') }}
+    
+    {{ include('admin/inc/body-javascript/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+    
+    var input = '#invoice_issued_mail_text';
+    {{ include('admin/inc/body-javascript-function/tinymce.html.twig') }}
+
+    document.addEventListener('DOMContentLoaded', function () {
+        $('.select2').select2({
+            theme: 'bootstrap-5',
+            allowClear: true,
+        });
+        $('#invoice_issued_mail_addressTo.select2').select2({
+            theme: 'bootstrap-5',
+            placeholder: '{{ 'placeholder.address_to'|trans([], 'mail')|lower }}',
+            allowClear: true,
+        });
+        $('#invoice_issued_mail_addressCc.select2').select2({
+            theme: 'bootstrap-5',
+            placeholder: '{{ 'placeholder.address_cc'|trans([], 'mail')|lower }}',
+            allowClear: true,
+        });
+        $('#invoice_issued_mail_addressBcc.select2').select2({
+            theme: 'bootstrap-5',
+            placeholder: '{{ 'placeholder.address_bcc'|trans([], 'mail')|lower }}',
+            allowClear: true,
+        });
+    });
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+	{{ parent() }}
+
+    $("#invoice_issued_mail_emailTemplate").change(function() {
+        var url = "{{ path('app_admin_get_email_template_content', {'sourceId': 'SOURCE_ID', 'id': 0}) }}"
+        .replace('SOURCE_ID', "5577")
+        .replace('/0', '/' + $(this).val());
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => {
+                    throw new Error(data.message || 'An unexpected error occurred');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status == 'ok') {
+                if (typeof tinymce !== 'undefined' && tinymce.get('invoice_issued_mail_text')) {
+                    const editor = tinymce.get('invoice_issued_mail_text');
+                    if (editor) {
+                        editor.setContent(data.text);
+                    }
+                } else {
+                    console.warn('TinyMCE editor is not yet initialized.');
+                }
+            }
+        })
+        .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+
+{% endblock %}

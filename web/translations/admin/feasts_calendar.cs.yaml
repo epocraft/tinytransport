@@ -1,0 +1,32 @@
+action:
+  create_new_feast_calendar: Vytvořit nový svátek
+  edit_feast_calendar: Upravit svátek
+
+breadcrumbs:
+  edit_feast_calendar: Úprava svátku
+  feasts_calendar: Svátky
+  feast_calendar_detail: Detail svátku
+  new_feasts_calendar: Nový svátek
+  overview_of_feasts_calendar: Přehled svátků
+
+fieldset:
+  basic_data: Základní údaje
+
+label:
+  id: Id
+  name: Název
+  date: Datum
+  status: Stav
+
+menu:
+  feasts: Svátky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+
+status:
+  select: Zvolte
+  must_be_closed: Musí být zavřeno
+  can_be_opened: Může být otevřeno
+  may_be_open_until_noon: Může být otevřeno do poledne

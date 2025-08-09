@@ -1,0 +1,179 @@
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg">
+
+	<!--begin::Container fluid-->
+	<div class="container-fluid">
+
+		<!--begin::Brand as link-->
+		<a href="{{ twig_base }}{{ lang }}/" title="{{ projectService.ciName }}" target="_self" class="navbar-brand">
+			{% if image is defined and fileExists(image.filePath ~ image.fileName ~ '.' ~ image.FileType) %}
+				<img src="{{ image.filePath }}{{ image.fileName }}.{{ image.FileType }}" alt="{{ projectService.ciName }}">
+			{% else %}
+				{{ projectService.ciName }}
+			{% endif %}
+		</a>
+		<!--end::Brand as link-->
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="main-navigation" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!--begin::Offcanvas-->
+		<div class="d-block d-lg-none offcanvas offcanvas-lg offcanvas-end" data-bs-dismiss="offcanvas" data-bs-scroll="true" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+
+			<!--begin::Offcanvas header-->
+			<div class="offcanvas-header">
+				<!--begin::language switcher-->
+				
+				<!--end::language switcher-->
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+			</div>
+			<!--end::Offcanvas header-->
+
+			<!--begin::Offcanvas body-->
+			<div class="offcanvas-body">
+			
+				<!--begin::Navbar nav-->
+				<ul class="navbar-nav">
+
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="{{ lang }}/">O nás</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ lang }}/reklamni-predmety">Služby</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ lang }}/sluzby">Produkty</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ lang }}/kontakt">Kontakt</a>
+					</li>
+
+				</ul>
+				<!--end::Navbar nav-->
+
+				<!--begin::social sites switcher-->
+				<div class="social-sites text-center">
+					<a href="{{ projectService.facebook }}" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+				</div>
+				<!--end::social sites switcher-->
+
+			</div>
+			<!--end::Offcanvas body-->
+
+		</div>
+		<!--end::Offcanvas-->
+
+		<!--begin::Navbar-->
+		<div id="main-navigation" class="collapse navbar-collapse">
+			<div class="d-md-flex flex-md-row justify-content-md-between">
+
+				<!--begin::Navbar nav-->
+				<ul class="navbar-nav mb-2 mb-lg-0">
+
+					{% if app.request.attributes.get('user') %}
+
+						<li class="nav-item dropdown">
+
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Služby</a>
+
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+								<li><a href="{{ path('app_web_furniture_transport') }}" title="Přeprava nábytku" class="dropdown-item">Přeprava nábytku</a></li>
+								<li><a href="{{ path('app_web_removals') }}" title="Stěhování" class="dropdown-item">Stěhování</a></li>
+
+							</ul>
+
+						</li>
+
+					{% endif %}
+
+					<li class="nav-item">
+						<a href="{{ path('app_web_search') }}" title="Poptávky" class="nav-link">Poptávky</a>
+					</li>
+
+					<li class="nav-item">
+						<a href="{{ path('app_web_how_it_works') }}" title="Jak to funguje" class="nav-link">Jak to funguje</a>
+					</li>
+{#
+					<li class="nav-item">
+						<a href="{{ path('app_web_login') }}" title="Přihlášení" class="nav-link">Přihlášení</a>
+					</li>
+#}
+					<li class="nav-item">
+						<a href="{{ path('app_web_service_provider') }}" title="Jste dopravce?" class="nav-link">Jste dopravce?</a>
+					</li>
+
+				</ul>
+				<!--end::Navbar nav-->
+
+			</div>
+		</div>
+		<!--end::Navbar-->
+
+		{% if app.request.attributes.get('user') %}
+
+			<ul class="navbar-nav mb-2 mb-lg-0">
+
+				<li class="nav-item dropdown">
+					
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">uživatel</a>
+					
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+						{% if is_granted('ROLE_PROVIDER') %}
+							<li><a href="{{ path('app_web_service_provider_profile') }}" title="Profil" class="dropdown-item">Profil</a></li>
+						{% endif %}
+
+
+						{% set ctx = user_context() %}
+
+						{# Moje poptávky – ukaž, pokud má aspoň 1 poptávku #}
+						{% if ctx.quotes.total > 0 %}
+							<li><a class="dropdown-item" href="{{ path('app_web_my_quotes', {'_locale': app.request.locale}) }}">
+							Moje poptávky ({{ ctx.quotes.total }})
+							</a></li>
+						{% endif %}
+
+						{# Moje nabídky – ukaž, pokud je provider a má aspoň 1 nabídku #}
+						{% if ctx.isProvider and ctx.offers.total > 0 %}
+							<li><a class="dropdown-item" href="{{ path('app_web_my_offers', {'_locale': app.request.locale}) }}">
+							Moje nabídky ({{ ctx.offers.total }})
+							</a></li>
+						{% endif %}
+
+
+						<li><a href="{{ path('app_web_logout') }}" title="Odhlásit" class="dropdown-item">Odhlásit</a></li>
+
+					</ul>
+
+				</li>
+
+			</ul>
+
+		{% else %}
+
+			<ul class="navbar-nav mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a href="{{ path('app_web_login') }}" title="Přihlásit" class="nav-link">Přihlásit</a>
+				</li>
+			</ul>
+
+		{% endif %}
+
+		<!--begin::social sites switcher-->
+		{#<div class="social-sites text-center d-none d-lg-block">
+			<a href="{{ projectService.facebook }}" title="Facebook" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+		</div>#}
+		<!--end::social sites switcher-->
+
+		<!--begin::language switcher-->
+		
+		<!--end::language switcher-->
+
+	</div>
+	<!--end::Container fluid-->
+
+</nav>

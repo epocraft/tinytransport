@@ -1,0 +1,755 @@
+<!-- ========== App Menu ========== -->
+<div class="app-menu navbar-menu">
+
+	<!-- begin::LOGO -->
+	<div class="navbar-brand-box">
+
+        <!-- Dark Logo-->
+        <a href="/" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="assets/admin/media/logos/svg/logo-sauneo-sm.svg" alt="°SAUNEO | Vypotíme to za Vás!" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="assets/admin/media/logos/svg/logo-sauneo.svg" alt="°SAUNEO | Vypotíme to za Vás!" height="17">
+            </span>
+        </a>
+
+        <!-- Light Logo-->
+        <a href="/" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="assets/admin/media/logos/svg/logo-sauneo-sm.svg" alt="°SAUNEO | Vypotíme to za Vás!" width="75">
+            </span>
+            <span class="logo-lg">
+                <img src="assets/admin/media/logos/svg/logo-sauneo.svg" alt="°SAUNEO | Vypotíme to za Vás!" width="150">
+            </span>
+        </a>
+
+        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
+            <i class="ri-record-circle-line"></i>
+        </button>
+
+    </div>
+    <!-- end::LOGO -->
+
+    <!-- begin::Scrollbar -->
+	<div id="scrollbar">
+
+		<div class="container-fluid">
+
+			<div id="two-column-menu"></div>
+
+            <!-- begin::Navbar nav -->
+			<ul class="navbar-nav" id="navbar-nav">
+                
+                <!-- begin::Dashboard -->
+                <li class="nav-item">
+                    <a href="{{ path('app_admin_dashboard') }}" title="{{ 'menu.dashboard'|trans({}, 'dashboard') }}" class="nav-link menu-link{{ app.request.attributes.get("_route") matches '/(app_admin_dashboard)/' ? ' active' : '' }}">
+                        <i class="mdi mdi-monitor-dashboard"></i> <span data-key="t-dashboard">{{ 'menu.dashboard'|trans({}, 'dashboard') }}</span>
+                    </a>
+                </li>
+                <!-- end::Dashboard Menu -->
+
+                {% if ( (projectService is defined) and (projectService is not null) ) %}
+
+                    <li class="menu-title"><span>{{ 'menu.title.web'|trans }}</span></li>
+                    
+                    <!-- begin::Article -->
+                    {% if (isProjectModuleEnabled(projectService.projectProjectModules, 'article')) %}
+                        <li class="nav-item">
+                            <a href="#sidebarArticle" title="{{ 'menu.articles'|trans({}, 'article') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_article)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_article)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarArticle">
+                                <i class="mdi mdi-format-letter-case"></i> <span>{{ 'menu.articles'|trans({}, 'article') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_article)([\\w]+)/' ? ' show' : '' }}" id="sidebarArticle">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_article_index') }}" title="{{ 'menu.overview'|trans({}, 'article')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_article)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'article')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Article -->
+{#
+                    <!-- begin::Block -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'block') %}
+                        <li class="nav-item">
+                            <a href="#sidebarBlock" title="{{ 'menu.blocks'|trans({}, 'block') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_block)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_block)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarBlock">
+                                <i class="mdi mdi-cube-unfolded"></i> <span>{{ 'menu.blocks'|trans({}, 'block') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_block)([\\w]+)/' ? ' show' : '' }}" id="sidebarBlock">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_block_index') }}" title="{{ 'menu.overview'|trans({}, 'block')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_block)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'block')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Block -->
+
+                    <!-- begin::Document -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'document') %}
+                        <li class="nav-item">
+                            <a href="#sidebarDocument" title="{{ 'menu.documents'|trans({}, 'document') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_document)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_document)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarDocument">
+                                <i class="mdi mdi-file-document"></i> <span>{{ 'menu.documents'|trans({}, 'document') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_document)([\\w]+)/' ? ' show' : '' }}" id="sidebarDocument">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_document_index') }}" title="{{ 'menu.overview'|trans({}, 'document')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_document)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'document')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Document -->
+
+                    <!-- begin::Image -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'image') %}
+                        <li class="nav-item">
+                            <a href="#sidebarImage" title="{{ 'menu.images'|trans({}, 'image') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_image)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_image)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarImage">
+                                <i class="mdi mdi-image"></i> <span>{{ 'menu.images'|trans({}, 'image') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_image)([\\w]+)/' ? ' show' : '' }}" id="sidebarImage">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_image_index') }}" title="{{ 'menu.overview'|trans({}, 'image')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_image)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'image')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Image -->
+
+                    <!-- begin::Photogallery -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'photogallery') %}
+                        <li class="nav-item">
+                            <a href="#sidebarPhotogallery" title="{{ 'menu.photogaleries'|trans({}, 'photogallery') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_photogallery)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_photogallery)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarPhotogallery">
+                                <i class="mdi mdi-image"></i> <span>{{ 'menu.photogalleries'|trans({}, 'photogallery') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_photogallery)([\\w]+)/' ? ' show' : '' }}" id="sidebarPhotogallery">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_photogallery_index') }}" title="{{ 'menu.overview'|trans({}, 'photogallery')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_photogallery)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'photogallery')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Photogallery -->
+
+                    <!-- begin::Link -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'link') %}
+                        <li class="nav-item">
+                            <a href="#sidebarLink" title="{{ 'menu.links'|trans({}, 'link') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_link)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_link)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarLink">
+                                <i class="mdi mdi-link"></i> <span>{{ 'menu.links'|trans({}, 'link') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_link)([\\w]+)/' ? ' show' : '' }}" id="sidebarLink">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_link_index') }}" title="{{ 'menu.overview'|trans({}, 'link')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_link)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'link')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Link -->
+
+                    <!-- begin::Alert -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'alert') %}
+                        <li class="nav-item">
+                            <a href="#sidebarAlert" title="{{ 'menu.alerts'|trans({}, 'alert') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_alert)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_alert)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarAlert">
+                                <i class="mdi mdi-alert-decagram"></i> <span>{{ 'menu.alerts'|trans({}, 'alert') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_alert)([\\w]+)/' ? ' show' : '' }}" id="sidebarAlert">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_alert_index') }}" title="{{ 'menu.overview'|trans({}, 'alert')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_alert)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'alert')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Alert -->
+
+                    <!-- begin::Testimonial -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'testimonial') %}
+                        <li class="nav-item">
+                            <a href="#sidebarTestimonial" title="{{ 'menu.testimonials'|trans({}, 'testimonial') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_testimonial)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_testimonial)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarTestimonial">
+                                <i class="mdi mdi-account-star"></i> <span>{{ 'menu.testimonials'|trans({}, 'testimonial') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_testimonial)([\\w]+)/' ? ' show' : '' }}" id="sidebarTestimonial">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_testimonial_index') }}" title="{{ 'menu.overview'|trans({}, 'testimonial')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_testimonial)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'testimonial')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Testimonial -->
+
+                    <li class="menu-title"><span>{{ 'menu.title.business'|trans }}</span></li>
+
+                    <!-- begin::Customer -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'customer') %}
+                        <li class="nav-item">
+                            <a href="#sidebarCustomer" title="{{ 'menu.customers'|trans({}, 'customer') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_customer)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_customer)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarCustomer">
+                                <i class="mdi mdi-truck-minus"></i> <span>{{ 'menu.customers'|trans({}, 'customer') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_customer)([\\w]+)/' ? ' show' : '' }}" id="sidebarCustomer">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_customer_index') }}" title="{{ 'menu.overview'|trans({}, 'customer')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_customer)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'customer')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Customer -->
+
+                    <!-- begin::Supplier -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'supplier') %}
+                        <li class="nav-item">
+                            <a href="#sidebarSupplier" title="{{ 'menu.suppliers'|trans({}, 'supplier') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_supplier)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_supplier)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarSupplier">
+                                <i class="mdi mdi-truck-plus"></i> <span>{{ 'menu.suppliers'|trans({}, 'supplier') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_supplier)([\\w]+)/' ? ' show' : '' }}" id="sidebarSupplier">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_supplier_index') }}" title="{{ 'menu.overview'|trans({}, 'supplier')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_supplier)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'supplier')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Supplier -->
+
+                    <!-- begin::Manager -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'manager') %}
+                        <li class="nav-item">
+                            <a href="#sidebarManager" title="{{ 'menu.managers'|trans({}, 'manager') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_manager)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_manager)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarManager">
+                                <i class="mdi mdi-account-tie"></i> <span>{{ 'menu.managers'|trans({}, 'manager') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_manager)([\\w]+)/' ? ' show' : '' }}" id="sidebarManager">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_manager_index') }}" title="{{ 'menu.overview'|trans({}, 'manager')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_manager)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'manager')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Manager -->
+
+                    <!-- begin::Contractor -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'contractor') %}
+                        <li class="nav-item">
+                            <a href="#sidebarContractor" title="{{ 'menu.contractors'|trans({}, 'contractor') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_contractor)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_contractor)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarContractor">
+                                <i class="mdi mdi-account-wrench"></i> <span>{{ 'menu.contractors'|trans({}, 'contractor') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_contractor)([\\w]+)/' ? ' show' : '' }}" id="sidebarContractor">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_contractor_index') }}" title="{{ 'menu.overview'|trans({}, 'contractor')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_contractor)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'contractor')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Contractor -->
+
+                    <!-- begin::Enquiry -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'enquiry') %}
+                        <li class="nav-item">
+                            <a href="#sidebarEnquiry" title="{{ 'menu.enquiries'|trans({}, 'enquiry') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_enquiry)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_enquiry)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarEnquiry">
+                                <i class="mdi mdi-account-question-outline"></i> <span>{{ 'menu.enquiries'|trans({}, 'enquiry') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_enquiry)([\\w]+)/' ? ' show' : '' }}" id="sidebarEnquiry">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_enquiry_index') }}" title="{{ 'menu.overview'|trans({}, 'enquiry')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_enquiry)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'enquiry')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Enquiry -->
+
+                    <!-- begin::Command -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'command') %}
+                        <li class="nav-item">
+                            <a href="#sidebarCommand" title="{{ 'menu.commands'|trans({}, 'command') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_command)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_command)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarCommand">
+                                <i class="mdi mdi-account-voice"></i> <span>{{ 'menu.commands'|trans({}, 'command') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_command)([\\w]+)/' ? ' show' : '' }}" id="sidebarCommand">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_command_index') }}" title="{{ 'menu.overview'|trans({}, 'command')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_command)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'command')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Command -->
+
+                    <!-- begin::Price List -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'price_list') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_price_list)([\\w]+)/' ? ' active' : '' }}" href="#sidebarPriceList" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_price_list)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarPriceList">
+                                <i class="mdi mdi-percent-outline"></i> <span>{{ 'menu.price_lists'|trans({}, 'price_list') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_price_list)([\\w]+)/' ? ' show' : '' }}" id="sidebarPriceList">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_price_list_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_list)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'price_list')|lower }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_price_list_settings_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_list_settings)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.settings'|trans({}, 'price_list')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Price List -->
+
+                    <!-- begin::Price Log -->
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        {% if isProjectModuleEnabled(projectService.projectProjectModules, 'price_log') %}
+                            <li class="nav-item">
+                                <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_price_log)([\\w]+)/' ? ' active' : '' }}" href="#sidebarPriceLog" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_price_log)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarPriceLog">
+                                    <i class="mdi mdi-percent-outline"></i> <span>{{ 'menu.price_logs'|trans({}, 'price_log') }}</span>
+                                </a>
+                                <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_price_log)([\\w]+)/' ? ' show' : '' }}" id="sidebarPriceLog">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_price_log_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_log)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'price_log')|lower }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <!-- end::Price Log -->
+
+                    <!-- begin::Price Quotation -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'price_quotation') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_price_quotation)([\\w]+)/' ? ' active' : '' }}" href="#sidebarPriceQuotation" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_price_quotation)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarPriceQuotation">
+                                <i class="mdi mdi-account-cash-outline"></i> <span>{{ 'menu.price_quotations'|trans({}, 'price_quotation') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_price_quotation)([\\w]+)/' ? ' show' : '' }}" id="sidebarPriceQuotation">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_price_quotation_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_quotation)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'price_quotation')|lower }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_price_quotation_settings_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_quotation_settings)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.settings'|trans({}, 'price_quotation')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Price Quotation -->
+
+                    <!-- begin::PriceCalculation -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'price_calculation') %}
+                        <li class="nav-item">
+                            <a href="#sidebarPriceCalculation" title="{{ 'menu.price_calculations'|trans({}, 'price_calculation') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_price_calculation)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_price_calculation)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarPriceCalculation">
+                                <i class="mdi mdi-account-voice"></i> <span>{{ 'menu.price_calculations'|trans({}, 'price_calculation') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_price_calculation)([\\w]+)/' ? ' show' : '' }}" id="sidebarPriceCalculation">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_price_calculation_index') }}" title="{{ 'menu.overview'|trans({}, 'price_calculation')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_calculation)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'price_calculation')|lower }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_price_calculation_settings_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_price_calculation_settings)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.settings'|trans({}, 'price_calculation')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::PriceCalculation -->
+
+                    <!-- begin::Reminder -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'reminder') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_reminder)([\\w]+)/' ? ' active' : '' }}" href="#sidebarReminder" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_reminder)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarReminder">
+                                <i class="mdi mdi-notification-clear-all"></i> <span>{{ 'menu.reminders'|trans({}, 'reminder') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_reminder)([\\w]+)/' ? ' show' : '' }}" id="sidebarReminder">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_reminder_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_reminder)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'reminder')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Reminder -->
+
+                    <li class="menu-title"><span>{{ 'menu.title.invoicing'|trans }}</span></li>
+
+                    <!-- begin::Invoice Issued -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'invoice_issued') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_issued)([\\w]+)/' ? ' active' : '' }}" href="#sidebarInvoiceIssued" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_issued)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarInvoiceIssued">
+                                <i class="mdi mdi-file-document-multiple"></i> <span>{{ 'menu.invoices_issued'|trans({}, 'invoice_issued') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_issued)([\\w]+)/' ? ' show' : '' }}" id="sidebarInvoiceIssued">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_issued_advance_invoice_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_issued)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.advance_invoices_overview'|trans({}, 'invoice_issued')|lower }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_issued_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_issued)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'invoice_issued')|lower }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_issued_settings_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_issued_settings)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.settings'|trans({}, 'invoice_issued')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Invoice Issued -->
+                    
+                    <!-- begin::Invoice Received -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'invoice_received') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_received)([\\w]+)/' ? ' active' : '' }}" href="#sidebarInvoiceReceived" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_received)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarInvoiceReceived">
+                                <i class="mdi mdi-file-document-multiple"></i> <span>{{ 'menu.invoices_received'|trans({}, 'invoice_received') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_received)([\\w]+)/' ? ' show' : '' }}" id="sidebarInvoiceReceived">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_received_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_received)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'invoice_received')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Invoice Received -->
+
+                    <!-- begin::Financial results -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'financial_results') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_financial_results)([\\w]+)/' ? ' active' : '' }}" href="#sidebarFinancialResults" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_financial_results)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarFinancialResults">
+                                <i class="mdi mdi-list-status"></i> <span>{{ 'menu.financial_results'|trans({}, 'financial_results') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_financial_results)([\\w]+)/' ? ' show' : '' }}" id="sidebarFinancialResults">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_financial_results_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_financial_results)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'financial_results')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Financial results -->
+
+                    <!-- begin::Invoice Status -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'invoice_status') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_status)([\\w]+)/' ? ' active' : '' }}" href="#sidebarInvoiceStatus" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_status)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarInvoiceStatus">
+                                <i class="mdi mdi-list-status"></i> <span>{{ 'menu.invoice_statuses'|trans({}, 'invoice_status') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_status)([\\w]+)/' ? ' show' : '' }}" id="sidebarInvoiceStatus">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_status_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_status)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'invoice_status')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Invoice Status -->
+
+                    <!-- begin::Invoice Type -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'invoice_type') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_type)([\\w]+)/' ? ' active' : '' }}" href="#sidebarInvoiceType" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_type)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarInvoiceType">
+                                <i class="mdi mdi-list-type"></i> <span>{{ 'menu.invoice_types'|trans({}, 'invoice_type') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_type)([\\w]+)/' ? ' show' : '' }}" id="sidebarInvoiceType">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_type_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_type)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'invoice_type')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Invoice Type -->
+
+                    <!-- begin::Invoice Payment -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'invoice_payment') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_payment)([\\w]+)/' ? ' active' : '' }}" href="#sidebarInvoicePayment" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_payment)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarInvoicePayment">
+                                <i class="mdi mdi-contactless-payment"></i> <span>{{ 'menu.invoice_payments'|trans({}, 'invoice_payment') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_payment)([\\w]+)/' ? ' show' : '' }}" id="sidebarInvoicePayment">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_invoice_payment_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_invoice_payment)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'invoice_payment')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Invoice Payment -->
+                    
+                    <li class="menu-title"><span>{{ 'menu.title.tools'|trans }}</span></li>
+
+                    <!-- begin::Calculator -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'calculator') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_calculator_card)([\\w]+)/' ? ' active' : '' }}" href="#sidebarCalculator" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_calculator_card)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarCalculator">
+                                <i class="mdi mdi-calculator"></i> <span>{{ 'menu.calculators'|trans({}, 'calculator') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_calculator_card)([\\w]+)/' ? ' show' : '' }}" id="sidebarCalculator">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_calculator_card') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_calculator_card)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.cards'|trans({}, 'calculator')|lower }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_calculator_print') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_calculator_print)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.prints'|trans({}, 'calculator')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Calculator -->
+#}
+                    <li class="menu-title"><span>{{ 'menu.title.management'|trans }}</span></li>
+
+                    <!-- begin::User -->
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        {% if isProjectModuleEnabled(projectService.projectProjectModules, 'user') %}
+                            <li class="nav-item">
+                                <a href="#sidebarUser" title="{{ 'menu.users'|trans({}, 'user') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_user)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_user)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarUser">
+                                    <i class="mdi mdi-account-multiple"></i> <span>{{ 'menu.users'|trans({}, 'user') }}</span>
+                                </a>
+                                <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_user)([\\w]+)/' ? ' show' : '' }}" id="sidebarUser">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_user_index') }}" title="{{ 'menu.overview'|trans({}, 'user')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_user)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'user')|lower }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <!-- end::User -->
+
+                    <!-- begin::Entity -->
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        {% if isProjectModuleEnabled(projectService.projectProjectModules, 'entity') %}
+                            <li class="nav-item">
+                                <a href="#sidebarEntity" title="{{ 'menu.entities'|trans({}, 'entity') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_entity)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_entity)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarEntity">
+                                    <i class="mdi mdi-flag-triangle"></i> <span>{{ 'menu.entities'|trans({}, 'entity') }}</span>
+                                </a>
+                                <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_entity)([\\w]+)/' ? ' show' : '' }}" id="sidebarEntity">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_entity_index') }}" title="{{ 'menu.overview'|trans({}, 'entity')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_entity)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'entity')|lower }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <!-- end::Entity -->
+                    
+                    <!-- begin::Language -->
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        {% if isProjectModuleEnabled(projectService.projectProjectModules, 'language') %}
+                            <li class="nav-item">
+                                <a href="#sidebarLanguage" title="{{ 'menu.languages'|trans({}, 'language') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_language)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_language)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarLanguage">
+                                    <i class="mdi mdi-earth"></i> <span>{{ 'menu.languages'|trans({}, 'language') }}</span>
+                                </a>
+                                <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_language)([\\w]+)/' ? ' show' : '' }}" id="sidebarLanguage">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_language_index') }}" title="{{ 'menu.overview'|trans({}, 'language')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_language)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'language')|lower }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <!-- end::Language -->
+
+                    <!-- begin::Project -->
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        {% if isProjectModuleEnabled(projectService.projectProjectModules, 'project') %}
+                            <li class="nav-item">
+                                <a href="#sidebarProject" title="{{ 'menu.projects'|trans({}, 'project') }}" class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarProject">
+                                    <i class="mdi mdi-identifier"></i> <span>{{ 'menu.projects'|trans({}, 'project') }}</span>
+                                </a>
+                                <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' show' : '' }}" id="sidebarProject">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_project_index') }}" title="{{ 'menu.overview'|trans({}, 'project')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'project')|lower }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_project_api_index') }}" title="{{ 'menu.api'|trans({}, 'project')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.api'|trans({}, 'project')|lower }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_project_contact_index') }}" title="{{ 'menu.contact'|trans({}, 'project')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.contact'|trans({}, 'project')|lower }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_project_module_index') }}" title="{{ 'menu.module'|trans({}, 'project')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.module'|trans({}, 'project')|lower }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_project_text_index') }}" title="{{ 'menu.text'|trans({}, 'project')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.text'|trans({}, 'project')|lower }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_project_cookie_consent_index') }}" title="{{ 'menu.cookie_consent'|trans({}, 'project')|lower }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_project)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.cookie_consent'|trans({}, 'project')|lower }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <!-- end::Project -->
+{#
+                    <!-- begin::Currency Unit -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'currency_unit') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_currency_unit)([\\w]+)/' ? ' active' : '' }}" href="#sidebarCurrencyUnit" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_currency_unit)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarCurrencyUnit">
+                                <i class="mdi mdi-piggy-bank-outline"></i> <span>{{ 'menu.currency_units'|trans({}, 'currency_unit') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_currency_unit)([\\w]+)/' ? ' show' : '' }}" id="sidebarCurrencyUnit">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_currency_unit_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_currency_unit)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'currency_unit')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Currency Unit -->
+
+                    <!-- begin::Measure Unit -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'measure_unit') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_measure_unit)([\\w]+)/' ? ' active' : '' }}" href="#sidebarMeasureUnit" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_measure_unit)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarMeasureUnit">
+                                <i class="mdi mdi-tape-measure"></i> <span>{{ 'menu.measure_units'|trans({}, 'measure_unit') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_measure_unit)([\\w]+)/' ? ' show' : '' }}" id="sidebarMeasureUnit">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_measure_unit_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_measure_unit)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'measure_unit')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Measure Unit -->
+
+                    <!-- begin::Print Color Output -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'print_color_output') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_print_color_output)([\\w]+)/' ? ' active' : '' }}" href="#sidebarPrintColorOutput" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_print_color_output)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarPrintColorOutput">
+                                <i class="mdi mdi-tape-measure"></i> <span>{{ 'menu.print_color_outputs'|trans({}, 'print_color_output') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_print_color_output)([\\w]+)/' ? ' show' : '' }}" id="sidebarPrintColorOutput">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_print_color_output_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_print_color_output)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'print_color_output')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Print Color Output -->
+
+                    <!-- begin::Vat of Rate -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'vat_of_rate') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_vat_of_rate)([\\w]+)/' ? ' active' : '' }}" href="#sidebarVatOfRate" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_vat_of_rate)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarVatOfRate">
+                                <i class="mdi mdi-bank"></i> <span>{{ 'menu.vat_of_rates'|trans({}, 'vat_of_rate') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_vat_of_rate)([\\w]+)/' ? ' show' : '' }}" id="sidebarVatOfRate">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_vat_of_rate_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_vat_of_rate)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'vat_of_rate')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Vat of Rate -->
+
+                    <!-- begin::Email template -->
+                    {% if is_granted('ROLE_SUPERADMIN') %}
+                        {% if isProjectModuleEnabled(projectService.projectProjectModules, 'email_template') %}
+                            <li class="nav-item">
+                                <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_email_template)([\\w]+)/' ? ' active' : '' }}" href="#sidebarEmailTemplate" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_email_template)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarEmailTemplate">
+                                    <i class="mdi mdi-email-edit"></i> <span>{{ 'menu.email_templates'|trans({}, 'email_template') }}</span>
+                                </a>
+                                <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_email_template)([\\w]+)/' ? ' show' : '' }}" id="sidebarEmailTemplate">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="{{ path('app_admin_email_template_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_email_template)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'email_template')|lower }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <!-- end::Email template -->
+
+                    <!-- begin::Web Access -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'web_access') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_web_access)([\\w]+)/' ? ' active' : '' }}" href="#sidebarWebAccess" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_web_access)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarWebAccess">
+                                <i class="mdi mdi-access-point"></i> <span>{{ 'menu.web_accesses'|trans({}, 'web_access') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_web_access)([\\w]+)/' ? ' show' : '' }}" id="sidebarWebAccess">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_web_access_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_web_access)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'web_access')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Vat of Rate -->
+
+                    <!-- begin::Source -->
+                    {% if isProjectModuleEnabled(projectService.projectProjectModules, 'source') %}
+                        <li class="nav-item">
+                            <a class="nav-link menu-link collapsed{{ app.request.attributes.get("_route") matches '/(app_admin_source)([\\w]+)/' ? ' active' : '' }}" href="#sidebarSource" data-bs-toggle="collapse" role="button" aria-expanded="{{ app.request.attributes.get("_route") matches '/(app_admin_source)([\\w]+)/' ? 'true' : 'false' }}" aria-controls="sidebarSource">
+                                <i class="mdi mdi-open-source-initiative"></i> <span>{{ 'menu.sources'|trans({}, 'source') }}</span>
+                            </a>
+                            <div class="menu-dropdown collapse{{ app.request.attributes.get("_route") matches '/(app_admin_source)([\\w]+)/' ? ' show' : '' }}" id="sidebarSource">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item">
+                                        <a href="{{ path('app_admin_source_index') }}" class="nav-link{{ app.request.attributes.get("_route") matches '/(app_admin_source)([\\w]+)/' ? ' active' : '' }}">{{ 'menu.overview'|trans({}, 'source')|lower }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <!-- end::Source -->
+#}
+                {% endif %}
+
+			</ul>
+            <!-- end::Navbar nav -->
+
+		</div>
+		<!-- Sidebar -->
+
+	</div>
+    <!-- end::Scrollbar -->
+
+	<div class="sidebar-background"></div>
+
+</div>
+<!-- Left Sidebar End -->
+
+<!-- Vertical Overlay-->
+<div class="vertical-overlay"></div>

@@ -1,0 +1,23 @@
+action:
+  create_new_photogallery: Vytvořit novou fotogalerii
+  edit_photogallery: Upravit fotogalerii
+
+breadcrumbs:
+  edit_photogallery: Úprava fotogalerie
+  photogalleries: Fotogalerie
+  photogallery_detail: Detail fotogalerie
+  new_photogallery: Nová fotogalerie
+  overview_of_photogalleries: Přehled fotogalerií
+
+label:
+  id: Id
+  name: Název
+  url_alias: URL alias
+
+menu:
+  photogalleries: Fotogalerie
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  url_alias: Zadejte URL alias

@@ -1,0 +1,258 @@
+{% import _self as formMacros %}
+
+{% macro addRow(invoiceIssuedItem, index) %}
+
+    <div class="row mb-2">
+
+        <div class="col-3">
+            {{ form_widget(invoiceIssuedItem.name) }}
+            <ul class="suggestions" id="suggestions-{{ invoiceIssuedItem.vars.name }}"></ul>
+            {{ form_help(invoiceIssuedItem.name) }}
+            {{ form_errors(invoiceIssuedItem.name) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.ammount) }}
+            {{ form_help(invoiceIssuedItem.ammount) }}
+            {{ form_errors(invoiceIssuedItem.ammount) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.sellingPrice) }}
+            {{ form_help(invoiceIssuedItem.sellingPrice) }}
+            {{ form_errors(invoiceIssuedItem.sellingPrice) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.sellingCurrencyUnit) }}
+            {{ form_help(invoiceIssuedItem.sellingCurrencyUnit) }}
+            {{ form_errors(invoiceIssuedItem.sellingCurrencyUnit) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.sellingMeasureUnit) }}
+            {{ form_help(invoiceIssuedItem.sellingMeasureUnit) }}
+            {{ form_errors(invoiceIssuedItem.sellingMeasureUnit) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.sellingVatOfRate) }}
+            {{ form_help(invoiceIssuedItem.sellingVatOfRate) }}
+            {{ form_errors(invoiceIssuedItem.sellingVatOfRate) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.priceWithoutVat) }}
+            {{ form_help(invoiceIssuedItem.priceWithoutVat) }}
+            {{ form_errors(invoiceIssuedItem.priceWithoutVat) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.vat) }}
+            {{ form_help(invoiceIssuedItem.vat) }}
+            {{ form_errors(invoiceIssuedItem.vat) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceIssuedItem.priceWithVat) }}
+            {{ form_help(invoiceIssuedItem.priceWithVat) }}
+            {{ form_errors(invoiceIssuedItem.priceWithVat) }}
+        </div>
+
+        <div class="col-1 d-flex justify-content-center align-items-start">
+            <!-- Vždy zobrazit tlačítko pro přidání řádku -->
+            <button type="button" class="btn btn-success add_item_link me-2"><i class="mdi mdi-plus-circle-outline"></i></button>
+            
+            <!-- Tlačítko pro odstranění řádku se zobrazí pro všechny řádky kromě prvního -->
+            <button type="button" class="btn btn-danger delete-item"><i class="mdi mdi-trash-can-outline"></i></button>
+        </div>
+
+    </div>
+
+{% endmacro %}
+
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+				{{ form_row(form.number) }}
+			</div>
+
+            <div class="col-6">
+                <label for="{{ form.command.vars.id }}" class="form-label">{{ form.command.vars.label }}</label>
+                <div class="input-group mb-3 command-container" style="display: flex;">
+                    {{ form_widget(form.command, { 'attr': {'class': 'form-control'} }) }}
+                    <button class="btn btn-secondary toggle-command" type="button" aria-label="Přepnout">
+                        <i class="mdi mdi-swap-horizontal"></i>
+                    </button>
+                </div>
+
+                <label for="{{ form.commandText.vars.id }}" class="form-label" style="display: none;">{{ form.commandText.vars.label }}</label>
+                <div class="input-group mb-3 command-text-container" style="display: none;">
+                    {{ form_widget(form.commandText, { 'attr': {'class': 'form-control'} }) }}
+                    <button class="btn btn-secondary toggle-command" type="button" aria-label="Přepnout">
+                        <i class="mdi mdi-swap-horizontal"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.contractor'|trans({}, 'invoice_issued') }} / {{ 'fieldset.customer'|trans({}, 'invoice_issued') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+                {{ form_row(form.contractor) }}
+            </div>
+
+            <div class="col-6">
+                {{ form_row(form.customer) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.invoice_terms'|trans({}, 'invoice_issued') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-4">
+                {{ form_row(form.issueDate) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.dueDate) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.performanceDate) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.invoice_items'|trans({}, 'invoice_issued') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">název</div>
+            <div class="col-1 text-center">{{ 'label.ammount'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_price'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_currency_unit'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_measure_unit'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_vat_of_rate'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_price_without_vat'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_vat'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_price_with_vat'|trans({}, 'invoice_issued')|lower }}</div>
+            <div class="col-1"></div>
+
+        </div>
+
+        <hr>
+
+        <!-- generování formu --> 
+        <ul data-index="{{ form.invoiceIssuedInvoiceIssuedItems|length > 0 ? form.invoiceIssuedInvoiceIssuedItems|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.addRow(form.invoiceIssuedInvoiceIssuedItems.vars.prototype)|e('html_attr') }}" class="invoice-issued-items" style="list-style-type: none; padding-left: 0;">
+
+            {% for invoiceIssuedItem in form.invoiceIssuedInvoiceIssuedItems %}
+
+                {{ formMacros.addRow(invoiceIssuedItem, loop.index0) }}
+
+            {% endfor %}
+
+        </ul>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-8 d-flex align-self-center"><strong>CELKEM</strong></div>
+            <div class="col-1">
+                {{ form_widget(form.totalPriceWithoutVat) }}
+                {{ form_help(form.totalPriceWithoutVat) }}
+                {{ form_errors(form.totalPriceWithoutVat) }}
+            </div>
+            <div class="col-1">
+                {{ form_widget(form.totalVat) }}
+                {{ form_help(form.totalVat) }}
+                {{ form_errors(form.totalVat) }}
+            </div>
+            <div class="col-1">
+                {{ form_widget(form.totalPriceWithVat) }}
+                {{ form_help(form.totalPriceWithVat) }}
+                {{ form_errors(form.totalPriceWithVat) }}
+            </div>
+            <div class="col-1"></div>
+
+        </div>
+
+        <hr>
+
+        <button type="button" class="btn btn-success global-add-item-link"><i class="mdi mdi-plus-circle-outline"></i> Přidat řádek</button>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.status'|trans({}, 'invoice_status') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.payment) }}
+            </div>
+
+            <div class="col-12">
+                {{ form_row(form.status) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

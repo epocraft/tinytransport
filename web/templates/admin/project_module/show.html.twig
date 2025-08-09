@@ -1,0 +1,120 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+                    <tbody>
+                        <tr>
+                            <th>{{ 'label.id'|trans({}, 'project')|lower }}</th>
+                            <td>{{ projectModule.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.name'|trans({}, 'project')|lower }}</th>
+                            <td>{{ projectModule.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.publication'|trans|lower }}</th>
+                            <td>
+                                {% set publication = projectModule.publication %}
+                                {% if publication == '' %}
+                                {{ 'publication.select'|trans|lower }}
+                                {% endif %}
+                                {% if publication == 0 %}
+                                <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+                                {% endif %}
+                                {% if publication == 1 %}
+                                <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+		{% if dateLogs %}
+
+			<div class="col-6">
+
+				<div class="card">
+
+					<div class="card-header align-items-center d-flex">
+						<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.history_of_modifications'|trans }}</h4>
+					</div>
+
+					<div class="card-body">
+
+						<div class="table-responsive">
+
+							<table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+								<tbody>
+
+									{% for dateLog in dateLogs %}
+
+										<tr>
+
+											{% set date = dateLog.updatedAt|date('Y-m-d H:i:s') %}
+
+											{% if date == '1000-01-01 00:00:00' %}
+
+												<th>{{ 'label.created_at'|trans|lower }}</th>
+												<td>{{ projectModule.createdAt|date(user.userUserSettings and user.userUserSettings.dateTimeFormat ? user.userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% else %}
+
+												<th>{{ 'label.updated_at'|trans|lower }}</th>
+												<td>{{ date|date(user.userUserSettings and user.userUserSettings.dateTimeFormat ? user.userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% endif %}
+
+											<td>{{ user.userUserContact.firstname }}
+												{{ user.userUserContact.surname }}</td>
+
+										</tr>
+
+									{% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+	</div>
+    
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{{ path('app_admin_project_module_edit', {'id': projectModule.id}) }}" title="{{ 'action.edit_project_module'|trans({}, 'project') }}" class="btn btn-success">{{ 'action.edit_project_module'|trans({}, 'project') }}</a>
+            <a href="{{ path('app_admin_project_module_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-info">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+        <div>
+            {{ include('admin/project_module/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<style type="text/css">
+
+			body {
+				font-family: sans-serif;
+				font-size: 9pt;
+				color: #000;
+				background: #fff;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<table style="width: 100%; margin: 0mm 0mm 5mm 0mm; padding: 0; border: none;">
+			<tr>
+				<td style="text-align: left; vertical-align: middle; border: none;"><img src="assets/web/media/logos/logo.jpg"></td>
+				<td style="margin: 0; padding: 0 5mm 0 0; text-align: right; vertical-align: middle; color: #263A54;">CENOVÁ KALKULACE č.
+				</td>
+				<td style="width: 30mm; text-align: center; vertical-align: middle; margin: 0; padding: 2mm; background: #ccccd6; color: #263A54; border: none;">{{ priceCalculationSettings.documentPrefix is defined and priceCalculationSettings.documentPrefix is not empty ? priceCalculationSettings.documentPrefix : 'CK' }}{{ priceCalculation.number }}</td>
+			</tr>
+		</table>
+
+		<!-- contractor & customer -->
+		<table style="width: 100%; margin: 2mm 0mm 2mm 0mm; padding: 0; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">
+			<tr>
+				<th style="width: 50%; margin: 0; padding: 2mm 2mm 2mm 5mm; font-weight: normal; text-align: left; color: #fff; background: #263a54; border-collapse: collapse; border-spacing: 0;">Dodavatel</th>
+				<th style="width: 50%; margin: 0; padding: 2mm 2mm 2mm 5mm; font-weight: normal; text-align: left; color: #fff; background: #263a54; border-collapse: collapse; border-spacing: 0;"></th>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">
+					<strong>{{ priceCalculation.contractor.ciName }}</strong>
+				</td>
+				<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">
+					<strong></strong>
+				</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">{{ priceCalculation.contractor.biStreet }}, {{ priceCalculation.contractor.biZipcode }} {{ priceCalculation.contractor.biCity }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;"></td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">{{ priceCalculation.contractor.ciMobile }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;"></td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0;">&nbsp;</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">IČO: {{ priceCalculation.contractor.ciIn }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;"></td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">DIČ: {{ priceCalculation.contractor.ciTin }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;"></td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0;">&nbsp;</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0;">&nbsp;</td>
+			</tr>
+		</table>
+
+		<!-- items -->
+		<table style="width: 100%; font-size: 8pt; border-collapse: collapse; border-spacing: 0;">
+			<thead>
+				<tr>
+					<th style="width: 29%; margin: 0; padding: 2mm 0 2mm 5mm; white-space: nowrap; font-weight: bold; text-align: left; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">položka</th>
+					<th style="width: 10%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">množství</th>
+					<th style="width: 13%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">j. cena</th>
+					<th style="width: 13%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">cena</th>
+					<th style="width: 9%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">%&nbsp;DPH</th>
+					<th style="width: 11%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">DPH</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">Kč celkem</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for item in priceCalculation.priceCalculationPriceCalculationItems %}
+                    <tr>
+                        <td style="margin: 0; padding: 2mm 0mm 2mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{% if item.name is defined and item.name is not null %}{{ item.name }}{% else %}{{ item.priceList.name }}{% endif %}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.ammount|number_format(2, ',', ' ') }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.sellingPrice|number_format(2, ',', ' ')}}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.priceWithoutVat|number_format(2, ',', ' ') }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.sellingVatOfRate.name }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.vat|number_format(2, ',', ' ') }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.priceWithVat|number_format(2, ',', ' ') }}</td>
+                    </tr>
+                {% endfor %}
+				<tr>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- rekapitulace DPH -->
+		<table style="width: 100%; margin: 5mm 0 0 0; font-size: 8pt; border-collapse: collapse; border-spacing: 0;">
+			
+			<thead>
+				<tr>
+					<th style="width: 40%; margin: 0; padding: 2mm 0 2mm 5mm;">&nbsp;</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">sazba DPH</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">bez daně celkem</th>;
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">daň celkem</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">s daní</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for summary in recapitulation %}
+					<tr>
+						<td style="width: 40%; margin: 0; padding: 2mm 0mm 2mm 5mm; text-align: center; border-collapse: collapse; border-spacing: 0;">&nbsp;</td>
+						<td style="margin: 0; padding: 0; text-align: center; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.rate }}
+						</td>
+						<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.totalWithoutVat|number_format(2, ',', ' ') }}
+						</td>
+						<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.totalVat|number_format(2, ',', ' ') }}
+						</td>
+						<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.totalWithVat|number_format(2, ',', ' ') }}
+						</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<td></td>
+					<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">součet položek</td>
+					<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">{{ priceCalculation.totalPriceWithoutVat|number_format(2, ',', ' ') }}</td>
+					<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">{{ priceCalculation.totalVat|number_format(2, ',', ' ') }}</td>
+					<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">{{ priceCalculation.totalPriceWithVat|number_format(2, ',', ' ') }}</td>
+				</tr>
+			</tfoot>
+
+		</table>
+
+		<div style="position:absolute; left: 15mm; bottom: 5mm; right: 15mm;">
+
+			<!-- suma -->
+			<table style="width: 100%; font-size: 8pt; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">
+				<thead>
+					<tr>
+						<th style="width: 85%; margin: 0; padding: 2mm 2mm 2mm 5mm; text-align: left; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">CELKEM K ÚHRADĚ</th>
+						<th style="width: 15%; margin: 0; padding: 2mm 2mm 2mm 5mm; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">{{ priceCalculation.totalPriceWithVat|number_format(2, ',', ' ')}}&nbsp;Kč</th>
+					</tr>
+				</thead>
+			</table>
+
+			<!-- sign -->
+			<table style="width: 100%; margin: 5mm 0 0 0; padding: 0; font-size: 8pt; border-collapse: collapse; border-spacing: 0; border: none;">
+				<tr>
+					<td style="width: 40%; height: 25mm; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #ccccd5; border-collapse: collapse; border-spacing: 0; border: none;"><img src="assets/web/media/logos/podpis-novak.jpg"></td>
+					<td style="width: 20%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;"></td>
+					<td style="width: 40%; height: 25mm; margin: 0; padding: 2mm 2mm 2mm 2mm; text-align: left; vertical-align: top; color: #263a54; background: #ccccd5; border-collapse: collapse; border-spacing: 0; border: none;">Převzal:</td>
+				</tr>
+				<tr>
+					<td style="margin: 0; padding: 2mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Vystavil: {{ priceCalculation.contractor.biName }}</td>
+					<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="margin: 0; padding: 0mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{% if (priceCalculation.contractor.ciVatPayer == '1') %}Dodavatel je plátcem DPH{% else %}Dodavatel není plátcem DPH{% endif %}</td>
+					<td style="margin: 0; padding: 0mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">&nbsp;</td>
+				</tr>
+			</table>
+
+			<!-- Footer -->
+			<table style="width: 100%; margin: 2mm 0 0 0; padding: 0; font-size: 7pt; border-collapse: collapse; border-spacing: 0; border: none; border-top: 1px dotted #263a54;">
+				<tr>
+					<td style="width: 100%; margin: 0; padding: 2.5mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">
+					{% if priceCalculation.contractor.ciRegisteredRegister == 'or' %}
+						Společnost zapsaná u 
+						{% if priceCalculation.contractor.ciRegisteredOffice == 'ks' %}
+							Krajského úřadu 
+						{% endif %}
+						{% if priceCalculation.contractor.ciRegisteredOffice == 'mu' %}
+							Městského úřadu 
+						{% endif %}
+						{% if priceCalculation.contractor.ciRegisteredOffice == 'ou' %}
+							Obecního úřadu 
+						{% endif %}
+						{{ priceCalculation.contractor.ciRegisteredCity }} 
+						{{ priceCalculation.contractor.ciRegisteredFileNumber }}.
+					{% endif %}
+					{% if priceCalculation.contractor.ciRegisteredRegister == 'zr' %}
+						Živnostenské oprávnění vydal 
+						{% if priceCalculation.contractor.ciRegisteredOffice == 'ks' %}
+							Krajský úřad 
+						{% endif %}
+						{% if priceCalculation.contractor.ciRegisteredOffice == 'mu' %}
+							Městský úřad 
+						{% endif %}
+						{% if priceCalculation.contractor.ciRegisteredOffice == 'ou' %}
+							Obecní úřad 
+						{% endif %}
+						{{ priceCalculation.contractor.ciRegisteredCity }} 
+						pod {{ priceCalculation.contractor.ciRegisteredFileNumber }}.
+					{% endif %}
+					</td>
+				</tr>
+			</table>
+			<table style="width: 100%; font-size: 10pt; border-collapse: collapse; border-spacing: 0; border: none;">
+				<tr>
+					<td style="width: 100%; margin: 0; padding: 2mm 0mm 1mm 0mm; text-align: right; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Vypotíme to za Vás!</td>
+				</tr>
+			</table>
+
+		</div>
+
+	</body>
+
+</html>

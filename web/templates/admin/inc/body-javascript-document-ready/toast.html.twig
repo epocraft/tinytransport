@@ -1,0 +1,49 @@
+const toastContainer = document.getElementById('toastContainer');
+                        
+function createToast(templateId, headerText, bodyText, headerTime = 'právě teď', delay = 5000, autoHide = true) {
+
+    // Získáme šablonu podle předaného ID
+    const toastTemplate = document.getElementById(templateId);
+    if (!toastTemplate) {
+        //console.error(`Template s id ${templateId} nebyl nalezen!`);
+        return;
+    }
+
+    // Klonujeme šablonu (hluboká kopie)
+    const newToast = toastTemplate.cloneNode(true);
+    // Odstraníme duplicitní ID
+    newToast.removeAttribute('id');
+    // Odstraníme inline styl, který toast schovává
+    newToast.style.display = "";
+                            
+    // Nastavíme obsah hlavičky toastu.
+    const headerEl = newToast.querySelector('.toast-header strong');
+    if (headerEl) {
+        headerEl.innerHTML = headerText;
+    }
+                            
+    // Nastavíme obsah těla toastu
+    const bodyEl = newToast.querySelector('.toast-body');
+    if (bodyEl) {
+        bodyEl.innerHTML = bodyText;
+    }
+                            
+    // Nastavíme dobu zobrazení toastu (delay) – v milisekundách
+    newToast.setAttribute('data-bs-delay', delay);
+
+    // Nastavíme dobu zobrazení toastu (delay) – v milisekundách
+    newToast.setAttribute('data-bs-autohide', autoHide);
+
+    // Vložíme nový toast do kontejneru
+    toastContainer.appendChild(newToast);
+                            
+    // Inicializujeme toast pomocí Bootstrap Toast API a zobrazíme jej
+    const bsToast = new bootstrap.Toast(newToast);
+    bsToast.show();
+                            
+    // Po skrytí toastu jej odstraníme z DOM
+    newToast.addEventListener('hidden.bs.toast', () => {
+        toastContainer.removeChild(newToast);
+    });
+
+}

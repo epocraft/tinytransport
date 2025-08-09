@@ -1,0 +1,17 @@
+# Documentation on how to configure the bundle can be found at: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+    loaders:
+        default:
+            filesystem:
+                data_root: "%kernel.project_dir%/public"
+    filter_sets:
+        webp_conversion:
+            quality: 85
+            format: "webp"
+            filters:
+                strip: ~
+                thumbnail: 
+                    size: [1600, 1600]  # Nastavíme maximální šířku a výšku
+                    mode: inset  # Zachová poměr stran (inset zachovává celý obrázek ve specifikovaných rozměrech)

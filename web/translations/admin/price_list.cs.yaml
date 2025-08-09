@@ -1,0 +1,52 @@
+action:
+  edit_price_list: Upravit položku ceníku
+  create_new_price_list: Vytvořit novou položku ceníku
+  create_new_price_list_settings: Vytvořit nové nastavení ceníku
+  edit_price_list_settings: Upravit nastavení ceníku
+
+breadcrumbs:
+  price_list_detail: Detail položky ceníku
+  price_list_settings: Ceník
+  edit_price_list: Úprava položky ceníku
+  new_price_list: Nová položka ceníku
+  price_lists: Ceník
+  overview_of_price_lists: Přehled položek ceníku
+  overview_of_price_list_settings: Přehled nastavení ceníku
+  edit_price_list_settings: Nastavení ceníku
+  price_list_settings_overview: Nastavení ceníku
+  price_list_settings_detail: Detail nastavení ceníku
+
+fieldset:
+  price_data: Ceny
+
+help:
+  surcharge: Přirážka k nákupní ceně v %
+  created_at: Datum, ke kterému se vztahuje cena. Ponechte nevyplněné, pokud je to aktuální datum
+
+label:
+  id: Id
+  name: Název
+  description: Popis
+  purchase_price: Nákupní cena
+  purchase_vat_of_rate: Nákupní sazba DPH
+  selling_price: Prodejní cena
+  selling_vat_of_rate: Prodejní sazba DPH
+  created_at: Datum vytvoření
+  surcharge: Obchodní přirážka
+  image: Obrázek
+  set_surcharge: Nastavovat obchodní přirážku
+  copy_settings: Kopírovat nastavení parametrů
+  number_of_pieces_in_package: Počet kusů v balení
+
+menu:
+  price_lists: Ceník
+  overview: Přehled
+  settings: Nastavení
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  purchase_price: Zadejte nákupní cenu
+  selling_price: Zadejte prodejní cenu
+  surcharge: Nastavte přirážku
+  number_of_pieces_in_package: Zadejte počet kusů v balení

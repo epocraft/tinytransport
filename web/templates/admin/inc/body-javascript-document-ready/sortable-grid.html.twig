@@ -1,0 +1,37 @@
+$(function () {
+    $(".price-quotation-items").sortable({
+
+        helper: function (e, li) {
+            var $originals = li.children();
+            var $helper = li.clone();
+            $helper.children().each(function (index) {
+                $(this).outerWidth($originals.eq(index).outerWidth(true));
+            });
+            return $helper;
+        },
+
+        placeholder: "ph",
+        handle: ".drag-handle", // Handle pro přetahování
+        
+        update: function (event, ui) {
+            var sortedIDs = $(this).sortable("toArray", { attribute: "data-id" });
+
+            $.ajax({
+                url: sortableUrl, // URL pro AJAX volání
+                type: 'POST',
+                data: {
+                    sortedIDs: sortedIDs
+                },
+                success: function (response) {
+                    console.log(response.message);
+                },
+                error: function (xhr, status, error) {
+                    console.error("An error occurred: " + status + ", " + error);
+                }
+            });
+        }
+
+    });
+
+    $(".price-quotation-items").disableSelection();
+});

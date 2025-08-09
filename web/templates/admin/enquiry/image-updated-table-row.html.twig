@@ -1,0 +1,27 @@
+<tr id="image-table-row-{{ image.id }}">
+    <td class="text-center move"><i class="ri-drag-move-fill"></i></td>
+    <td class="text-center">{{ image.id }}</td>
+    <td><img src="{{ image.filePath }}/{{ image.fileName }}.{{ image.fileType }}" class="img-fluid rounded" alt="{{ image.description }}" style="width: 3rem;"></td>
+    <td>{{ image.name }}<br><small class="fst-italic">{{ image.description }}</small><br><smal>{{ image.version }}</small></td>
+    <td>{{ image.fileName }}<br><small class="fst-italic">{{ image.filePath }}</small></td>
+    <td class="text-center">{{ image.fileType }}</td>
+    <td class="text-center">{{ image.fileSize }}</td>
+    <td class="text-center">{{ image.width }} x {{ image.height }}</td>
+    <td class="text-center">
+        {% set publication = image.publication %}
+        {% if publication == '' %}
+            {{ 'publication.select'|trans|lower }}
+        {% endif %}
+        {% if publication == 0 %}
+            <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+        {% endif %}
+        {% if publication == 1 %}
+            <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+        <a href="#" onclick="imageShow({{ image.id }}, event)" title="{{ 'action.show'|trans|lower }}"><i class="mdi mdi-eye"></i></a>
+        <a href="#" onclick="imageEdit({{ image.id }}, event)" title="{{ 'action.edit'|trans|lower }}"><i class="mdi mdi-lead-pencil"></i></a>
+        <a href="#" onclick="imageDelete({{ image.id }}, event)" title="{{ 'action.delete'|trans|lower }}"><i class="mdi mdi-delete text-danger"></i></a>
+    </td>
+</tr>

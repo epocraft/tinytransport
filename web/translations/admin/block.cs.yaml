@@ -1,0 +1,29 @@
+action:
+  create_new_block: Vytvořit nový blok
+  edit_block: Upravit blok
+
+breadcrumbs:
+  edit_block: Úprava bloku
+  blocks: Bloky
+  block_detail: Detail bloku
+  new_block: Nový blok
+  overview_of_blocks: Přehled bloků
+
+fieldset:
+  basic_data: Základní údaje
+  content_data: Obsah
+
+label:
+  id: Id
+  name: Název
+  url_alias: URL alias
+  text: Text bloku
+
+menu:
+  blocks: Bloky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  url_alias: Zadejte URL alias
+  text: Zadejte text bloku

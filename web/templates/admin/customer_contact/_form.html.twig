@@ -1,0 +1,131 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-2">
+				{{ form_row(form.titleBefore) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.firstname) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.surname) }}
+			</div>
+
+            <div class="col-2">
+				{{ form_row(form.titleAfter) }}
+			</div>
+
+            <div class="col-12">
+				{{ form_row(form.jobPosition) }}
+			</div>
+
+            <div class="col-4">
+                {{ form_label(form.phone) }}
+                <div class="input-group mb-3">
+                    {% do form.phone.setRendered() %}
+                    <input 
+                        type="text" 
+                        name="{{ form.phone.vars.full_name }}" 
+                        value="{{ form.phone.vars.value }}" 
+                        class="form-control" 
+                        id="phone" 
+                        placeholder="{{ form.phone.vars.attr.placeholder|default('Vložte telefonní číslo') }}" 
+                        aria-label="Telefon"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-phone" 
+                        href="tel:{{ form.phone.vars.value|replace({' ': ''}) }}"
+                        {% if not form.phone.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                {{ form_label(form.mobile) }}
+                <div class="input-group mb-3">
+                    {% do form.mobile.setRendered() %}
+                    <input 
+                        type="text" 
+                        name="{{ form.mobile.vars.full_name }}" 
+                        value="{{ form.mobile.vars.value }}" 
+                        class="form-control" 
+                        id="mobile" 
+                        placeholder="{{ form.mobile.vars.attr.placeholder|default('Vložte mobilní číslo') }}" 
+                        aria-label="Mobil"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-mobile" 
+                        href="tel:{{ form.mobile.vars.value|replace({' ': ''}) }}"
+                        {% if not form.mobile.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4">
+                {{ form_label(form.email) }}
+                <div class="input-group mb-3">
+                    {% do form.email.setRendered() %}
+                    <input 
+                        type="email" 
+                        name="{{ form.email.vars.full_name }}" 
+                        value="{{ form.email.vars.value }}" 
+                        class="form-control" 
+                        id="email" 
+                        placeholder="{{ form.email.vars.attr.placeholder|default('Vložte e-mail') }}" 
+                        aria-label="E-mail"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-email" 
+                        href="mailto:{{ form.email.vars.value }}" 
+                        {% if not form.email.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-email"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

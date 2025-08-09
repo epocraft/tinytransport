@@ -1,0 +1,69 @@
+action:
+  create_new_command: Vytvořit novou objednávku
+  edit_command: Upravit objednávku
+
+breadcrumbs:
+  edit_command: Úprava objednávky
+  commands: Objednávky
+  command_detail: Detail objednávky
+  new_command: Nová objednávka
+  overview_of_commands: Přehled objednávek
+
+fieldset:
+  images: Obrázky
+
+label:
+  id: Id
+  name: Název
+  description: Popis
+  priority: Priorita
+  source: Příjem
+  deadline_date: Datum dodání
+  person: Jméno a příjmení zadavatele
+  phone: Telefon
+  mobile: Mobil
+  email: E-mail
+  manager: Manažer
+  status: Status
+  waiting: Čeká se na
+  delivery_address: Dodací adresa
+  number: Číslo objednávky
+
+menu:
+  commands: Objednávky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  priority: Nastavte prioritu
+  source: Nastavte příjem
+  deadline: Zadejte datum dodání
+  person: Zadejte jméno a příjmení zadavatele
+  phone: Zadejte telefon
+  mobile: Zadejte mobil
+  email: Zadejte e-mail
+  manager: Nastavte manažera objednávky
+  status: Nastavte status
+  waiting: Zadejte důvod čekání
+  delivery_address: Zadejte dodací adresu
+  number: Zadejte číslo objednávky
+
+priority:
+  select: Zvolte
+  low: Nízká
+  normal: Normální
+  high: Vysoká
+
+source:
+  select: Zvolte
+  web: Z webu
+  oral: Ústní
+  email: E-mail
+  phone: Telefonicky
+
+status:
+  accepted: Přijato
+  in_progress: V běhu
+  done: Dokončeno
+  select: Zvolte

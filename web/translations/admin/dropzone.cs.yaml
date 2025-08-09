@@ -1,0 +1,9 @@
+cancelUpload: Zrušit nahrávání
+cancelUploadConfirmation: Opravdu chcete zrušit toto nahrávání?
+defaultMessage: Přetáhněte soubory sem nebo klikněte pro výběr
+fallbackMessage: Váš prohlížeč nepodporuje drag'n'drop nahrávání souborů
+fileTooBig: Soubor je příliš velký
+invalidFileType: Nemůžete nahrávat soubory tohoto typu
+maxFilesExceeded: Nemůžete nahrát více souborů
+removeFile: Odstranit soubor
+responseError: Server vrátil chybu {{statusCode}}

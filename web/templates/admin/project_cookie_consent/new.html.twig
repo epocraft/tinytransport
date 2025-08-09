@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/project_cookie_consent/_form.html.twig') }}
+
+                <div class="float-start">
+                    <button class="btn btn-success">{{ 'action.save'|trans }}</button>
+                    <a href="{{ path('app_admin_project_cookie_consent_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+                </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}

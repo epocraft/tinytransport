@@ -1,0 +1,39 @@
+action:
+  create_new_market: Vytvořit nový obchod
+  edit_market: Upravit obchod
+
+breadcrumbs:
+  edit_market: Úprava obchodu
+  markets: Obchody
+  market_detail: Detail obchodu
+  new_market: Nový obchod
+  overview_of_markets: Přehled obchodů
+
+fieldset:
+  basic_data: Základní údaje
+  meta_data: Meta data
+  content_data: Obsah
+
+label:
+  id: Id
+  name: Název
+  url_alias: URL alias
+  title: Titulek obchodu
+  meta_description: Meta description
+  meta_keywords: Meta keywords
+  perex: Perex obchodu
+  text: Text obchodu
+
+menu:
+  markets: Obchody
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  short_name: Zadejte krátký název
+  url_alias: Zadejte URL alias
+  title: Zadejte titulek obchodu
+  meta_description: Zadejte meta description
+  meta_keywords: Zadejte meta keywords
+  perex: Zadejte perex obchodu
+  text: Zadejte text obchodu

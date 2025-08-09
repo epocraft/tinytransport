@@ -1,0 +1,350 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+
+<div class="mb-4">
+    <div class="input-group input-group-lg">
+
+        <input
+            id="{{ form.aresIco.vars.id }}" 
+            name="{{ field_name(form.aresIco) }}"
+            value="{{ field_value(form.aresIco) }}"
+            placeholder="{{ field_label(form.aresIco) }}"
+            class="form-control"
+        >
+
+        <button 
+            type="button" 
+            id="{{ form.aresSend.vars.id }}" 
+            name="{{ field_name(form.aresSend) }}" 
+            value="1" 
+            class="btn btn-secondary">{{ field_label(form.aresSend) }}
+        </button>
+
+    </div>
+
+    <div id="ico-error-message" class="mt-2 error-message"></div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.company_information'|trans({}, 'contractor') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.ciName) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciIn) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciTin) }}
+            </div>
+
+            <div class="col-4 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.ciVatPayer, {}) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.company_registration'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <p>Pokud jsou údaje vyplněny, bude na webu uveden text v tomto znění:<br>
+
+        {% set register = '...' %}
+        {% set office = '...' %}
+        {% set prefix = null %}
+
+        {% if contractor.ciRegisteredRegister == 'or' %}
+            {% set register = 'obchodním rejstříku' %}
+            {% set prefix = 'v' %}
+        {% endif %}
+        {% if contractor.ciRegisteredRegister == 'zr' %}
+            {% set register = 'živnostenském rejstříku' %}
+            {% set prefix = 'pod' %}
+        {% endif %}
+
+        {% if contractor.ciRegisteredOffice == 'ks' %}
+            {% set office = 'Krajského soudu' %}
+        {% endif %}
+        {% if contractor.ciRegisteredOffice == 'mu' %}
+            {% set office = 'Městského úřadu' %}
+        {% endif %}
+        {% if contractor.ciRegisteredOffice == 'ou' %}
+            {% set office = 'Obecního úřadu' %}
+        {% endif %}
+
+        <em>Zapsaný v {{ register }} u {{ office }} {{ contractor.ciRegisteredCity }}, {{ prefix }} {{ contractor.ciRegisteredFileNumber }}<em></p>
+
+        <div class="row">
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredRegister) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredOffice) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredCity) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredFileNumber) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.contact_information'|trans({}, 'contractor') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">
+                {{ form_label(form.ciPhone) }}
+                <div class="input-group mb-3">
+                    {% do form.ciPhone.setRendered() %}
+                    <input 
+                        type="text" 
+                        name="{{ form.ciPhone.vars.full_name }}" 
+                        value="{{ form.ciPhone.vars.value }}" 
+                        class="form-control" 
+                        id="ciPhone" 
+                        placeholder="{{ form.ciPhone.vars.attr.placeholder|default('Vložte telefonní číslo') }}" 
+                        aria-label="Telefon"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciPhone" 
+                        href="tel:{{ form.ciPhone.vars.value|replace({' ': ''}) }}"
+                        {% if not form.ciPhone.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                {{ form_label(form.ciMobile) }}
+                <div class="input-group mb-3">
+                    {% do form.ciMobile.setRendered() %}
+                    <input 
+                        type="text" 
+                        name="{{ form.ciMobile.vars.full_name }}" 
+                        value="{{ form.ciMobile.vars.value }}" 
+                        class="form-control" 
+                        id="ciMobile" 
+                        placeholder="{{ form.ciMobile.vars.attr.placeholder|default('Vložte mobilní číslo') }}" 
+                        aria-label="Mobil"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciMobile" 
+                        href="tel:{{ form.ciMobile.vars.value|replace({' ': ''}) }}"
+                        {% if not form.ciMobile.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciFax) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_label(form.ciEmail) }}
+                <div class="input-group mb-3">
+                    {% do form.ciEmail.setRendered() %}
+                    <input 
+                        type="email" 
+                        name="{{ form.ciEmail.vars.full_name }}" 
+                        value="{{ form.ciEmail.vars.value }}" 
+                        class="form-control" 
+                        id="ciEmail" 
+                        placeholder="{{ form.ciEmail.vars.attr.placeholder|default('Vložte e-mail') }}" 
+                        aria-label="E-mail"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciEmail" 
+                        href="mailto:{{ form.ciEmail.vars.value }}" 
+                        {% if not form.ciEmail.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-email"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciWeb) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciDuns) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciDataBox) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.bank_information'|trans({}, 'contractor') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">
+                {{ form_row(form.ciBa) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciBc) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciIban) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciSwift) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.billing_information'|trans({}, 'contractor') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.biName) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biStreet) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biCity) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biZipcode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biCountry) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.delivery_information'|trans({}, 'contractor') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.diName) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diStreet) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diCity) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diZipcode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diCountry) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-4">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

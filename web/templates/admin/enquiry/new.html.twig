@@ -1,0 +1,110 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_css %}
+
+	{{ parent() }}
+
+	<style type="text/css">
+
+        .select2-selection,
+        .select2-results__option {
+            font-size: .825rem !important;
+        }
+
+	</style>
+
+{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/head-stylesheet/dropzone.html.twig') }}
+
+    {{ include('admin/inc/head-stylesheet/lightbox2.html.twig') }}
+
+	{{ include('admin/inc/head-stylesheet/select2.html.twig') }}
+
+{% endblock %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/enquiry/_form.html.twig') }}
+
+                <div class="float-start">
+                    <button class="btn btn-success">{{ 'action.save'|trans }}</button>
+                    <a href="{{ path('app_admin_enquiry_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+                </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    {{ include('admin/inc/modals/image-show.html.twig') }}
+    {{ include('admin/inc/modals/image-edit.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/dropzone.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/jquery-ui.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/lightbox2.html.twig') }}
+
+	{{ include('admin/inc/body-javascript/select2.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    var dropzoneUploadUrl = "{{ path('app_admin_enquiry_dropzone_upload') }}";
+    var dropzoneDeleteUrl = "{{ path('app_admin_enquiry_dropzone_delete', {'id': 0}) }}".replace('/0', '/FILE_ID');
+	{{ include('admin/inc/body-javascript-function/dropzone-image.html.twig') }}
+
+    {{ include('admin/inc/body-javascript-function/lightbox2.html.twig') }}
+
+    var input = '#enquiry_description';
+    {{ include('admin/inc/body-javascript-function/tinymce.html.twig') }}
+
+    var imageShowUrl = "{{ path('app_admin_enquiry_image_show', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/image-show.html.twig') }}
+
+    var imageEditUrl = "{{ path('app_admin_enquiry_image_edit', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/image-edit.html.twig') }}
+
+    var imageDeleteUrl = "{{ path('app_admin_enquiry_image_delete', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/image-delete.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+	{{ parent() }}
+
+    {{ include('admin/inc/body-javascript-document-ready/view-grid-table.html.twig') }}
+
+    var sortableUrl = "{{ path('app_admin_enquiry_reorder', {'iid': 1}) }}";
+    {{ include('admin/inc/body-javascript-document-ready/sortable.html.twig') }}
+
+	{{ include('admin/inc/body-javascript-document-ready/select2.html.twig') }}
+
+{% endblock %}

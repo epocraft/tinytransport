@@ -1,0 +1,23 @@
+action:
+  create_new_vat_of_rate: Vytvořit novou sazbu DPH
+  edit_vat_of_rate: Upravit sazbu DPH
+
+breadcrumbs:
+  overview_of_vat_of_rates: Přehled sazeb DPH
+  vat_of_rates: Sazby DPH
+  vat_of_rate_detail: Detail sazby DPH
+  new_vat_of_rate: Nová sazba DPH
+  edit_vat_of_rate: Úprava sazby DPH
+
+label:
+  id: Id
+  name: Název
+  coefficient: Koeficient
+  vat_of_rate: Sazba DPH
+
+menu:
+  vat_of_rates: Sazby DPH
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název

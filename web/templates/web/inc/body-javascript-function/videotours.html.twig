@@ -1,0 +1,84 @@
+document.addEventListener('DOMContentLoaded', function () {
+    let loadMoreButton = document.getElementById('load-more');
+    let offset = 6; // Initial offset
+
+    function showSpinner() {
+        let spinner = loadMoreButton.querySelector('.spinner-border');
+        if (spinner) {
+            spinner.style.display = 'inline-block';
+        }
+    }
+
+    function hideSpinner() {
+        let spinner = loadMoreButton.querySelector('.spinner-border');
+        if (spinner) {
+            spinner.style.display = 'none';
+        }
+    }
+
+    loadMoreButton.addEventListener('click', function () {
+        showSpinner(); // Zobrazíme spinner
+
+        let locale = document.documentElement.lang; // Getting locale from the HTML tag
+
+        // Správná interpolace proměnné offset do URL
+        let requestUrl = `cs/videoprohlidky/load-more?offset=${offset}`;
+
+        fetch(requestUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                let list = document.getElementById('videotour-list');
+                if (list && data.videotours && data.videotours.length > 0) {
+                    data.videotours.forEach(item => {
+                        let card = document.createElement('div');
+                        card.className = 'col-md-4 video';
+                        card.innerHTML = `
+                            <div class="ratio ratio-16x9 mb-2 shadow">
+                                <iframe src="https://www.youtube.com/embed/${item.identificator}" title="${item.name}" frameborder="0" allow="${item.parameters}" allowfullscreen class="embed-responsive-item w-100 h-100 rounded"></iframe>
+                            </div>
+                            <div class="text">
+                                <p class="name">${item.name}</p>
+                                <p class="stats" hx-trigger="load once" hx-put="assets/web/ajax/yt.php?id=${item.identificator}"><i class="fas fa-spinner fa-spin"></i></p>
+                            </div>
+                        `;
+                        list.appendChild(card);
+                    });
+
+                    // Re-initialize HTMX to attach handlers to new elements
+                    htmx.process(list);
+                    
+                    // Update the offset after successfully loading new items
+                    offset += data.videotours.length;
+
+                    // Move the "Načíst další" button to the end of the list
+                    list.appendChild(loadMoreButton);
+                }
+
+                // Kontrola, jestli je `hasMore` nastaveno na false nebo nejsou žádné další videoprohlídky
+                if (!data.hasMore || (data.videotours && data.videotours.length === 0)) {
+                    if (document.body.contains(loadMoreButton)) {
+                        loadMoreButton.style.display = 'none';
+                        loadMoreButton.style.visibility = 'hidden';
+                        loadMoreButton.disabled = true;
+                        loadMoreButton.parentNode.removeChild(loadMoreButton);
+                    }
+                }
+                hideSpinner(); // Skryjeme spinner po načtení dat
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+                if (document.body.contains(loadMoreButton)) {
+                    loadMoreButton.style.display = 'none';
+                    loadMoreButton.style.visibility = 'hidden';
+                    loadMoreButton.disabled = true;
+                    loadMoreButton.parentNode.removeChild(loadMoreButton);
+                }
+                hideSpinner(); // Skryjeme spinner v případě chyby
+            });
+    });
+});

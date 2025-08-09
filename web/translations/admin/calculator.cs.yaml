@@ -1,0 +1,27 @@
+action:
+
+breadcrumbs:
+  calculator: Kalkulátor
+  card_calculator: Kalkulátor vizitek
+  print_calculator: Kalkulátor tiskovin
+
+fieldset:
+  basic_data: Základní údaje
+  calculation_result: Výpočet ceny
+
+label:
+  card_color: Barva tisku
+  card_paper: Typ papíru
+  card_ammount: Počet vizitek
+  total_price: Cena bez DPH
+  print_color: Barva tisku
+  print_format: Formát
+  print_paper: Typ papíru
+  print_ammount: Počet kusů
+
+menu:
+  calculators: Kalkulátory
+  cards: Vizitky
+  prints: tiskoviny
+
+placeholder:

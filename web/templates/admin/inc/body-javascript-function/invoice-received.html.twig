@@ -1,0 +1,122 @@
+// Funkce pro aktualizaci hodnot v jednom řádku
+function updateRow($row) {
+    // Převedení uživatelského vstupu (čárka → tečka pro výpočty)
+    var amount = parseFloat($row.find('input[id$="_ammount"]').val().replace(',', '.')) || 0;
+    var purchasePrice = parseFloat($row.find('input[id$="_purchasePrice"]').val().replace(',', '.')) || 0;
+    var vatMultiplier = parseFloat($row.find('select[id$="_purchaseVatOfRate"] option:selected').data('constant')) || 1;
+
+    var priceWithoutVat = amount * purchasePrice;
+    var vatAmount = priceWithoutVat * (vatMultiplier - 1);
+    var priceWithVat = priceWithoutVat + vatAmount;
+
+    // Zobrazení hodnot s čárkou, jak je uživatel očekává
+    $row.find('input[id$="_priceWithoutVat"]').val(priceWithoutVat.toFixed(2).replace('.', ','));
+    $row.find('input[id$="_vat"]').val(vatAmount.toFixed(2).replace('.', ','));
+    $row.find('input[id$="_priceWithVat"]').val(priceWithVat.toFixed(2).replace('.', ','));
+}
+		
+// Funkce pro aktualizaci celkových součtů
+function updateTotalSums() {
+	var totalPriceWithoutVat = 0;
+	var totalVat = 0;
+	var totalPriceWithVat = 0;
+		
+	// Iterujeme přes všechny řádky a sčítáme hodnoty
+	$('.invoice-received-items .row').each(function() {
+	    var priceWithoutVatVal = $(this).find('input[id$="_priceWithoutVat"]').val();
+	    var vatVal = $(this).find('input[id$="_vat"]').val();
+	    var priceWithVatVal = $(this).find('input[id$="_priceWithVat"]').val();
+	    if (priceWithoutVatVal !== undefined && vatVal !== undefined && priceWithVatVal !== undefined) {
+	        var priceWithoutVat = parseFloat((priceWithoutVatVal || '0').replace(',', '.'));
+	        var vat = parseFloat((vatVal || '0').replace(',', '.'));
+	        var priceWithVat = parseFloat((priceWithVatVal || '0').replace(',', '.'));
+		
+	        totalPriceWithoutVat += isNaN(priceWithoutVat) ? 0 : priceWithoutVat;
+	        totalVat += isNaN(vat) ? 0 : vat;
+	        totalPriceWithVat += isNaN(priceWithVat) ? 0 : priceWithVat;
+	    }
+	});
+		
+	// Aktualizujeme hodnoty celkových součtů v odpovídajících inputech
+	$('#invoice_received_totalPriceWithoutVat').val(totalPriceWithoutVat.toFixed(2).replace('.', ','));
+	$('#invoice_received_totalVat').val(totalVat.toFixed(2).replace('.', ','));
+	$('#invoice_received_totalPriceWithVat').val(totalPriceWithVat.toFixed(2).replace('.', ','));
+}
+		
+// Funkce pro přidání nového formuláře (řádku) do kolekce
+function addFormToCollection(e) {
+	const collectionHolder = document.querySelector('.invoice-received-items');
+	const newIndex = parseInt(collectionHolder.dataset.index);
+		
+	let newFormHtml = collectionHolder.dataset.prototype;
+	newFormHtml = newFormHtml.replace(/__name__/g, newIndex).replace(/__index__/g, newIndex);
+		
+	const item = document.createElement('li');
+	item.innerHTML = newFormHtml;
+	collectionHolder.appendChild(item);
+	collectionHolder.dataset.index = newIndex + 1;
+		
+	addEventListenersToNewItem(item);
+	updateGlobalAddItemButtonVisibility();
+}
+		
+// Funkce pro přidání event listenerů k nově vytvořenému řádku
+function addEventListenersToNewItem(item) {
+	const deleteButton = item.querySelector('.delete-item');
+	if (deleteButton) {
+	    deleteButton.addEventListener('click', function(event) {
+	        event.preventDefault();
+	        item.remove();
+	        updateGlobalAddItemButtonVisibility();
+	        updateTotalSums();
+	    });
+	}
+	item.querySelector('.add_item_link').addEventListener('click', addFormToCollection);
+}
+		
+// Funkce pro aktualizaci viditelnosti globálního tlačítka pro přidání
+function updateGlobalAddItemButtonVisibility() {
+	const collectionHolder = document.querySelector('.invoice-received-items');
+	const globalAddItemButton = document.querySelector('.global-add-item-link');
+	globalAddItemButton.style.display = collectionHolder.children.length === 0 ? 'block' : 'none';
+}
+		
+// Inicializace po načtení DOMu
+document.addEventListener('DOMContentLoaded', function() {
+	const collectionHolder = document.querySelector('.invoice-received-items');
+	collectionHolder.querySelectorAll('.row').forEach(row => {
+	    const wrapper = document.createElement('li');
+	    wrapper.appendChild(row.cloneNode(true));
+	    row.parentNode.replaceChild(wrapper, row);
+	});
+		
+	collectionHolder.dataset.index = collectionHolder.children.length;
+		
+	document.querySelector('.global-add-item-link').addEventListener('click', addFormToCollection);
+		
+	document.querySelectorAll('.invoice-received-items li').forEach(li => {
+	    addEventListenersToNewItem(li);
+	});
+		
+	updateGlobalAddItemButtonVisibility();
+		
+	if (collectionHolder.children.length === 0) {
+	    addFormToCollection();
+	}
+		
+	collectionHolder.querySelectorAll('li').forEach(item => {
+	    addEventListenersToNewItem(item);
+	});
+		
+	document.querySelectorAll('.invoice-received-items .row').forEach((item, index) => {
+	    const deleteButton = item.querySelector('.delete-item');
+	    if (deleteButton) {
+	        // Logika pro skrytí tlačítka odstranit u prvního prvku, pokud je to požadováno
+	        // deleteButton.style.display = index === 0 ? 'none' : 'inline-block';
+	    }
+	});
+		
+	function toNum(number) {
+	    return new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK' }).format(number)
+	}
+});

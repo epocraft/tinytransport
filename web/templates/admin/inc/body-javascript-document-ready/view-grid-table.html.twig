@@ -1,0 +1,23 @@
+$("#show-grid").click(function(event) {
+
+    event.preventDefault();
+
+    $("#grid-view").removeClass("d-none").addClass("d-block");
+    $("#table-view").addClass("d-none").removeClass("d-block");
+
+    $("#show-grid").addClass("btn-primary").removeClass("btn-light");
+    $("#show-table").removeClass("btn-primary").addClass("btn-light");
+
+});
+
+$("#show-table").click(function(event) {
+
+    event.preventDefault();
+
+    $("#grid-view").addClass("d-none").removeClass("d-block");
+    $("#table-view").removeClass("d-none").addClass("d-block");
+
+    $("#show-table").addClass("btn-primary").removeClass("btn-light");
+    $("#show-grid").removeClass("btn-primary").addClass("btn-light");
+
+});

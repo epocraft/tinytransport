@@ -1,0 +1,39 @@
+function imageEdit(imageId, event) {
+    event.preventDefault();
+    var url = imageEditUrl.replace(/0(?=\/|$)/, imageId);
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(response) {
+            $('#imageEditModal .modal-body').html(response);
+            $('#imageEditModal').modal('show');
+        },
+        error: function() {
+            alert('Nepodařilo se načíst data pro editaci.');
+        }
+    });
+}
+
+function submitEditForm() {
+    //event.preventDefault();
+    var formData = $('#imageEditForm').serialize();
+    var url = $('#imageEditForm').attr('action');
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        success: function(response) {
+            if (response.status === 'success') {
+                $('#image-figure-row-' + response.id).replaceWith(response.updatedGridFigureHtml);
+                $('#image-table-row-' + response.id).replaceWith(response.updatedTableRowHtml);
+                alert('Obrázek byl úspěšně aktualizován');
+                $('#imageEditModal').modal('hide');
+            } else {
+                alert('Chyba: ' + response.message);
+            }
+        },
+        error: function() {
+            alert('Nepodařilo se aktualizovat obrázek.');
+        }
+    });
+}

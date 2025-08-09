@@ -1,0 +1,34 @@
+action:
+  create_new_source: Vytvořit nový zdroj
+  create_new_source_item: Vytvořit nový odečet
+  edit_source: Upravit zdroj
+  edit_source_item: Upravit odečet
+
+breadcrumbs:
+  edit_source: Úprava zdroje
+  sources: Zdroj
+  source_items: Odečty
+  source_detail: Detail zdroje
+  source_item_detail: Detail odečtu
+  new_source: Nový zdroj
+  overview_of_sources: Přehled zdrojů
+  new_source_item: Nový odečet
+  overview_of_source_items: Přehled odečtů
+  mail_source_item: Odeslat odečet
+
+help:
+
+label:
+  id: Id
+  name: Název
+  value: Hodnota
+  day_of_reading: Datum odečtu
+  consumption: Spotřeba
+
+menu:
+  sources: Zdroje
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  value: Zadejte hodnotu

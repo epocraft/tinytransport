@@ -1,0 +1,133 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title |
+	{{ projectService.ciName }}
+{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title |
+	{{ projectService.ciName }}
+{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	{#{% if article %}#}
+
+	<div class="container mt-4">
+
+		<div class="row">
+
+			{{ include('web/service_provider/profile/cs/header.html.twig') }}
+
+			{{ include('web/service_provider/profile/cs/nav.html.twig') }}
+
+			<div class="col-md-10">
+
+				<div class="form-errors">
+					{{ form_errors(form) }}
+				</div>
+
+				{{ form_start(form) }}
+
+					<div class="row">
+						<div class="col-md-12">
+
+						 {% set prototype %}
+        <li>
+            {{ form_row(form.userUserVehicleParks.vars.prototype.name) }}
+            {{ form_row(form.userUserVehicleParks.vars.prototype.description) }}
+            {{ form_row(form.userUserVehicleParks.vars.prototype.licensePlate) }}
+            <button type="button" class="remove-vehicle-park btn btn-danger">Odebrat vozidlo</button>
+        </li>
+    {% endset %}
+
+							<ul id="vehicle-park-list" data-prototype="{{ prototype|trim|e('html_attr') }}">
+                                {% for vehiclePark in form.userUserVehicleParks %}
+                                    <li>
+                                        {{ form_row(vehiclePark.name) }}
+                                        {{ form_row(vehiclePark.description) }}
+                                        {{ form_row(vehiclePark.licensePlate) }}
+                                        <button type="button" class="remove-vehicle-park btn btn-danger">Odebrat vozidlo</button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+	<button
+    type="button"
+    id="add-another-vehicle-park"
+    class="add-item btn btn-primary"
+>Přidat položku</button>
+						</div>
+					</div>
+
+					<div class="float-start">
+						<button class="btn btn-success">{{ 'action.save'|trans }}</button>
+					</div>
+					
+				{{ form_end(form) }}
+
+			</div>
+
+		</div>
+
+	</div>
+
+	{#{% endif %}#}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+	document.addEventListener('DOMContentLoaded', () => {
+        const list = document.getElementById('vehicle-park-list');
+        // nyní najde správně
+        const addButton = document.getElementById('add-another-vehicle-park');
+
+        const addFormToCollection = () => {
+            const index = list.children.length;
+            const newFormHtml = list.dataset.prototype.replace(/__name__/g, index);
+            list.insertAdjacentHTML('beforeend', newFormHtml);
+        };
+
+        // odebrání
+        list.addEventListener('click', e => {
+            if (e.target.classList.contains('remove-vehicle-park')) {
+                e.target.closest('li').remove();
+                /*if (list.children.length === 0) {
+                    addFormToCollection();
+                }*/
+            }
+        });
+
+        // přidání
+        addButton.addEventListener('click', () => {
+            addFormToCollection();
+        });
+
+        // pokud je pole prázdné, vložit jeden formulář
+        if (list.children.length === 0) {
+            addFormToCollection();
+        }
+    });
+    
+
+{% endblock %}

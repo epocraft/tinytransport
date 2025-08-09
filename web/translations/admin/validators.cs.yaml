@@ -1,0 +1,6 @@
+error:
+  name:
+    data_already_exists: Záznam s tímto názvem už existuje
+    max: Název může mít maximálně {{ limit }} znaků
+    min: Název musí mít alespoň {{ limit }} znaky
+    required: Název je povinný údaj

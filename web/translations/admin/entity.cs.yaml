@@ -1,0 +1,24 @@
+action:
+  create_new_entity: Vytvořit novou entitu
+  edit_entity: Upravit entitu
+
+breadcrumbs:
+  edit_entity: Úprava entity
+  entities: Entity
+  entity_detail: Detail entity
+  new_entity: Nová entita
+  overview_of_entities: Přehled entit
+
+fieldset:
+  basic_data: Základní údaje
+
+label:
+  id: Id
+  name: Název
+
+menu:
+  entities: Entity
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název entity

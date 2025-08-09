@@ -1,0 +1,41 @@
+Dropzone.autoDiscover = false;
+
+const dropzone = new Dropzone("div.dropzone", {
+
+    url: dropzoneUploadUrl,
+    paramName: "file",
+    maxFilesize: 2,
+    acceptedFiles: ".bmp, .gif, .jpg, .jpeg, .png, .tiff, .webp",
+    clickable: true,
+    autoProcessQueue: true,
+
+    dictDefaultMessage: "{{ 'defaultMessage'|trans({}, 'dropzone') }}",
+
+    sending: function(file, xhr, formData) {
+        formData.append('id', dropzoneParamId);
+    },
+
+    success: function (file, response) {
+        file.previewElement.className += " dz-success d-inline-flex flex-column justify-content-center";
+        file.fileId = response.fileId;
+
+        var removeButton = Dropzone.createElement("<button class='btn btn-sm btn-danger mt-2 text-decoration-none dz-remove'>{{ 'action.delete'|trans }}</button>");
+        file.previewElement.appendChild(removeButton);
+
+        removeButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (confirm("{{ 'alert.are_you_sure_you_want_to_delete_this_item'|trans }}")) {
+                var deleteUrl = dropzoneDeleteUrl.replace('FILE_ID', encodeURIComponent(file.fileId));
+                fetch(deleteUrl, {method: "DELETE"})
+                    .then(() => {
+                        dropzone.removeFile(file);
+                    })
+                    .catch(err => {
+                        console.error("Error deleting file:", err);
+                    });
+            }
+        });
+    }
+
+});

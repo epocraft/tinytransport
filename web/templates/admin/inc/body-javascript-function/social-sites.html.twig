@@ -1,0 +1,34 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const linkInputs = [
+        'discord', 'facebook', 'instagram', 'linkedin', 'pinterest', 'snapchat',
+        'telegram', 'tiktok', 'tumblr', 'whatsapp', 'x', 'youtube'
+    ];
+
+    linkInputs.forEach(function (inputId) {
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(`button-${inputId}`);
+
+        if (input && button) {
+            // Nastavit stav tlačítka na začátku
+            toggleButtonState(input, button);
+
+            // Přidat event listener pro změnu vstupu
+            input.addEventListener('input', function () {
+                toggleButtonState(input, button);
+            });
+        }
+    });
+});
+
+function toggleButtonState(input, button) {
+    button.disabled = input.value.trim() === '';
+}
+
+function openLink(inputId) {
+    const input = document.getElementById(inputId);
+    const url = input.value.trim();
+
+    if (url) {
+        window.open(url, '_blank');
+    }
+}

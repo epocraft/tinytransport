@@ -1,0 +1,193 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_stylesheet %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {# Začátek formuláře. ID je důležité pro JavaScript. #}
+            {{ form_start(calculatorForm, {
+                'attr': {'id': 'calculator-form'},
+                'action': '/admin/calculator/print/price',
+                'method': 'POST'
+            }) }}
+
+                {# Zahrneme parciální šablonu pro vykreslení samotných polí formuláře #}
+                {# Předáme jí objekt formuláře, aby mohla vykreslit jeho políčka #}
+                {{ include('admin/calculator/print/_calculator_form.html.twig', {'form': calculatorForm}) }}
+
+                {# Nepotřebujeme submit tlačítko pro AJAX, ale pokud byste ho chtěli mít skryté nebo pro fallback: #}
+                {# <button type="submit" class="btn btn-primary" style="display: none;">{{ 'action.calculate'|trans }}</button> #}
+
+            {{ form_end(calculatorForm) }}
+
+        </div>
+
+    </div>
+
+    {# Sekce pro zobrazení výsledku a chyb #}
+    <div class="row mb-4">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    {# Použijte vaši translaci pro nadpis #}
+                    <h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.calculation_result'|trans([], 'calculator') }}</h4>
+                </div>
+                <div class="card-body">
+                    {# Elementy pro zobrazení ceny a chybových zpráv - ID jsou klíčové pro JS #}
+                    <p>{{ 'label.total_price'|trans([], 'calculator') }}: <strong id="price-display">...</strong></p> {# Použijte vaši translaci #}
+                    <p><em id="error-display" style="color: red;"></em></p> {# Element pro zobrazení chyb #}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }} {# Zachová script tagy z rodičovské šablony #}
+
+    <script>
+
+        // Zajistí spuštění kódu po načtení celého DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            //console.log('DOM fully loaded - kalkulačka JS se spouští.'); // Kontrolní výpis
+
+            const form = document.querySelector('#calculator-form');
+            const colorSelect = form ? form.querySelector('#print_calculator_color') : null;
+            const formatSelect = form ? form.querySelector('#print_calculator_format') : null;
+            const paperSelect = form ? form.querySelector('#print_calculator_paper') : null;
+            const quantityInput = form ? form.querySelector('#print_calculator_quantity') : null;
+
+            const priceDisplay = document.querySelector('#price-display');
+            const errorDisplay = document.querySelector('#error-display');
+
+            if (!form || !colorSelect || !formatSelect || !paperSelect || !quantityInput || !priceDisplay || !errorDisplay) {
+                console.error("Kalkulačka JS: Některé elementy formuláře nebo zobrazení výsledků nebyly nalezeny.");
+                // Můžete zde zobrazit chybu uživateli, pokud chcete
+                 if (errorDisplay) errorDisplay.textContent = 'Chyba inicializace kalkulačky. Kontaktujte podporu.';
+                return; // Ukončí, pokud elementy nejsou nalezeny
+            }
+
+            // URL pro AJAX požadavek. Použijeme Twig funkci path() k vygenerování přímo v JS stringu.
+            const calculateUrl = "{{ path('app_admin_calculator_print_price') }}";
+            console.log('Kalkulačka JS: URL pro výpočet:', calculateUrl); // Kontrolní výpis
+
+            // Funkce pro výpočet ceny přes AJAX
+            const calculatePrice = async () => {
+                const colorId = colorSelect.value;
+                const formatId = formatSelect.value;
+                const paperId = paperSelect.value;
+                const quantity = quantityInput.value;
+
+                // Základní validace na klientu (rychlá zpětná vazba uživateli)
+                // Serverová validace je stále nutná pro bezpečnost!
+                if (!colorId || !formatId || !paperId || !quantity || quantity <= 0) {
+                    priceDisplay.textContent = 'Vyplňte všechna pole';
+                    if (errorDisplay) errorDisplay.textContent = ''; // Vymaže předchozí chybu
+                    return; // Neodesílejte požadavek, pokud nejsou data kompletní
+                }
+
+                 if (quantity < 1) {
+                     if (errorDisplay) errorDisplay.textContent = 'Minimální množství je 1.';
+                     priceDisplay.textContent = '...'; // Vymaže cenu
+                     return;
+                 }
+
+
+                // Skryjte předchozí chybu a zobrazte, že se počítá
+                if (errorDisplay) errorDisplay.textContent = '';
+                priceDisplay.textContent = 'Počítám...';
+
+                try {
+                    const response = await fetch(calculateUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest', // Běžný hlavička pro AJAX
+                        },
+                        body: JSON.stringify({ // Posíláme data jako JSON
+                           color: colorId,
+                           format: formatId,
+                           paper: paperId,
+                           quantity: quantity
+                        })
+                    });
+
+                    // Zpracování odpovědi
+                    const result = await response.json();
+                    console.log('Kalkulačka JS: Přijata odpověď', result); // Kontrolní výpis
+
+                    if (response.ok) {
+                        // HTTP status je OK (200-299)
+                        if (result.success) {
+                            // Server vrátil úspěšný výpočet
+                            priceDisplay.textContent = `${result.price} Kč`; // Zobrazte vypočtenou cenu
+                        } else {
+                            // Server vrátil chybu v JSON odpovědi (success: false)
+                             priceDisplay.textContent = 'Chyba výpočtu';
+                             if (errorDisplay) errorDisplay.textContent = result.error || 'Neznámá chyba při výpočtu.';
+                            console.error('Kalkulačka JS: Serverová chyba (success: false):', result.error);
+                        }
+                    } else {
+                        // HTTP chybový status (4xx, 5xx)
+                        priceDisplay.textContent = 'Chyba výpočtu';
+                        // Zobrazte chybovou zprávu ze serveru, pokud je k dispozici, jinak obecnou
+                         if (errorDisplay) errorDisplay.textContent = result.error || `Chyba serveru: ${response.status}`;
+                        console.error('Kalkulačka JS: HTTP Chyba:', response.status, result);
+                    }
+
+                } catch (error) {
+                    // Chyba při komunikaci (např. síťová chyba, server neodpovídá)
+                    priceDisplay.textContent = 'Chyba komunikace';
+                    if (errorDisplay) errorDisplay.textContent = 'Nelze komunikovat se serverem.';
+                    console.error('Kalkulačka JS: Komunikační chyba:', error);
+                }
+            };
+
+            // --- Implementace Debouncingu pro množství ---
+            // Zabrání odesílání příliš mnoha požadavků, když uživatel rychle píše číslo
+            let quantityTimer;
+            const debounceTime = 500; // Počkat 500 ms po dopsání
+
+            const debounceCalculate = () => {
+                clearTimeout(quantityTimer); // Zruší předchozí časovač
+                quantityTimer = setTimeout(() => {
+                    calculatePrice(); // Spustí výpočet po uplynutí času
+                }, debounceTime);
+            };
+            // --- Konec Debouncingu ---
+
+
+            // Přidání posluchačů událostí na změnu polí formuláře
+            // Událost 'change' pro selecty - spustí se po výběru hodnoty
+            if (colorSelect) colorSelect.addEventListener('change', calculatePrice);
+            if (formatSelect) formatSelect.addEventListener('change', calculatePrice);
+            if (paperSelect) paperSelect.addEventListener('change', calculatePrice);
+
+            // Událost 'input' pro číslo - spustí se při každé změně (včetně šipek, ctrl+v)
+            // Použijeme debounced verzi pro input množství
+            if (quantityInput) quantityInput.addEventListener('input', debounceCalculate);
+
+            // Volání kalkulace při načtení stránky s výchozími hodnotami formuláře
+            // Toto zajistí, že cena se zobrazí hned po načtení, pokud jsou výchozí hodnoty platné
+            calculatePrice();
+        });
+
+    </script>
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+{% endblock %}

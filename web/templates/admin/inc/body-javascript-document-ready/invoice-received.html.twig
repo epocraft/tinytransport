@@ -1,0 +1,70 @@
+$(".global-add-item-link").hide();
+		
+// Inicializujeme součty při načtení stránky
+updateTotalSums();
+		
+// Přidání event listeneru pro změnu hodnot v řádcích
+$(document).on("input change", 'input[id$="_ammount"], input[id$="_purchasePrice"], select[id$="_purchaseVatOfRate"]', function() {
+	var $row = $(this).closest('.row');
+	updateRow($row);
+	updateTotalSums();
+});
+		
+// Event listener pro automatické doplňování
+document.addEventListener('input', function(event) {
+	const target = event.target;
+	if (target.classList.contains('autocomplete-enabled')) {
+	    const input = target.value;
+		
+	    if (input.length >= 3) {
+	        const url = new URL('{{ path('app_admin_invoice_received_autocomplete') }}', window.location.origin);
+	        url.searchParams.append('query', input);
+		
+	        fetch(url, {
+	            method: 'GET',
+	            headers: {
+	                'Content-Type': 'application/json',
+	            },
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            const indexMatch = target.id.match(/invoice_received_invoiceReceivedInvoiceReceivedItems_(\d+)_name/);
+	            const index = indexMatch ? indexMatch[1] : null;
+		
+	            if (index !== null) {
+		            const suggestionsElementId = `suggestions-${index}`;
+		            const suggestionsElement = document.getElementById(suggestionsElementId);
+		            if (suggestionsElement) {
+		                suggestionsElement.innerHTML = '';
+		                data.forEach(item => {
+		                    const li = document.createElement('li');
+		                    li.textContent = item.name;
+		                    li.dataset.item = JSON.stringify(item);
+		                    li.addEventListener('click', function() {
+		                        const itemData = JSON.parse(this.dataset.item);
+		                        document.getElementById('invoice_received_invoiceReceivedInvoiceReceivedItems_' + index + '_name').value = itemData.name;
+		                        document.getElementById('invoice_received_invoiceReceivedInvoiceReceivedItems_' + index + '_purchasePrice').value = itemData.purchasePrice;
+		                        document.getElementById('invoice_received_invoiceReceivedInvoiceReceivedItems_' + index + '_purchaseCurrencyUnit').value = itemData.purchaseCurrencyUnitId;
+		                        document.getElementById('invoice_received_invoiceReceivedInvoiceReceivedItems_' + index + '_purchaseMeasureUnit').value = itemData.purchaseMeasureUnitId;
+		                        document.getElementById('invoice_received_invoiceReceivedInvoiceReceivedItems_' + index + '_purchaseVatOfRate').value = itemData.purchaseVatOfRateId;
+		                    });
+		                    suggestionsElement.appendChild(li);
+		                });
+		                suggestionsElement.style.display = 'block';
+		            }
+		        }
+		    })
+		    .catch(error => console.error('Error:', error));
+	    }
+	}
+});
+		
+// Event listener pro skrytí našeptávače při kliknutí mimo něj
+document.addEventListener('click', function(event) {
+	const suggestionsElements = document.querySelectorAll('ul[id^="suggestions-"]');
+	suggestionsElements.forEach((suggestionsElement) => {
+	    if (!suggestionsElement.contains(event.target)) {
+	        suggestionsElement.style.display = 'none';
+	    }
+	});
+});

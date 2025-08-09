@@ -1,0 +1,26 @@
+action:
+  create_new_email_template: Vytvořit novou šablonu e-mailu
+  edit_email_template: Upravit šablonu e-mailu
+
+breadcrumbs:
+  edit_email_template: Úprava šablony e-mailu
+  email_templates: Šablony e-mailu
+  email_template_detail: Detail šablony e-mailu
+  new_email_template: Nová šablona e-mailu
+  overview_of_email_templates: Přehled šablon e-mailů
+
+fieldset:
+  basic_data: Základní údaje
+
+label:
+  id: Id
+  name: Název
+  text: Text šablony e-mailu
+
+menu:
+  email_templates: Šablony e-mailu
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  text: Zadejte text šablony e-mailu

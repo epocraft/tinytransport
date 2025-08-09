@@ -1,0 +1,401 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	{#{% if article %}#}
+
+		<div class="container mt-4">
+
+			<div class="row">
+
+                {{ include('web/service_provider/profile/cs/header.html.twig') }}
+
+				{{ include('web/service_provider/profile/cs/nav.html.twig') }}
+
+				<div class="col-md-10">
+
+					{{ form_start(form) }}
+
+						<div class="form-errors">
+							{{ form_errors(form) }}
+						</div>
+
+						<div class="row">
+
+<div class="mb-4">
+    <div class="input-group input-group-lg">
+
+        <input
+            id="{{ form.aresIco.vars.id }}" 
+            name="{{ field_name(form.aresIco) }}"
+            value="{{ field_value(form.aresIco) }}"
+            placeholder="{{ field_label(form.aresIco) }}"
+            class="form-control"
+        >
+
+        <button 
+            type="button" 
+            id="{{ form.aresSend.vars.id }}" 
+            name="{{ field_name(form.aresSend) }}" 
+            value="1" 
+            class="btn btn-secondary">{{ field_label(form.aresSend) }}
+        </button>
+
+    </div>
+
+    <div id="ico-error-message" class="mt-2 error-message"></div>
+
+</div>
+
+							<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.company_information'|trans({}, 'supplier') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.ciName) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciIn) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciTin) }}
+            </div>
+
+            <div class="col-4 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.ciVatPayer, {}) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.contact_information'|trans({}, 'supplier') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-4">
+                {{ form_label(form.ciPhone) }}
+                <div class="input-group mb-3">
+                    {% do form.ciPhone.setRendered() %}
+                    <input 
+                        type="text" 
+                        name="{{ form.ciPhone.vars.full_name }}" 
+                        value="{{ form.ciPhone.vars.value }}" 
+                        class="form-control" 
+                        id="ciPhone" 
+                        placeholder="{{ form.ciPhone.vars.attr.placeholder|default('Vložte telefonní číslo') }}" 
+                        aria-label="Telefon"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciPhone" 
+                        href="tel:{{ form.ciPhone.vars.value|replace({' ': ''}) }}"
+                        {% if not form.ciPhone.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4">
+                {{ form_label(form.ciMobile) }}
+                <div class="input-group mb-3">
+                    {% do form.ciMobile.setRendered() %}
+                    <input 
+                        type="text" 
+                        name="{{ form.ciMobile.vars.full_name }}" 
+                        value="{{ form.ciMobile.vars.value }}" 
+                        class="form-control" 
+                        id="ciMobile" 
+                        placeholder="{{ form.ciMobile.vars.attr.placeholder|default('Vložte mobilní číslo') }}" 
+                        aria-label="Mobil"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciMobile" 
+                        href="tel:{{ form.ciMobile.vars.value|replace({' ': ''}) }}"
+                        {% if not form.ciMobile.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciFax) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_label(form.ciEmail) }}
+                <div class="input-group mb-3">
+                    {% do form.ciEmail.setRendered() %}
+                    <input 
+                        type="email" 
+                        name="{{ form.ciEmail.vars.full_name }}" 
+                        value="{{ form.ciEmail.vars.value }}" 
+                        class="form-control" 
+                        id="ciEmail" 
+                        placeholder="{{ form.ciEmail.vars.attr.placeholder|default('Vložte e-mail') }}" 
+                        aria-label="E-mail"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciEmail" 
+                        href="mailto:{{ form.ciEmail.vars.value }}" 
+                        {% if not form.ciEmail.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-email"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4">
+                {{ form_label(form.ciInvoicingEmail) }}
+                <div class="input-group mb-3">
+                    {% do form.ciInvoicingEmail.setRendered() %}
+                    <input 
+                        type="email" 
+                        name="{{ form.ciInvoicingEmail.vars.full_name }}" 
+                        value="{{ form.ciInvoicingEmail.vars.value }}" 
+                        class="form-control" 
+                        id="ciInvoicingEmail" 
+                        placeholder="{{ form.ciInvoicingEmail.vars.attr.placeholder|default('Vložte e-mail') }}" 
+                        aria-label="E-mail"
+                    >
+                    <a 
+                        class="btn btn-primary" 
+                        id="button-ciInvoicingEmail" 
+                        href="mailto:{{ form.ciInvoicingEmail.vars.value }}" 
+                        {% if not form.ciInvoicingEmail.vars.value %}disabled{% endif %}
+                    >
+                        <i class="mdi mdi-email"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <div class="col-4">
+                {{ form_label(form.ciWeb) }}
+                <div class="input-group mb-3">
+                    {% do form.ciWeb.setRendered() %}
+                        <input 
+                            type="text" 
+                            name="{{ form.ciWeb.vars.full_name }}" 
+                            value="{{ form.ciWeb.vars.value }}" 
+                            class="form-control" 
+                            id="ciWeb" 
+                            placeholder="{{ form.ciWeb.vars.attr.placeholder|default('Vložte URL') }}" 
+                            aria-label="URL webu"
+                        >
+                        <button 
+                            class="btn btn-primary" 
+                            type="button" 
+                            id="button-ciWeb" 
+                            {% if not form.ciWeb.vars.value %}disabled{% endif %}
+                            onclick="openLink('ciWeb')"
+                        >
+                            <i class="mdi mdi-link-variant"></i>
+                        </button>
+                </div>
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciDuns) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.ciDataBox) }}
+            </div>
+
+        </div>
+
+        <hr>
+
+        {#<a href="admin/supplier/{{ supplier.id }}/contact" class="btn btn-primary"><i class="mdi mdi-clipboard-list-outline"></i> Kontakty dodavatele</a> <a href="admin/supplier/{{ supplier.id }}/contact/new" class="btn btn-primary"><i class="mdi mdi-clipboard-plus-outline"></i> Přidat kontakt</a>#}
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.bank_information'|trans({}, 'supplier') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">
+                {{ form_row(form.ciBa) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciBc) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciIban) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciSwift) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.billing_information'|trans({}, 'supplier') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.biName) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biStreet) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biCity) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biZipcode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biCountry) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.delivery_information'|trans({}, 'supplier') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.diName) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diStreet) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diCity) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diZipcode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diCountry) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{{ include('admin/inc/form/social-sites.html.twig') }}
+
+
+
+						</div>
+
+						<div class="float-start">
+							<button class="btn btn-success">{{ 'action.save'|trans }}</button>
+						</div>
+
+					{{ form_end(form) }}
+
+				</div>
+
+			</div>
+
+		</div>
+
+	{#{% endif %}#}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+    
+    var module = "user_contact";
+    var moduleUrl = "{{ path('app_web_service_provider_profile_contact_new_ares') }}";
+    {{ include('web/inc/body-javascript-document-ready/ares.html.twig') }}
+
+{% endblock %}

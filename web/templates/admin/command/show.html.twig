@@ -1,0 +1,199 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+                    <tbody>
+                        <tr>
+                            <th>{{ 'label.id'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.name'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.description'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.description|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.number'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.number }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.source'|trans({}, 'command')|lower }}</th>
+                            <td>
+                                {% set source_mapping = {
+                                    1: 'source.email'|trans({}, 'command')|lower,
+                                    2: 'source.phone'|trans({}, 'command')|lower,
+                                    3: 'source.oral'|trans({}, 'command')|lower,
+                                    4: 'source.web'|trans({}, 'command')|lower,
+                                } %}
+                                {{ source_mapping[command.source] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.priority'|trans({}, 'command')|lower }}</th>
+                            <td>
+                                {% set priority_mapping = {
+                                    1: {'text': 'priority.low'|trans([], 'command')|lower, 'class': 'bg-info'},
+                                    2: {'text': 'priority.normal'|trans([], 'command')|lower, 'class': 'bg-success'},
+                                    3: {'text': 'priority.high'|trans([], 'command')|lower, 'class': 'bg-danger'},
+                                } %}
+                                <span class="badge {{ priority_mapping[command.priority].class }}">{{ priority_mapping[command.priority].text }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.deadline'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.deadline|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.customer'|trans({}, 'customer')|lower }}</th>
+                            <td>{% if command.customer.ciName is defined and command.customer.ciName is not null %}{{ command.customer.ciName }}{% else %}{{ command.person }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.person'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.person }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.phone'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.mobile'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.mobile }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.email'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.delivery_address'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.deliveryAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.waiting'|trans({}, 'command')|lower }}</th>
+                            <td>{{ command.waiting }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.manager'|trans({}, 'command')|lower }}</th>
+                            <td>{% if command.manager is defined and command.manager is not null %}{{ command.manager.user.getFullName() }}{% else %}-{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.status'|trans({}, 'command')|lower }}</th>
+                            <td>
+                                {% set status_mapping = {
+                                    1: {'text': 'status.accepted'|trans([], 'command')|lower, 'class': 'text-black bg-warning'},
+                                    2: {'text': 'status.in_progress'|trans([], 'command')|lower, 'class': 'bg-info'},
+                                    3: {'text': 'status.done'|trans([], 'command')|lower, 'class': 'bg-success'},
+                                } %}
+                                <span class="badge {{ status_mapping[command.status].class }}">{{ status_mapping[command.status].text }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.publication'|trans|lower }}</th>
+                            <td>
+                                {% set publication = command.publication %}
+                                {% if publication == '' %}
+                                {{ 'publication.select'|trans|lower }}
+                                {% endif %}
+                                {% if publication == 0 %}
+                                <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+                                {% endif %}
+                                {% if publication == 1 %}
+                                <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+		{% if dateLogs %}
+
+			<div class="col-12">
+
+				<div class="card">
+
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.history_of_modifications'|trans }}</h4>
+                        <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInvoiceHistoryOfModifications" aria-expanded="false" aria-controls="collapseInvoiceHistoryOfModifications"><i class="mdi mdi-information-outline"></i></button>
+                    </div>
+
+					<div class="card-body collapse" id="collapseInvoiceHistoryOfModifications">
+
+						<div class="table-responsive">
+
+							<table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+								<tbody>
+
+									{% for dateLog in dateLogs %}
+
+										<tr>
+
+											{% set date = dateLog.updatedAt|date('Y-m-d H:i:s') %}
+
+											{% if date == '1000-01-01 00:00:00' %}
+
+												<th>{{ 'label.created_at'|trans|lower }}</th>
+												<td>{{ command.createdAt|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% else %}
+
+												<th>{{ 'label.updated_at'|trans|lower }}</th>
+												<td>{{ date|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% endif %}
+
+											<td>{{ dateLog.user.userUserContact.firstname }}
+												{{ dateLog.user.userUserContact.surname }}</td>
+
+										</tr>
+
+									{% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+	</div>
+    
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{{ path('app_admin_command_edit', {'id': command.id}) }}" title="{{ 'action.edit_command'|trans({}, 'command') }}" class="btn btn-success">{{ 'action.edit_command'|trans({}, 'command') }}</a>
+            <a href="{{ path('app_admin_command_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-info">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+        <div>
+            {{ include('admin/command/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

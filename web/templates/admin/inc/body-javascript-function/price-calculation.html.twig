@@ -1,0 +1,131 @@
+// Funkce pro aktualizaci hodnot v jednom řádku
+function updateRow($row) {
+    // 1) Sebereme vstupní hodnoty: purchasePrice, surcharge, sellingPrice
+    var purchasePrice = parseFloat(($row.find('input[id$="_purchasePrice"]').val() || '0').replace(' ', '').replace(',', '.'));
+    var surcharge     = parseFloat(($row.find('input[id$="_surcharge"]').val()     || '0').replace(' ', '').replace(',', '.'));
+    var userSellPrice = parseFloat(($row.find('input[id$="_sellingPrice"]').val()  || '0').replace(' ', '').replace(',', '.'));
+
+    // 2) Pokud prodejní cena není zadaná (0 nebo NaN), spočítáme ji z purchasePrice a surcharge
+    if (isNaN(userSellPrice) || userSellPrice <= 0) {
+        var computedSellPrice = purchasePrice * (1 + (surcharge / 100));
+        // Zapišeme do inputu, aby to bylo vidět
+        $row.find('input[id$="_sellingPrice"]').val(computedSellPrice.toFixed(2).replace('.', ','));
+        userSellPrice = computedSellPrice;
+    }
+
+    // 3) Nyní spočítáme “bez DPH”, “DPH” a “s DPH”
+    var amount        = parseFloat(($row.find('input[id$="_ammount"]').val() || '0').replace(' ', '').replace(',', '.'));
+    var vatMultiplier = parseFloat($row.find('select[id$="_sellingVatOfRate"] option:selected').data('constant')) || 1;
+
+    var priceWithoutVat = amount * userSellPrice;
+    var vatAmount       = priceWithoutVat * (vatMultiplier - 1);
+    var priceWithVat    = priceWithoutVat + vatAmount;
+
+    // 4) Zapíšeme do příslušných inputů
+    $row.find('input[id$="_priceWithoutVat"]').val(priceWithoutVat.toFixed(2).replace('.', ','));
+    $row.find('input[id$="_vat"]').val(vatAmount.toFixed(2).replace('.', ','));
+    $row.find('input[id$="_priceWithVat"]').val(priceWithVat.toFixed(2).replace('.', ','));
+}
+
+// Funkce pro aktualizaci celkových součtů
+function updateTotalSums() {
+    var totalPriceWithoutVat = 0;
+    var totalVat = 0;
+    var totalPriceWithVat = 0;
+
+    // Iterujeme přes všechny řádky a sčítáme hodnoty
+    $('.price-calculation-items .row').each(function() {
+        var priceWithoutVatVal = $(this).find('input[id$="_priceWithoutVat"]').val();
+        var vatVal             = $(this).find('input[id$="_vat"]').val();
+        var priceWithVatVal    = $(this).find('input[id$="_priceWithVat"]').val();
+
+        if (priceWithoutVatVal !== undefined && vatVal !== undefined && priceWithVatVal !== undefined) {
+            var priceWithoutVat = parseFloat((priceWithoutVatVal || '0').replace(',', '.'));
+            var vat             = parseFloat((vatVal             || '0').replace(',', '.'));
+            var priceWithVat    = parseFloat((priceWithVatVal    || '0').replace(',', '.'));
+
+            totalPriceWithoutVat += isNaN(priceWithoutVat) ? 0 : priceWithoutVat;
+            totalVat             += isNaN(vat) ? 0 : vat;
+            totalPriceWithVat    += isNaN(priceWithVat) ? 0 : priceWithVat;
+        }
+    });
+
+    // Aktualizujeme hodnoty celkových součtů v odpovídajících inputech
+    $('#price_calculation_totalPriceWithoutVat').val(totalPriceWithoutVat.toFixed(2).replace('.', ','));
+    $('#price_calculation_totalVat').val(totalVat.toFixed(2).replace('.', ','));
+    $('#price_calculation_totalPriceWithVat').val(totalPriceWithVat.toFixed(2).replace('.', ','));
+}
+
+// Funkce pro přidání nového formuláře (řádku) do kolekce
+function addFormToCollection(e) {
+    const collectionHolder = document.querySelector('.price-calculation-items');
+    const newIndex = parseInt(collectionHolder.dataset.index);
+
+    let newFormHtml = collectionHolder.dataset.prototype;
+    newFormHtml = newFormHtml.replace(/__name__/g, newIndex).replace(/__index__/g, newIndex);
+
+    const item = document.createElement('li');
+    item.innerHTML = newFormHtml;
+    collectionHolder.appendChild(item);
+    collectionHolder.dataset.index = newIndex + 1;
+
+    addEventListenersToNewItem(item);
+    updateGlobalAddItemButtonVisibility();
+}
+
+// Funkce pro přidání event listenerů k nově vytvořenému řádku
+function addEventListenersToNewItem(item) {
+    const deleteButton = item.querySelector('.delete-item');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function(event) {
+            event.preventDefault();
+            item.remove();
+            updateGlobalAddItemButtonVisibility();
+            updateTotalSums();
+        });
+    }
+    const addLink = item.querySelector('.add_item_link');
+    if (addLink) {
+        addLink.addEventListener('click', addFormToCollection);
+    }
+}
+
+// Funkce pro aktualizaci viditelnosti globálního tlačítka pro přidání
+function updateGlobalAddItemButtonVisibility() {
+    const collectionHolder = document.querySelector('.price-calculation-items');
+    const globalAddItemButton = document.querySelector('.global-add-item-link');
+    globalAddItemButton.style.display = collectionHolder.children.length === 0 ? 'block' : 'none';
+}
+
+// Inicializace po načtení DOMu
+document.addEventListener('DOMContentLoaded', function() {
+    const collectionHolder = document.querySelector('.price-calculation-items');
+    // Obalíme stávající .row do <li> – jak jste měl
+    collectionHolder.querySelectorAll('.row').forEach(row => {
+        const wrapper = document.createElement('li');
+        wrapper.appendChild(row.cloneNode(true));
+        row.parentNode.replaceChild(wrapper, row);
+    });
+
+    collectionHolder.dataset.index = collectionHolder.children.length;
+    // Globální tlačítko pro přidání nového řádku
+    document.querySelector('.global-add-item-link').addEventListener('click', addFormToCollection);
+
+    document.querySelectorAll('.price-calculation-items li').forEach(li => {
+        addEventListenersToNewItem(li);
+    });
+
+    updateGlobalAddItemButtonVisibility();
+
+    if (collectionHolder.children.length === 0) {
+        addFormToCollection();
+    }
+
+    collectionHolder.querySelectorAll('li').forEach(item => {
+        addEventListenersToNewItem(item);
+    });
+
+    function toNum(number) {
+        return new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK' }).format(number);
+    }
+});

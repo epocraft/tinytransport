@@ -1,0 +1,23 @@
+action:
+  create_new_reminder: Vytvořit novou připomínku
+  edit_reminder: Upravit připomínku
+
+breadcrumbs:
+  edit_reminder: Úprava připomínky
+  reminders: Připomínky
+  reminder_detail: Detail připomínky
+  new_reminder: Nová připomínka
+  overview_of_reminders: Přehled připomínek
+
+label:
+  id: Id
+  name: Název
+  description: Text připomínky
+
+menu:
+  reminders: Připomínky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte text připomínky

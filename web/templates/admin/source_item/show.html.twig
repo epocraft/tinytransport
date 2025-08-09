@@ -1,0 +1,240 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_css %}
+
+	{{ parent() }}
+
+	<style type="text/css">
+
+		.accordion-body.collapse.show {
+			display: flex;
+			align-items: center;
+			border-top: 0px solid rgba(255, 255, 255, 1);
+			border-bottom: 2px solid rgba(233, 235, 236, 1);
+		}
+
+		.accordion-body.collapse.show p {
+			margin-bottom: 0 !important;
+			padding: .5rem;
+		}
+
+	</style>
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+	
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+                    <tbody>
+                        <tr>
+                            <th>{{ 'label.id'|trans({}, 'source')|lower }}</th>
+                            <td>{{ sourceItem.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.value'|trans({}, 'source')|lower }}</th>
+                            <td>{{ sourceItem.value }}</td>
+                        </tr>
+						<tr>
+                            <th>{{ 'label.consumption'|trans({}, 'source')|lower }}</th>
+                            <td>{{ sourceItem.consumption }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.day_of_reading'|trans({}, 'source')|lower }}</th>
+                            <td>{{ sourceItem.dayOfReading|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+		{% if dateLogs %}
+
+			<div class="col-6">
+
+				<div class="card">
+
+					<div class="card-header align-items-center d-flex">
+						<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.history_of_modifications'|trans }}</h4>
+					</div>
+
+					<div class="card-body">
+
+						<div class="table-responsive">
+
+							<table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+								<tbody>
+
+									{% for dateLog in dateLogs %}
+
+										<tr>
+
+											{% set date = dateLog.updatedAt|date('Y-m-d H:i:s') %}
+
+											{% if date == '1000-01-01 00:00:00' %}
+
+												<th>{{ 'label.created_at'|trans|lower }}</th>
+												<td>{{ sourceItem.createdAt|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% else %}
+
+												<th>{{ 'label.updated_at'|trans|lower }}</th>
+												<td>{{ date|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% endif %}
+
+											<td>{{ dateLog.user.userUserContact.firstname }}
+												{{ dateLog.user.userUserContact.surname }}</td>
+
+										</tr>
+
+									{% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+        {% if mailerLogs %}
+
+			<div class="col-12">
+
+				<div class="card">
+
+					<div class="card-header align-items-center d-flex">
+						<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.history_of_mail'|trans({}, 'mail') }}</h4>
+					</div>
+
+					<div class="card-body">
+
+						<div class="table-responsive">
+
+							<table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+								<thead>
+									<th>{{ 'label.address_from'|trans({}, 'mail')|lower }}</th>
+									<th>{{ 'label.address_to'|trans({}, 'mail')|lower }}</th>
+									<th>{{ 'label.subject'|trans({}, 'mail')|lower }}</th>
+									<th class="text-center">{{ 'label.text'|trans({}, 'mail')|lower }}</th>
+									<th class="text-center">{{ 'label.priority'|trans({}, 'mail')|lower }}</th>
+									<th class="text-center">{{ 'label.status'|trans({}, 'mail')|lower }}</th>
+									<th class="text-center">{{ 'label.date_sent'|trans({}, 'mail')|lower }}</th>
+									<th class="text-center">{{ 'label.date_opened'|trans({}, 'mail')|lower }}</th>
+									<th class="text-center">{{ 'label.sender'|trans({}, 'mail')|lower }}</th>
+								</thead>
+								
+								<tbody>
+
+									{% for mailerLog in mailerLogs %}
+
+										<tr data-toggle="collapse" data-target="#collapseId{{ mailerLog.id }}" class="accordion-toggle">
+
+											{% set date = mailerLog.updatedAt|date('Y-m-d H:i:s') %}
+											{% set priorityMapping = {
+												1: 'priority.highest'|trans({}, 'mail')|lower,
+												2: 'priority.high'|trans({}, 'mail')|lower,
+												3: 'priority.normal'|trans({}, 'mail')|lower,
+												4: 'priority.low'|trans({}, 'mail')|lower,
+												5: 'priority.lowest'|trans({}, 'mail')|lower
+											} %}
+											{% set statusMapping = {
+												'': '-'|trans,
+												1: 'status.first_reminder'|trans({}, 'mail')|lower,
+												2: 'status.second_reminder'|trans({}, 'mail')|lower,
+												3: 'status.third_reminder'|trans({}, 'mail')|lower
+											} %}
+											{% set statusColor = {
+												'': 'bg-light text-body',
+												1: 'bg-info',
+												2: 'bg-warning',
+												3: 'bg-danger'
+											} %}
+
+											<td>{{ mailerLog.addressFrom }}</td>
+											<td>{{ mailerLog.addressTo }}</td>
+											<td>{{ mailerLog.Subject }}</td>
+											<td class="text-center">
+												<a data-bs-toggle="collapse" href="#collapseId{{ mailerLog.id }}" role="button" aria-expanded="true" aria-controls="collapseId{{ mailerLog.id }}" title="Zobrazit text zprávy">
+        											<i class="mdi mdi-book-open-variant mdi-18px"></i>
+    											</a>
+											</td>
+											<td class="text-center">{{ attribute(priorityMapping, mailerLog.priority) ?: 'priority.unknown'|trans }}</td>
+											<td class="text-center"><span class="badge bg {{ attribute(statusColor, mailerLog.status) }}">{{ attribute(statusMapping, mailerLog.status) ?: 'status.unknown'|trans }}</span></td>
+											<td class="text-center">{{ mailerLog.dateSent|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% if mailerLog.dateOpened|date('Y-m-d H:i:s') == '1000-01-01 00:00:00' %}
+
+												<td class="text-center">-</td>
+
+											{% else %}
+
+												<td class="text-center">{{ mailerLog.dateOpened|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% endif %}
+
+											<td class="text-center">{{ app.request.attributes.get('user').userUserContact.firstname }}
+												{{ app.request.attributes.get('user').userUserContact.surname }}</td>
+
+										</tr>
+
+										<tr>
+											<td colspan="9" class="p-0">
+												<div id="collapseId{{ mailerLog.id }}" class="accordion-body collapse">
+													{{ mailerLog.Text|raw }}
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+	</div>
+    
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{{ path('app_admin_source_item_edit', {'id': sourceItem.id, 'sourceId': sourceId}) }}" title="{{ 'action.edit_source_item'|trans({}, 'source') }}" class="btn btn-success">{{ 'action.edit_source_item'|trans({}, 'source') }}</a>
+            <a href="{{ path('app_admin_source_item_index', {'sourceId': sourceId}) }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-info">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+        <div>
+            {{ include('admin/source_item/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

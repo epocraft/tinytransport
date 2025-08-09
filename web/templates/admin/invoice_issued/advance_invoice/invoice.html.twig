@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+
+		<style type="text/css">
+
+			body {
+				font-family: sans-serif;
+				font-size: 9pt;
+				color: #000;
+				background: #fff;
+			}
+		</style>
+
+
+	</head>
+
+	<body>
+
+		<table style="width: 100%; margin: 0mm 0mm 5mm 0mm; padding: 0; border: none;">
+			<tr>
+				<td style="text-align: left; vertical-align: middle; border: none;"><img src="assets/web/media/logos/logo.jpg"></td>
+				<td style="margin: 0; padding: 0 5mm 0 0; text-align: right; vertical-align: middle; color: #263A54;">Zálohová faktura č.
+				</td>
+				<td style="width: 30mm; text-align: center; vertical-align: middle; margin: 0; padding: 2mm; background: #ccccd6; color: #263A54; border: none;">{{ invoiceIssuedSettings.documentPrefix is defined and invoiceIssuedSettings.documentPrefix is not empty ? invoiceIssuedSettings.documentPrefix : 'ZF' }}{{ invoiceIssued.number }}</td>
+			</tr>
+		</table>
+
+		<!-- contractor & customer -->
+		<table style="width: 100%; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">
+			<tr>
+				<th style="width: 50%; margin: 0; padding: 2mm 2mm 2mm 5mm; font-weight: normal; text-align: left; color: #fff; background: #263a54; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">Dodavatel</th>
+				<th style="width: 50%; margin: 0; padding: 2mm 2mm 2mm 5mm; font-weight: normal; text-align: left; color: #fff; background: #263a54; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">Odběratel</th>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">
+					<strong>{{ invoiceIssued.contractor.ciName }}</strong>
+				</td>
+				<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">
+					<strong>{{ invoiceIssued.customer.ciName }}</strong>
+				</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">{{ invoiceIssued.contractor.biStreet }}, {{ invoiceIssued.contractor.biZipcode }} {{ invoiceIssued.contractor.biCity }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">{{ invoiceIssued.customer.biStreet }}, {{ invoiceIssued.customer.biZipcode }} {{ invoiceIssued.customer.biCity }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">{{ invoiceIssued.contractor.ciMobile }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">{{ invoiceIssued.customer.ciPhone }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">&nbsp;</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">&nbsp;</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">IČO: {{ invoiceIssued.contractor.ciIn }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">IČO: {{ invoiceIssued.customer.ciIn }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">DIČ: {{ invoiceIssued.contractor.ciTin }}</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">DIČ: {{ invoiceIssued.customer.ciTin }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #263a54;">&nbsp;</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; background: #fff; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #263a54;">&nbsp;</td>
+			</tr>
+		</table>
+
+		<!-- invoice billing data -->
+		<table style="width: 100%; margin: 2mm 0mm 2mm 0mm; padding: 0; font-size: 8pt; border-collapse: collapse; border-spacing: 0; border: none;">
+			<tr>
+				<td style="width: 50%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Objednávka č.:</td>
+				<td style="width: 25%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{{ invoiceIssued.command }}</td>
+				<td rowspan="7" style="width: 25%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;"><img src="{{ qrCodeImage }}"></td>
+			</tr>
+			<tr>
+				<td style="width: 50%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Bankovní účet pro platbu faktury:</td>
+				<td style="width: 25%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{{ invoiceIssued.contractor.ciBa }} / {{ invoiceIssued.contractor.ciBc }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Variabilní symbol:</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{{ invoiceIssued.number }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Způsob platby:</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">
+                    {% set paymentId = invoiceIssued.payment.id %}
+                    {% for payment in payments %}
+                       {% if payment.id == paymentId %}{{ payment.name }}{% endif %}
+                    {% endfor %}
+                </td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Datum vystavení:</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{{ invoiceIssued.issueDate | date('j. n. Y') }}</td>
+			</tr>
+			<tr>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Datum splatnosti:</td>
+				<td style="margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{{ invoiceIssued.dueDate | date('j. n. Y') }}</td>
+			</tr>
+		</table>
+
+		<!-- items -->
+		<table style="width: 100%; font-size: 8pt; border-collapse: collapse; border-spacing: 0;">
+			<thead>
+				<tr>
+					<th style="width: 29%; margin: 0; padding: 2mm 0 2mm 5mm; white-space: nowrap; font-weight: bold; text-align: left; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">položka</th>
+					<th style="width: 10%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">množství</th>
+					<th style="width: 13%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">j. cena</th>
+					<th style="width: 13%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">cena</th>
+					<th style="width: 9%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">%&nbsp;DPH</th>
+					<th style="width: 11%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">DPH</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-left: 1px solid #fbba00;">Kč celkem</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for item in invoiceIssued.invoiceIssuedInvoiceIssuedItems %}
+                    <tr>
+                        <td style="margin: 0; padding: 2mm 0mm 2mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.name }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.ammount|number_format(2, ',', ' ') }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.sellingPrice|number_format(2, ',', ' ')}}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.priceWithoutVat|number_format(2, ',', ' ') }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">21 %</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.vat|number_format(2, ',', ' ') }}</td>
+                        <td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">{{ item.priceWithVat|number_format(2, ',', ' ') }}</td>
+                    </tr>
+                {% endfor %}
+				<tr>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- rekapitulace DPH -->
+		<table style="width: 100%; margin: 5mm 0 0 0; font-size: 8pt; border-collapse: collapse; border-spacing: 0;">
+			
+			<thead>
+				<tr>
+					<th style="width: 40%; margin: 0; padding: 2mm 0 2mm 5mm;">&nbsp;</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">sazba DPH</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">bez daně celkem</th>;
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">daň celkem</th>
+					<th style="width: 15%; margin: 0; padding: 0; white-space: nowrap; font-weight: bold; text-align: center; color: #263a54; background: #fbba00; border-collapse: collapse; border-spacing: 0; border-right: 1px solid #fbba00;">s daní</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				{% for summary in recapitulation %}
+					<tr>
+						<td style="width: 40%; margin: 0; padding: 2mm 0mm 2mm 5mm; text-align: center; border-collapse: collapse; border-spacing: 0;">&nbsp;</td>
+						<td style="margin: 0; padding: 0; text-align: center; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.rate }}
+						</td>
+						<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.totalWithoutVat|number_format(2, ',', ' ') }}
+						</td>
+						<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.totalVat|number_format(2, ',', ' ') }}
+						</td>
+						<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 1px dotted #fbba00;">
+							{{ summary.totalWithVat|number_format(2, ',', ' ') }}
+						</td>
+					</tr>
+				{% endfor %}
+
+			</tbody>
+
+			<tfoot>
+				<tr>
+					<td></td>
+					<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">součet položek</td>
+					<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">{{ invoiceIssued.totalPriceWithoutVat|number_format(2, ',', ' ') }}</td>
+					<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">{{ invoiceIssued.totalVat|number_format(2, ',', ' ') }}</td>
+					<td style="margin: 0; padding: 0; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">{{ invoiceIssued.totalPriceWithVat|number_format(2, ',', ' ') }}</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td colspan="4" style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">Rozpis DPH je pouze informativní</td>
+				</tr>
+			</tfoot>
+
+		</table>
+
+		<div style="position:absolute; left: 15mm; bottom: 5mm; right: 15mm;">
+
+			<!-- suma -->
+			<table style="width: 100%; font-size: 8pt; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">
+				<thead>
+					<tr>
+						<th style="width: 85%; margin: 0; padding: 2mm 2mm 2mm 5mm; text-align: left; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">CELKEM K ÚHRADĚ</th>
+						<th style="width: 15%; margin: 0; padding: 2mm 2mm 2mm 5mm; white-space: nowrap; text-align: center; vertical-align: middle; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0;">{{ invoiceIssued.totalPriceWithVat|number_format(2, ',', ' ')}}&nbsp;Kč</th>
+					</tr>
+				</thead>
+			</table>
+
+			<!-- info -->
+			<table style="width: 100%; font-size: 8pt; border-collapse: collapse; border-spacing: 0; border-bottom: 2px solid #263a54;">
+				<tr>
+					<td style="margin: 0; padding: 2mm 2mm 2mm 0mm; text-align: center; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Nejedná se o daňový doklad!</td>
+				</tr>
+			</table>
+
+			<!-- sign -->
+			<table style="width: 100%; margin: 5mm 0 0 0; padding: 0; font-size: 8pt; border-collapse: collapse; border-spacing: 0; border: none;">
+				<tr>
+					<td style="width: 40%; height: 25mm; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #ccccd5; border-collapse: collapse; border-spacing: 0; border: none;"><img src="assets/web/media/logos/podpis-novak.jpg"></td>
+					<td style="width: 20%; margin: 0; padding: 0mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;"></td>
+					<td style="width: 40%; height: 25mm; margin: 0; padding: 2mm 2mm 2mm 2mm; text-align: left; vertical-align: top; color: #263a54; background: #ccccd5; border-collapse: collapse; border-spacing: 0; border: none;">Převzal:</td>
+				</tr>
+				<tr>
+					<td style="margin: 0; padding: 2mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Vystavil: {{ invoiceIssued.contractor.biName }}</td>
+					<td style="margin: 0; padding: 2mm 2mm 1mm 5mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="margin: 0; padding: 0mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">{% if (invoiceIssued.contractor.ciVatPayer == '1') %}Dodavatel je plátcem DPH{% else %}Dodavatel není plátcem DPH{% endif %}</td>
+					<td style="margin: 0; padding: 0mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">&nbsp;</td>
+				</tr>
+			</table>
+
+			<!-- Footer -->
+			<table style="width: 100%; margin: 2mm 0 0 0; padding: 0; font-size: 7pt; border-collapse: collapse; border-spacing: 0; border: none; border-top: 1px dotted #263a54;">
+				<tr>
+					<td style="width: 100%; margin: 0; padding: 2.5mm 2mm 1mm 0mm; text-align: left; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">
+					{% if invoiceIssued.contractor.ciRegisteredRegister == 'or' %}
+						Společnost zapsaná u 
+						{% if invoiceIssued.contractor.ciRegisteredOffice == 'ks' %}
+							Krajského úřadu 
+						{% endif %}
+						{% if invoiceIssued.contractor.ciRegisteredOffice == 'mu' %}
+							Městského úřadu 
+						{% endif %}
+						{% if invoiceIssued.contractor.ciRegisteredOffice == 'ou' %}
+							Obecního úřadu 
+						{% endif %}
+						{{ invoiceIssued.contractor.ciRegisteredCity }} 
+						{{ invoiceIssued.contractor.ciRegisteredFileNumber }}.
+					{% endif %}
+					{% if invoiceIssued.contractor.ciRegisteredRegister == 'zr' %}
+						Živnostenské oprávnění vydal 
+						{% if invoiceIssued.contractor.ciRegisteredOffice == 'ks' %}
+							Krajský úřad 
+						{% endif %}
+						{% if invoiceIssued.contractor.ciRegisteredOffice == 'mu' %}
+							Městský úřad 
+						{% endif %}
+						{% if invoiceIssued.contractor.ciRegisteredOffice == 'ou' %}
+							Obecní úřad 
+						{% endif %}
+						{{ invoiceIssued.contractor.ciRegisteredCity }} 
+						pod {{ invoiceIssued.contractor.ciRegisteredFileNumber }}.
+					{% endif %}
+					</td>
+				</tr>
+			</table>
+			<table style="width: 100%; font-size: 10pt; border-collapse: collapse; border-spacing: 0; border: none;">
+				<tr>
+					<td style="width: 100%; margin: 0; padding: 2mm 0mm 1mm 0mm; text-align: right; color: #263a54; background: #fff; border-collapse: collapse; border-spacing: 0; border: none;">Vypotíme to za Vás!</td>
+				</tr>
+			</table>
+
+		</div>
+
+	</body>
+
+</html>

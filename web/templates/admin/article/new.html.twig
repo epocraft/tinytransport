@@ -1,0 +1,98 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_stylesheet %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/head-stylesheet/select2.html.twig') }}
+
+    {{ include('admin/inc/head-stylesheet/tagify.html.twig') }}
+
+{% endblock %}
+
+{% block body_content %}
+
+<div class="row mb-4">
+
+    <div class="col-lg-12">
+
+        {{ form_start(form) }}
+
+            {{ include('admin/article/_form.html.twig') }}
+
+            <div class="float-start">
+                <button class="btn btn-success">{{ 'action.save'|trans }}</button>
+                <a href="{{ path('app_admin_article_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
+
+<!--begin::copy Toast-->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-white bg-primary">
+            <i class="fa-solid fa-location-dot fa-fw"></i>
+            <strong class="ms-2 me-auto letter-spacing-1">Copy</strong>
+            <small>právě teď</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">Data byla zkopírována do schránky</div>
+    </div>
+</div>
+<!--end::copy Toast-->
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/clipboard.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/select2.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/slugify.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/tagify.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript-function/clipboard.html.twig') }}
+
+    var inputSlugify = document.getElementById('article_name');
+    var outputSlugify = document.getElementById('article_urlAlias');
+    if (inputSlugify && outputSlugify) {
+        {{ include('admin/inc/body-javascript-function/slugify.html.twig') }}
+    } else {
+        console.error('Article name or URL alias elements not found');
+    }
+    
+    var inputTag = document.getElementById('article_tag');
+    if (inputTag) {
+        {{ include('admin/inc/body-javascript-function/tagify.html.twig') }}
+    } else {
+        console.error('Article tag element not found');
+    }
+
+    var input = '#article_perex, #article_text, #article_paidText';
+    {{ include('admin/inc/body-javascript-function/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript-document-ready/select2.html.twig') }}
+
+{% endblock %}

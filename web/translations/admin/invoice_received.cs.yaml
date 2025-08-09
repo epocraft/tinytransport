@@ -1,0 +1,51 @@
+action:
+  create_new_invoice_received: Vytvořit přijatou fakturu
+  edit_invoice_received: Upravit přijatou fakturu
+
+breadcrumbs:
+  invoices_received: Přijaté faktury
+  overview_of_invoices_received: Přehled přijatých faktur
+  invoice_received_detail: Detail přijaté faktury
+  edit_invoice_received: Úprava přijaté faktury
+  new_invoice_received: Nová přijatá faktura
+
+fieldset:
+  invoice_terms: Nastavení fakturačních termínů
+  invoice_items: Položky faktury
+  documents: Dokumenty
+
+label:
+  ammount: Množství
+  contractor: Zhotovitel
+  due_date: Splatnost
+  id: Id
+  issue_date: Vydáno
+  name: Název
+  number: Č. dokladu
+  performance_date: DUZP
+  purchase_currency_unit: Nákupní měna
+  purchase_measure_unit: Měrná jednotka
+  purchase_price_with_vat: Cena s DPH
+  purchase_price_without_vat: Cena bez DPH
+  purchase_price: Nákupní cena
+  purchase_vat_of_rate: Sazba DPH
+  purchase_vat: DPH
+  total_price_with_vat: Celková cena s DPH
+  total_price_without_vat: Celková cena bez DPH
+  total_vat: Celkové DPH
+
+menu:
+  invoices_received: Přijaté faktury
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  ammount: Zadejte množství
+  number: Zadejte číslo dokladu
+  purchase_price: Zadejte nákupní cenu
+  purchase_currency_unit: Zadejte nákupní měnu
+  purchase_measure_unit: Zadejte měrnou jednotku
+  purchase_vat_of_rate: Zadejte sazbu DPH
+  purchase_price_without_vat: Zadejte cenu bez DPH
+  purchase_vat: zadejte DPH
+  purchase_price_with_vat: Zadejte cenu s DPH

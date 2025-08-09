@@ -1,0 +1,30 @@
+action:
+  log_in: Přihlásit
+  login_again: Znovu se přihlásit
+
+breadcrumbs:
+  login: Přihlášení
+  successful_logout: Úspěšné odhlášení
+
+header:
+  login: Přihlášení
+
+label:
+  email: Uživatelské jméno
+  password: Heslo
+  remember_me: Pamatuj si mě
+
+placeholder:
+  email: Zadejte uživatelské jméno
+  password: Zadejte heslo
+
+text:
+  you_must_login_to_continue: Pro pokračování se musíte přihlásit
+  logged_in_as: Jste přihlášení jako
+  log_out: Odhlásit
+  forgot_password: Zapomenuté heslo
+  dont_have_an_account: Ještě nemáte účet
+  sign_up: Registrace
+
+message:
+  you_have_been_logged_out: Byli jste odhlášeni

@@ -1,0 +1,228 @@
+{% set lang = languageService.urlAlias %}
+{% set locale = languageService.locale %}
+{% set BASE = twig_base %}
+
+<!doctype html>
+<html lang="{{ lang }}">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>{% block title %}{% if article is defined or project is defined %}{{ article.title }} | {{ project.ciName }}{% endif %}{% endblock %}</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<meta name="description" lang="{{ lang }}" content="{% block meta_description %}{% if article is defined or project is defined %}{{ article.metaDescription }}{% endif %}{% endblock %}">
+		<meta name="keywords" lang="{{ lang }}" content="{% block meta_keywords %}{% if article is defined or project is defined %}{{ article.metaKeywords }}{% endif %}{% endblock %}">
+
+		<meta name="author" content="°Sauneo, vypotíme to za Vás!">
+		<meta name="robots" content="index,follow">
+
+		<base href="{{ BASE }}">
+
+		<link rel="apple-touch-icon" sizes="180x180" href="assets/web/media/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="assets/web/media/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="assets/web/media/favicon/favicon-16x16.png">
+		<link rel="manifest" href="assets/web/media/favicon/site.webmanifest">
+		<link rel="mask-icon" href="assets/web/media/favicon/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="assets/web/media/favicon/favicon.ico">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="assets/web/media/favicon/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+
+		<meta property="og:url" content="{{ BASE }}">
+		<meta property="og:type" content="article">
+		<meta property="og:title" content="{% block og_title %}{% if article is defined or project is defined %}{{ article.title }} | {{ projectService.ciName }}{% endif %}{% endblock %}">
+		<meta property="og:description" content="{% block og_meta_description %}{% if article is defined or project is defined %}{{ article.metaDescription }}{% endif %}{% endblock %}">
+		<meta property="og:image" content="assets/web/media/logos/svg/logo-horizontal.svg">
+		<meta property="og:image:width" content="222">
+		<meta property="og:image:height" content="79">
+		<meta property="og:site_name" content="{{ projectService.ciName }}">
+		<meta property="og:locale" content="{{ locale }}">
+
+		{% block head_css %}
+
+			<!-- Bootstrap -->
+			<link href="{{ asset('assets/web/src/node_modules/bootstrap/dist/css/bootstrap.min.css') }}" type="text/css" rel="stylesheet" media="screen">
+
+			<!-- Fontawesome -->
+			<link href="{{ asset('assets/web/src/node_modules/@fortawesome/fontawesome-free/css/all.min.css') }}" type="text/css" rel="stylesheet" media="screen">
+
+			<!-- lightbox2 -->
+			<link href="{{ asset('assets/web/src/node_modules/lightbox2/dist/css/lightbox.min.css') }}" type="text/css" rel="stylesheet" media="screen">
+
+			<!-- Custom style -->
+			<link href="{{ asset('assets/web/css/_style.css') }}?v={{ 'now'|date('U') }}" type="text/css" rel="stylesheet" media="screen">
+
+		{% endblock %}
+
+        {% block head_stylesheet %}
+		<style>
+			body {margin-top: 50px !important;}
+		</style>
+			
+		{% endblock %}
+
+		{% block head_javascript %}{% endblock %}
+
+    </head>
+
+    <body>
+
+		<!-- Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+		<script type="text/javascript" src="https://www.termsfeed.com/public/cookie-consent/4.1.0/cookie-consent.js" charset="UTF-8"></script>
+		<script type="text/javascript" charset="UTF-8">
+			document.addEventListener('DOMContentLoaded', function () {
+				cookieconsent.run({"notice_banner_type":"simple","consent_type":"express","palette":"light","language":"cs","page_load_consent_levels":["strictly-necessary"],"notice_banner_reject_button_hide":false,"preferences_center_close_button_hide":false,"page_refresh_confirmation_buttons":false});
+			});
+		</script>
+
+		<!-- Unnamed script -->
+		<!-- Google tag (gtag.js) -->
+		<!--<script type="text/plain" data-cookie-consent="tracking" async src="https://www.googletagmanager.com/gtag/js?id=G-HVLYGBKFRR"></script>
+		<script type="text/plain" data-cookie-consent="tracking">
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-HVLYGBKFRR');
+		</script>-->
+		<!-- end of Unnamed script-->
+
+		<noscript>Free cookie consent management tool by <a href="https://www.termsfeed.com/">TermsFeed</a></noscript>
+		<!-- End Cookie Consent by TermsFeed https://www.TermsFeed.com -->
+
+		<!-- Below is the link that users can use to open Preferences Center to change their preferences. Do not modify the ID parameter. Place it where appropriate, style it as needed. -->
+
+        {% if app.environment == 'prod' %}
+			
+		{% else %}
+			<div class="mq"></div>
+		{% endif %}
+
+		<div id="preloader-wrapper">
+			<div class="preloader">
+				<p class="logo"><img src="{{ asset('assets/web/media/logos/svg/logo-horizontal.svg') }}"></p>
+				<p class="indicator"><img src="{{ asset('assets/web/media/icons/svg/preloader.svg') }}"></p>
+			</div>
+		</div>
+
+        <div class="page-wrapper">
+
+            {% block body %}
+
+				<!-- begin::Flash messages -->
+                {% for type, messages in app.flashes %}
+                	{% for message in messages %}
+        	            <div class="alert {{ alert_type(type) }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <!-- end::Flash messages -->
+
+				{% include "web/navigation/navigation.html.twig" %}
+
+	            {% block body_content %}
+
+					
+
+				{% endblock %}
+
+		    {% endblock %}
+
+        </div>
+
+		<!-- begin::impressum -->
+		{% include "web/footer/footer.html.twig" %}
+    	<!-- end::impressum -->
+
+		<!-- begin::impressum -->
+		{% include "web/footer/impressum.html.twig" %}
+    	<!-- end::impressum -->
+
+		<!--begin::Back to top page -->
+    	<a id="top-button"></a>
+    	<!-- end::Back to top page -->
+
+		<!--begin::cookies preferences center -->
+    	<a id="open_preferences_center" title="Centrum předvoleb souborů Cookies"></a>
+    	<!-- end::cookies preferences center -->
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="{{ asset('assets/web/src/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+		<!-- jQuery -->
+		<script type="text/javascript" src="{{ asset('assets/web/src/node_modules/jquery/dist/jquery.min.js') }}"></script>
+
+		<!-- lightbox2 -->
+		<script type="text/javascript" src="{{ asset('assets/web/src/node_modules/lightbox2/dist/js/lightbox.min.js') }}"></script>
+
+		<!-- jQuery cookie -->
+		<script type="text/javascript" src="{{ asset('assets/web/src/node_modules/jquery.cookie/jquery.cookie.js') }}"></script>
+
+		{% block body_javascript %}{% endblock %}
+
+		<!--begin::Javascript function -->
+		{% block wrapper_body_javascript_function %}
+
+			<script type="text/javascript">
+
+				{% block body_javascript_function %}
+
+					$(window).on("load", function() {
+						$('#preloader-wrapper').fadeOut(1000, function() {
+							$(".page-wrapper").fadeIn(1000).removeClass('d-none').addClass('d-block');
+						});
+					});
+
+					var tbtn = $('#top-button');
+					var opc = $('#open_preferences_center');
+
+					$(window).scroll(function() {
+						if ($(window).scrollTop() > 300) {
+							tbtn.addClass('show');
+							opc.addClass('show');
+						} else {
+							tbtn.removeClass('show');
+							opc.removeClass('show');
+						}
+					});
+
+					tbtn.on('click', function(e) {
+						e.preventDefault();
+						$('html, body').animate({scrollTop:0}, '300');
+					});
+
+				{% endblock %}
+
+			</script>
+
+		{% endblock %}
+		<!--end::Javascript function -->
+
+		<!-- begin::Document ready -->
+		{% block wrapper_body_javascript_document_ready %}
+
+        	<script type="text/javascript">
+
+				$(document).ready(function() {
+
+					{% block body_javascript_document_ready %}
+
+
+
+                    {% endblock %}
+
+				});
+
+			</script>
+
+		{% endblock %}
+		<!-- end::Document ready -->
+
+    </body>
+
+</html>

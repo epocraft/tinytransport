@@ -1,0 +1,97 @@
+    // 1) Skryjeme globální tlačítko (jak jste měl)
+    $(".global-add-item-link").hide();
+
+    // 2) Ihned projdeme všechny řádky a spočítáme
+    $('.price-calculation-items .row').each(function() {
+        updateRow($(this));
+    });
+    updateTotalSums();
+
+    // 3) Při změně hodnot: amount, sellingPrice, purchasePrice, surcharge, vatOfRate -> přepočet
+    $(document).on("input change",
+        'input[id$="_ammount"], input[id$="_sellingPrice"], input[id$="_purchasePrice"], input[id$="_surcharge"], select[id$="_sellingVatOfRate"]',
+        function() {
+            var $row = $(this).closest('.row');
+            updateRow($row);
+            updateTotalSums();
+        }
+    );
+
+    // Event listener pro automatické doplňování
+    document.addEventListener('input', function(event) {
+        const target = event.target;
+        if (target.classList.contains('autocomplete-enabled')) {
+            const input = target.value;
+            if (input.length >= 3) {
+                const url = new URL('{{ path('app_admin_price_calculation_autocomplete') }}', window.location.origin);
+                url.searchParams.append('query', input);
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const indexMatch = target.id.match(/price_calculation_priceCalculationPriceCalculationItems_(\d+)_name/);
+                    const index = indexMatch ? indexMatch[1] : null;
+
+                    if (index !== null) {
+                        const suggestionsElementId = `suggestions-${index}`;
+                        const suggestionsElement = document.getElementById(suggestionsElementId);
+                        if (suggestionsElement) {
+                            suggestionsElement.innerHTML = '';
+                            data.forEach(item => {
+                                const li = document.createElement('li');
+                                li.textContent = item.name;
+                                li.dataset.item = JSON.stringify(item);
+                                li.addEventListener('click', function() {
+                                    const itemData = JSON.parse(this.dataset.item);
+                                    console.log(itemData);
+
+                                    // Logika pro určení prodejní ceny
+                                    const purchasePrice = parseFloat(itemData.purchasePrice) || 0;
+                                    const sellingPrice  = parseFloat(itemData.sellingPrice)  || 0;
+                                    const surcharge     = parseFloat(itemData.surcharge)     || 0;
+
+                                    let finalSellingPrice = 0;
+                                    if (sellingPrice > 0) {
+                                        finalSellingPrice = sellingPrice;
+                                    } else {
+                                        finalSellingPrice = purchasePrice * (1 + surcharge / 100);
+                                    }
+
+                                    // Naplnění do formuláře
+                                    document.getElementById('price_calculation_priceCalculationPriceCalculationItems_' + index + '_name').value = itemData.name;
+                                    document.getElementById('price_calculation_priceCalculationPriceCalculationItems_' + index + '_sellingPrice').value = finalSellingPrice ? finalSellingPrice.toFixed(2) : '';
+                                    document.getElementById('price_calculation_priceCalculationPriceCalculationItems_' + index + '_sellingCurrencyUnit').value = itemData.sellingCurrencyUnitId || '';
+                                    document.getElementById('price_calculation_priceCalculationPriceCalculationItems_' + index + '_sellingMeasureUnit').value   = itemData.sellingMeasureUnitId || '';
+                                    document.getElementById('price_calculation_priceCalculationPriceCalculationItems_' + index + '_sellingVatOfRate').value     = itemData.sellingVatOfRateId || '';
+
+                                    // Skryté pole s ID ceníkové položky
+                                    const hiddenField = document.getElementById('price_calculation_priceCalculationPriceCalculationItems_' + index + '_priceList');
+                                    if (hiddenField) {
+                                        hiddenField.value = itemData.id; // Nastavení ID do skrytého pole
+                                    }
+                                });
+                                suggestionsElement.appendChild(li);
+                            });
+                            suggestionsElement.style.display = 'block';
+                        }
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+    });
+
+    // Event listener pro skrytí našeptávače při kliknutí mimo něj
+    document.addEventListener('click', function(event) {
+        const suggestionsElements = document.querySelectorAll('ul[id^="suggestions-"]');
+        suggestionsElements.forEach((suggestionsElement) => {
+            if (!suggestionsElement.contains(event.target)) {
+                suggestionsElement.style.display = 'none';
+            }
+        });
+    });

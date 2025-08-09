@@ -1,0 +1,85 @@
+{% set lang = app.request.getLocale() %}
+{% set locale = 'cs_CZ' %}
+{% set BASE = twig_base %}
+
+{{ include('admin/inc/layout/main.html.twig') }}
+
+    <head>
+
+        {{ include('admin/inc/layout/title-meta.html.twig', {title: pageTitle}) }}
+
+        {{ include('admin/inc/layout/head-css.html.twig') }}
+
+        {% block head_css %}{% endblock %}
+
+        {% block head_stylesheet %}{% endblock %}
+
+		{% block head_javascript %}{% endblock %}
+
+        <base href="{{ BASE }}">
+        
+    </head>
+
+    <body>
+
+        {% block body_content %}
+
+            
+
+        {% endblock %}
+
+        {{ include('admin/inc/layout/customizer.html.twig') }}
+
+        {{ include('admin/inc/layout/vendor-scripts.html.twig') }}
+
+        <!-- App js -->
+        <script src="assets/admin/js/app.js"></script>
+
+        <!-- password-addon init -->
+        <script src="assets/admin/js/pages/password-addon.init.js"></script>
+        
+        {% block body_javascript %}
+        
+            <script src="assets/admin/src/node_modules/jquery/dist/jquery.min.js" referrerpolicy="origin"></script>
+
+        {% endblock %}
+
+        <!-- begin::Javascript function -->
+		{% block wrapper_body_javascript_function %}
+
+			<script type="text/javascript">
+
+				{% block body_javascript_function %}
+
+
+
+                {% endblock %}
+
+            </script>
+
+		{% endblock %}
+		<!-- end::Javascript function -->
+
+		<!-- begin::Document ready -->
+		{% block wrapper_body_javascript_document_ready %}
+
+        <script type="text/javascript">
+
+				$(document).ready(function() {
+
+					{% block body_javascript_document_ready %}
+
+
+
+                    {% endblock %}
+
+				});
+
+			</script>
+
+		{% endblock %}
+		<!-- end::Document ready -->
+
+    </body>
+
+</html>

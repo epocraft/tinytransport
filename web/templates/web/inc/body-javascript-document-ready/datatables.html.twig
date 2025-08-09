@@ -1,0 +1,61 @@
+$(function() {
+    $('#' + dataTableElement).initDataTables({{ datatable_settings(datatable) }}, {
+
+        searching: true,
+        stateSave: true,
+        dom: '<"row"<"col-sm-6 mb-2 text-start"l><"col-sm-6 mb-2 text-end"f>>' +
+             '<"row"<"col-sm-12"t>>' +
+             '<"row"<"col-sm-6 mt-2 text-start"i><"col-sm-6 mt-2 text-end"p>>',
+        order: {
+            idx: 0,
+            dir: 'asc'
+        },
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/{{ lang }}.json',
+        },
+        rowCallback: function(row, data) {
+            //console.log(data);
+
+            // Ověření, zda data.status existuje
+            let statusText = data.status?.toString() ?? '';
+
+            if (
+                (statusText.includes('<span title="po splatnosti" class="badge text-white bg-danger">po splatnosti</span>')) || 
+                (statusText.includes('<span title="i. upomínka" class="badge text-white bg-danger">i. upomínka</span>')) || 
+                (statusText.includes('<span title="ii. upomínka" class="badge text-white bg-danger">ii. upomínka</span>')) || 
+                (statusText.includes('<span title="iii. upomínka" class="badge text-white bg-danger">iii. upomínka</span>'))
+            ) {
+                var dueDate;
+                
+                // Ověření a převod data ve formátu "DD. MM. YYYY"
+                if (data.dueDate.includes('.')) {
+                    var dateParts = data.dueDate.split('. ');
+                    dueDate = new Date(dateParts[2].trim(), dateParts[1].trim() - 1, dateParts[0].trim());
+                } else {
+                    // Alternativa, pokud je `dueDate` ve formátu "YYYY-MM-DD"
+                    dueDate = new Date(data.dueDate);
+                }
+
+                // Nastavení dnešního data na půlnoc
+                var today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                // Logování pro kontrolu hodnot
+                //console.log("Supplier:", data.supplier, "Due Date:", dueDate, "Today:", today, "Porovnání:", dueDate < today);
+                
+                // Přidání zvýraznění pro neuhrazené faktury po splatnosti
+                if (!isNaN(dueDate.getTime()) && dueDate < today) {
+                    //console.log('neuhrazeno');
+                    $(row).addClass('text-white bg-danger');
+                } else if (isNaN(dueDate.getTime())) {
+                    //console.warn("Neplatné datum:", data.dueDate);
+                }
+            }
+        }
+
+    }).then(function(dt) {
+        dt.on('draw', function() {
+            // případně další logika po překreslení tabulky
+        });
+    });
+});

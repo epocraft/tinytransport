@@ -1,0 +1,31 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Pusher Demo!{% endblock %}
+
+{% block body_content %}
+    <button type="button" id="say-hello-button">Say Hello!</button>
+{% endblock %}
+
+{% block body_javascript %}
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        var pusher = new Pusher('bfc8847c3201d2355b8a', {
+            cluster: 'eu',
+            useTLS: true
+        });
+
+        var greetingsChannel = pusher.subscribe('greetingsChannel'); // Vytvoření kanálu
+
+        // Ve chvíli, kdy pusher vyvolá akci na kanálu 'greetingsChannel' s událostí 'new-greeting', tento posluchač to 'uslyší' a spustí akci
+        greetingsChannel.bind('new-greeting', function() {
+            alert('Hello there!');
+        });
+
+        // Toto tolačítko apustí akci (trigger) na route app_admin_pusher_test
+        $('#say-hello-button').click(function () {
+            $.post("{{ path('app_admin_pusher_test') }}", { _token: '{{ csrf_token('pusher_test') }}' });
+        });
+
+    </script>
+{% endblock %}

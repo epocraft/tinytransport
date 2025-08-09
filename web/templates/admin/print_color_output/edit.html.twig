@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            {{ include('admin/print_color_output/_form.html.twig') }}
+
+            <div class="float-start">
+                <button type="submit" class="btn btn-success" name="submit_update">{{ 'action.update'|trans }}</button>
+				<button type="submit" class="btn btn-success" name="submit_update_and_back">{{ 'action.update_and_back'|trans }}</button>
+                <a href="{{ path('app_admin_print_color_output_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/print_color_output/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+{% endblock %}

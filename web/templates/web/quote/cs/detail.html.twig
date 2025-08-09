@@ -1,0 +1,109 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	{% if quote %}
+
+		<div class="container mt-4">
+        <h1>Detail poptávky: {{ quote.name }}</h1>
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Adresa nakládky</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Adresa:</strong> {{ quote.loadingAddress }}</p>
+                        <p><strong>Patro:</strong> {{ quote.loadingAddressFloor is defined ? quote.loadingAddressFloor : 'Není zadáno' }}</p>
+                        <p><strong>Výtah:</strong> {{ quote.loadingAddressLift is defined and quote.loadingAddressLift ? 'Ano' : 'Ne' }}</p>
+                        <p><strong>Rampa:</strong> {{ quote.loadingAddressRamp is defined and quote.loadingAddressRamp ? 'Ano' : 'Ne' }}</p>
+                        <p><strong>Asistence:</strong> {{ quote.loadingAddressAssistance ? 'Ano' : 'Ne' }}</p>
+                        {% if quote.loadingAddressAssistanceNumberOfPersons %}
+                            <p><strong>Počet osob pro asistenci:</strong> {{ quote.loadingAddressAssistanceNumberOfPersons }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h4>Adresa vykládky</h4>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Adresa:</strong> {{ quote.unloadingAddress }}</p>
+                        <p><strong>Patro:</strong> {{ quote.unloadingAddressFloor is defined ? quote.unloadingAddressFloor : 'Není zadáno' }}</p>
+                        <p><strong>Výtah:</strong> {{ quote.unloadingAddressLift is defined and quote.unloadingAddressLift ? 'Ano' : 'Ne' }}</p>
+                        <p><strong>Rampa:</strong> {{ quote.unloadingAddressRamp is defined and quote.unloadingAddressRamp ? 'Ano' : 'Ne' }}</p>
+                        <p><strong>Asistence:</strong> {{ quote.unloadingAddressAssistance ? 'Ano' : 'Ne' }}</p>
+                        {% if quote.unloadingAddressAssistanceNumberOfPersons %}
+                            <p><strong>Počet osob pro asistenci:</strong> {{ quote.unloadingAddressAssistanceNumberOfPersons }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4>Detaily poptávky</h4>
+            </div>
+            <div class="card-body">
+                <p><strong>Časový rámec dodání:</strong> {{ quote.deliveryTimeframe }}</p>
+                <p><strong>Vytvořeno:</strong> {{ quote.createdAt|date('d.m.Y H:i') }}</p>
+            </div>
+        </div>
+
+        {% if quote.quoteQuoteItems is not empty %}
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Položky k přepravě</h4>
+                </div>
+                <div class="card-body">
+                    {% for item in quote.quoteQuoteItems %}
+                        <div class="mb-3 p-3 border rounded">
+                            <p><strong>Popis:</strong> {{ item.description }}</p>
+                            <p><strong>Rozměry (VxŠxH):</strong> {{ item.height }} {{ item.heightUnit }} x {{ item.width }} {{ item.widthUnit }} x {{ item.depth }} {{ item.depthUnit }}</p>
+                            <p><strong>Hmotnost:</strong> {{ item.weight }} {{ item.weightUnit }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <a href="{{ path('app_web_quote_index') }}" class="btn btn-secondary mt-3">Zpět na seznam poptávek</a>
+    </div>
+
+	{% endif %}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}

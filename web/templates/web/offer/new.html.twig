@@ -1,0 +1,23 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Nová nabídka | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+    <h1 class="h3">Nabídka k: {{ quote.name }}</h1>
+
+    {% if provider is defined and provider %}
+        <p class="text-muted mb-3">Podáváš jako: <strong>{{ provider.name }}</strong></p>
+    {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.currency) }}
+        {{ form_row(form.message) }}
+        <div class="mt-3">
+            <button class="btn btn-success" type="submit">Odeslat nabídku</button>
+            <a class="btn btn-link" href="{{ path('app_web_quote_show', {id: quote.id, _locale: app.request.locale}) }}">Zpět</a>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

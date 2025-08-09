@@ -1,0 +1,54 @@
+$("#" + module + "_aresSend").click(function() {
+
+    var ico = $("#" + module + "_aresIco").val();
+    var icoPattern = /^\d{8}$/;
+
+    $("#ico-error-message").empty();
+    
+    if (!ico || !icoPattern.test(ico)) {
+
+        $("#" + module + "_aresIco").addClass("input-error");
+        var errorMessage = !ico ? "{{ 'error.ares_in_required'|trans }}" : "{{ 'error.in'|trans }}";
+        $("#ico-error-message").text(errorMessage);
+
+    } else {
+
+        $("#" + module + "_aresIco").removeClass("input-error");
+
+        $.ajax({
+            url: moduleUrl,
+            data: {
+                ico: $("#" + module + "_aresIco").val()
+            },
+            type: 'GET',
+            success: function(response) {
+                //console.log(response);
+                $("#" + module + "_ciName").val(response.obchodniJmeno);
+                $("#" + module + "_ciIn").val(response.ico);
+                $("#" + module + "_ciTin").val(response.dic);
+                $("#" + module + "_biName").val(response.obchodniJmeno);
+                $("#" + module + "_biStreet").val(response.sidlo.nazevUlice + " " + response.sidlo.cisloDomovni + (response.sidlo.cisloOrientacni ? "/" + response.sidlo.cisloOrientacni : ""));
+                $("#" + module + "_biZipcode").val(response.sidlo.psc.toString().replace(/(\d{3})(\d{2})/, "$1 $2"));
+                $("#" + module + "_biCity").val(response.sidlo.nazevObce);
+                $("#" + module + "_biCountry").val(response.sidlo.nazevStatu);
+            },
+            error: function(xhr) {
+                var errorMessage = "Došlo k chybě. Zkuste to prosím znovu.";
+                if (xhr.responseText) {
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        errorMessage = response.error || "Došlo k neznámé chybě.";
+                    } catch (e) {
+                        console.error("Chyba při zpracování odpovědi serveru: ", e);
+                    }
+                }
+
+                // Aktualizace a zobrazení chybové zprávy
+                $("#ico-error-message").text(errorMessage);
+                $("#" + module + "_aresIco").addClass("input-error");
+            }
+        });
+
+    }
+
+});

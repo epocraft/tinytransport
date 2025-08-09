@@ -1,0 +1,22 @@
+action:
+  create_new_measure_unit: Vytvořit novou měrnou jednotku
+  edit_measure_unit: Upravit měrnou jednotku
+
+breadcrumbs:
+  overview_of_measure_units: Přehled měrných jednotek
+  measure_units: Měrné jednotky
+  measure_unit_detail: Detail měrné jednotky
+  new_measure_unit: Nová měrná jednotka
+  edit_measure_unit: Úprava měrné jednotky
+
+label:
+  id: Id
+  name: Název
+  measure_unit: Měrná jednotka
+
+menu:
+  measure_units: Měrné jednotky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název

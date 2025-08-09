@@ -1,0 +1,143 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.market) }}
+			</div>
+
+            <div class="col-12">
+				{{ form_row(form.name) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.validFrom) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.validTo) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.content_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified mb-3" role="tablist">
+
+            <li class="nav-item" role="presentation">
+                <a class="nav-link{% if leaflet.sourcePdf is null %}{% else %} active{% endif %}" data-bs-toggle="tab" href="#leaflet-source-pdf" role="tab" aria-selected="{% if leaflet.sourcePdf is null %}false{% else %}true{% endif %}">{{ 'label.source_pdf'|trans([], 'leaflet')|lower }}</a>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <a class="nav-link{% if leaflet.sourceImg is null %} active{% else %}{% endif %}" data-bs-toggle="tab" href="#leaflet-source-img" role="tab" aria-selected="{% if leaflet.sourceImg is null %}true{% else %}false{% endif %}" tabindex="-1">{{ 'label.source_img'|trans([], 'leaflet')|lower }}</a>
+            </li>
+
+            <li class="nav-item" role="presentation">
+                <a class="nav-link{% if leaflet.sourceUpload %} active{% else %}{% endif %}" data-bs-toggle="tab" href="#leaflet-source-upload" role="tab" aria-selected="{% if leaflet.sourceUpload %}true{% else %}false{% endif %}" tabindex="-1">{{ 'label.source_upload'|trans([], 'leaflet')|lower }}</a>
+            </li>
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content text-muted">
+
+            <div class="tab-pane{% if leaflet.sourcePdf is null %}{% else %} active show{% endif %}" id="leaflet-source-pdf" role="tabpanel">
+
+                <div class="row">
+
+                    <div class="col-12">
+                        {{ form_row(form.sourcePdf) }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tab-pane{% if leaflet.sourceImg is null %} active show{% else %}{% endif %}" id="leaflet-source-img" role="tabpanel">
+                
+                <div class="row">
+
+                    <div class="col-12">
+                        {{ form_row(form.sourceImg) }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="tab-pane{% if leaflet.sourceUpload %} active show{% else %}{% endif %}" id="leaflet-source-upload" role="tabpanel">
+                
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="dropzone"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-12 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.pinned, {}) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+            <div class="col-6">
+				{{ form_row(form.publicationFrom) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.publicationTo) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>

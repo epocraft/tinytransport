@@ -1,0 +1,51 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            {{ include('admin/alert/_form.html.twig') }}
+
+            <div class="float-start">
+                <button class="btn btn-success">{{ 'action.save'|trans }}</button>
+                <a href="{{ path('app_admin_alert_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/slugify.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    var inputSlugify = document.getElementById('alert_name');
+    var outputSlugify = document.getElementById('alert_urlAlias');
+    if (inputSlugify && outputSlugify) {
+        {{ include('admin/inc/body-javascript-function/slugify.html.twig') }}
+    } else {
+        console.error('Alert name or URL alias elements not found');
+    }
+
+    var input = '#alert_description';
+    {{ include('admin/inc/body-javascript-function/tinymce.html.twig') }}
+
+{% endblock %}

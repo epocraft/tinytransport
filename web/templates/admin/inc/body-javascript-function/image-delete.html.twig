@@ -1,0 +1,35 @@
+function imageDelete(imageId, event) {
+
+    event.preventDefault();
+
+    var url = imageDeleteUrl.replace(/0(?=\/|$)/, imageId);
+
+    if (confirm('{{ 'alert.are_you_sure_you_want_to_delete_this_item'|trans }}')) {
+
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function(response) {
+
+                if (response.status === 'success') {
+
+                    $('#image-figure-row-' + response.id).replaceWith(response.updatedGridFigureHtml);
+                    $('#image-table-row-' + response.id).replaceWith(response.updatedTableRowHtml);
+                    alert('Obrázek byl úspěšně smazán.');
+
+                } else {
+
+                    alert('Chyba při mazání obrázku: ' + response.message);
+
+                }
+
+            },
+            error: function() {
+
+                alert('Nepodařilo se odeslat požadavek pro mazání obrázku.');
+
+            }
+        });
+        
+    }
+}

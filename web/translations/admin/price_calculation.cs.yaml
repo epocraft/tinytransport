@@ -1,0 +1,65 @@
+action:
+  create_new_price_calculation: Vytvořit novou cenovou kalkulaci
+  edit_price_calculation: Upravit cenovou kalkulaci
+  create_new_price_calculation_settings: Vytvořit nové nastavení cenové kalkulace
+  edit_price_calculation_settings: Upravit nastavení cenové kalkulace
+
+breadcrumbs:
+  edit_price_calculation: Úprava cenové kalkulace
+  price_calculations: Cenové kalkulace
+  price_calculation_detail: Detail cenové kalkulace
+  new_price_calculation: Nová cenová kalkulace
+  overview_of_price_calculations: Přehled cenových kalkulací
+  overview_of_price_calculation_settings: Přehled nastavení cenové kalkulace
+  price_calculation_settings: Nastavení cenové kalkulace
+  new_price_calculation_settings: Nové nastavení cenové kalkulace
+  edit_price_calculation_settings: Úprava nastavení cenové kalkulace
+  price_calculation_settings_detail: Detail nastavení cenové kalkulace
+
+fieldset:
+  validity: Platnost
+  contractor: Dodavatel
+  customer: Zákazník
+  date: Datum
+  calculation_items: Položky kalkulace
+
+label:
+  ammount: Množství
+  id: Id
+  name: Název
+  description: Popis
+  status: Status
+  enquiry: Poptávka
+  selling_price: Prodejní cena
+  selling_currency_unit: Prodejní měna
+  selling_measure_unit: Měrná jednotka
+  selling_price_without_vat: Cena bez DPH
+  selling_vat: DPH
+  selling_price_with_vat: Cena s DPH
+  selling_vat_of_rate: Sazba DPH
+  number: Č. kalkulace
+  issue_date: Platnost od
+  validity_date: Platnost do
+  contractor: Dodavatel
+  document_prefix: Prefix dokumentu
+  total_price_without_vat: Celková cena bez DPH
+  total_vat: Celkem DPH
+  total_price_with_vat: Celková cena s DPH
+
+menu:
+  price_calculations: Cenové kalkulace
+  overview: Přehled
+  settings: Nastavení
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  status: Nastavte status
+  document_prefix: Zadejte prefix dokumentu
+
+status:
+  select: Zvolte
+  opened: Otevřeno
+  closed: Uzavřeno
+  approved: Schváleno
+  not_approved: Zamítnuto

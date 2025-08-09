@@ -1,0 +1,32 @@
+<div class="col-md-2">
+
+    <ul class="list-group list-group-flush">
+
+        <li class="list-group-item {% if app.request.attributes.get('_route') == 'app_web_service_provider_profile_login' %}active{% endif %}">
+            <a href="{{ path('app_web_service_provider_profile_login', {'_locale': app.request.locale}) }}" title="Přihlašovací údaje">Přihlašovací údaje</a>
+        </li>
+
+        <li class="list-group-item {% if app.request.attributes.get('_route') == 'app_web_service_provider_profile_basic' %}active{% endif %}">
+            <a href="{{ path('app_web_service_provider_profile_basic', {'_locale': app.request.locale}) }}" title="Základní údaje">Základní údaje</a>
+        </li>
+
+        <li class="list-group-item {% if app.request.attributes.get('_route') == 'app_web_service_provider_profile_document' %}active{% endif %}">
+            <a href="{{ path('app_web_service_provider_profile_document', {'_locale': app.request.locale}) }}" title="Dokumenty">Dokumenty</a>
+        </li>
+        
+        <li class="list-group-item">Služby</li>
+        <li class="list-group-item">O nákladu</li>
+        <li class="list-group-item">O lokalitě</li>
+
+        <li class="list-group-item {% if app.request.attributes.get('_route') == 'app_web_service_provider_profile_vehicle_park' %}active{% endif %}">
+            <a href="{{ path('app_web_service_provider_profile_vehicle_park', {'_locale': app.request.locale}) }}" title="Vozový park">Vozový park</a>
+        </li>
+
+        <li class="list-group-item">Ceník</li>
+        <li class="list-group-item">Hodnocení</li>
+        <li class="list-group-item">Galerie</li>
+        <li class="list-group-item">Achievements</li>
+
+    </ul>
+
+</div>

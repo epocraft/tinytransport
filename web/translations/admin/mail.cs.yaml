@@ -1,0 +1,51 @@
+fieldset:
+  history_of_mail: Historie odeslání zpráv
+  content_data: Obsah
+  settings: Nastavení
+  basic_data: Základní údaje
+
+label:
+  priority: Priorita
+  text: Zpráva
+  address_from: Od
+  address_to: Komu
+  address_cc: Kopie
+  address_bcc: Skrytá kopie
+  subject: Předmět
+  sender: Odesilatel
+  status: Status
+  date_sent: Datum Odeslání
+  date_opened: Datum otevření
+  email_template: Šablona e-mailu
+
+message:
+  message_was_successfully_sent: Zpráva byla úspěšně odeslána
+  message_failed_to_send: Zprávu se nepodařilo odeslat
+  missing_email_recipient: Chybí příjemce e-mailu!
+  invalid_email_format: Neplatná e-mailová adresa!
+  address_from_required: Pole Od je povinná položka!
+  address_to_required: Pole Komu je povinná položka!
+
+placeholder:
+  priority: Zvolte prioritu
+  text: Napište zprávu
+  address_from: Zadejte e-mail odesilatele zprávy
+  address_to: Zadejte e-mail příjemce zprávy
+  address_cc: Zadejte e-mail příjemce kopie zprávy
+  address_bcc: Zadejte e-mail příjemce skryté kopie zprávy
+  subject: Zadejte předmět zprávy
+  select: Zvolte
+
+priority:
+  highest: Nejvyšší
+  high: Vysoká
+  normal: Normální
+  low: Nízká
+  lowest: Nejnižší
+  select: Zvolte
+
+status:
+  select: Zvolte
+  first_reminder: 1. upomínka
+  second_reminder: 2. upomínka
+  third_reminder: 3. upomínka

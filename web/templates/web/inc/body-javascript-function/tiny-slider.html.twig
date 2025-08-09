@@ -1,0 +1,22 @@
+var slider = tns({
+    "container": ".references-slider",
+    "items": 1,
+    "slideBy": "page",
+    "autoplay": true,
+    "autoplayButtonOutput": false,
+    "autoplayHoverPause": true,
+    "autoplayTimeout": 5000,
+    "autoplayResetOnVisibility": true,
+    "mouseDrag": true,
+    "controls": false,
+    "navPosition": "bottom",
+    "swipeAngle": false,
+    
+});
+
+var buttons = document.querySelectorAll('.tns-nav button');
+buttons.forEach(function() {
+	this.addEventListener('click', function(e) {
+		slider.play();
+	})
+});

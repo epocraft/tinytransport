@@ -1,0 +1,36 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const inputConfigs = [
+        { id: 'url', action: updateWebButton }
+    ];
+
+    inputConfigs.forEach(({ id, action }) => {
+        const input = document.getElementById(id);
+        const button = document.getElementById(`button-${id}`);
+
+        if (input && button) {
+            // Nastavit stav tlačítka na začátku
+            action(id);
+
+            input.addEventListener('input', function () {
+                action(id);
+            });
+        }
+    });
+});
+
+// Aktualizace tlačítka pro ciWeb (aktivace/deaktivace)
+function updateWebButton(inputId) {
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(`button-${inputId}`);
+    const url = input.value.trim();
+
+    if (url.length > 0) {
+        button.disabled = false;
+        button.onclick = function () {
+            window.open(url, '_blank');
+        };
+    } else {
+        button.disabled = true;
+        button.onclick = null;
+    }
+}

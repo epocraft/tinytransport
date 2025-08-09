@@ -1,0 +1,62 @@
+action:
+  create_new_enquiry: Vytvořit novou poptávku
+  edit_enquiry: Upravit poptávku
+
+breadcrumbs:
+  edit_enquiry: Úprava poptávky
+  enquiries: Poptávky
+  enquiry_detail: Detail poptávky
+  new_enquiry: Nová poptávka
+  overview_of_enquiries: Přehled poptávek
+
+fieldset:
+
+label:
+  id: Id
+  name: Název
+  description: Popis
+  priority: Priorita
+  source: Příjem
+  deadline_date: Datum dodání
+  person: Jméno a příjmení zadavatele
+  phone: Telefon
+  mobile: Mobil
+  email: E-mail
+  manager: Manažer
+  status: Status
+
+menu:
+  enquiries: Poptávky
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  priority: Nastavte prioritu
+  source: Nastavte příjem
+  deadline: Zadejte datum dodání
+  person: Zadejte jméno a příjmení zadavatele
+  phone: Zadejte telefon
+  mobile: Zadejte mobil
+  email: Zadejte e-mail
+  manager: Nastavte manažera poptávky
+  status: Nastavte status
+
+priority:
+  select: Zvolte
+  low: Nízká
+  normal: Normální
+  high: Vysoká
+
+source:
+  select: Zvolte
+  web: Z webu
+  oral: Ústní
+  email: E-mail
+  phone: Telefonicky
+
+status:
+  accepted: Přijato
+  in_progress: V běhu
+  done: Dokončeno
+  select: Zvolte

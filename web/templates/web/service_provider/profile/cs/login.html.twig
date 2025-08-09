@@ -1,0 +1,81 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	{#{% if article %}#}
+
+		<div class="container mt-4">
+
+			<div class="row">
+
+				{{ include('web/service_provider/profile/cs/header.html.twig') }}
+				
+				{{ include('web/service_provider/profile/cs/nav.html.twig') }}
+
+				<div class="col-md-10">
+
+					{{ form_start(form) }}
+
+						<div class="form-errors">
+							{{ form_errors(form) }}
+						</div>
+
+						<div class="row">
+
+							
+
+							<div class="col-6">
+								{{ form_row(form.password) }}
+							</div>
+
+							<div class="col-6">
+								{{ form_row(form.confirmPassword) }}
+							</div>
+
+							
+
+						</div>
+
+						<div class="float-start">
+							<button class="btn btn-success">{{ 'action.save'|trans }}</button>
+						</div>
+
+					{{ form_end(form) }}
+
+				</div>
+
+			</div>
+
+		</div>
+
+	{#{% endif %}#}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}

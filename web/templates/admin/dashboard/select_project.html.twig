@@ -1,0 +1,26 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+
+    <div class="row">
+        <div class="col-3">
+            {% for project in projects %}
+                <div class="card">
+                    <div class="card-body">
+                        <form id="form-{{ project.id }}" method="post" action="{{ path('app_admin_dashboard') }}">
+                            <input type="hidden" name="projectId" value="{{ project.id }}">
+                            {% if project.image is defined and project.image and fileExists(project.image.filePath ~ project.image.fileName ~ '.' ~ project.image.fileType) %}
+                                <img src="{{ project.image.filePath }}{{ project.image.fileName }}.{{ project.image.fileType }}" alt="{{ project.ciName }}" onclick="document.getElementById('form-{{ project.id }}').submit()" class="img-fluid" style="cursor: pointer;">
+                            {% else %}
+                                <span onclick="document.getElementById('form-{{ project.id }}').submit()" style="cursor: pointer;">{{ project.ciName }}</span>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

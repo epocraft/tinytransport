@@ -1,0 +1,27 @@
+action:
+  create_new_invoice_payment: Vytvořit nový druh platby faktury
+  edit_invoice_payment: Upravit druh platby faktury
+
+breadcrumbs:
+  edit_invoice_payment: Úprava druhu platby faktury
+  invoice_payment_detail: Detail druhu platby faktury
+  invoice_payments: Druhy plateb faktur
+  new_invoice_payment: Nový druh platby faktury
+  overview_of_invoice_payments: Přehled druhů plateb faktur
+
+help:
+  price_without_vat: Cena bez DPH
+
+label:
+  id: Id
+  name: Název
+  price: Cena
+  payment: Platba
+
+menu:
+  invoice_payments: Druhy plateb faktur
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  price: Zadejte cenu

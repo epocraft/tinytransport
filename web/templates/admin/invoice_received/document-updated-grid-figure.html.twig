@@ -1,0 +1,18 @@
+<figure id="document-figure-row-{{ document.id }}" class="figure">
+    <a href="{{ document.filePath }}{{ document.fileName }}.{{ document.fileType }}" title="{{ document.name }}" target="_blank">
+        {% set fileType = document.filetype %}
+        {% if fileType == '' %}
+            ?
+        {% endif %}
+        {% if fileType == 'pdf' %}
+            <i class="mdi mdi-file-pdf-box display-6"></i>
+        {% endif %}
+        {% if fileType == 'docx' %}
+            <i class="mdi mdi-file-document display-6"></i>
+        {% endif %}
+        {% if fileType == 'xlsx' %}
+            <i class="mdi mdi-file-excel display-6"></i>
+        {% endif %}
+    </a>
+    <figcaption class="figure-caption">{{ document.name }}<br><small class="fst-italic">{{ document.description }}</small><br><small>{{ document.version }}</small></figcaption>
+</figure>

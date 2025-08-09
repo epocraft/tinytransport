@@ -1,0 +1,31 @@
+action:
+
+breadcrumbs:
+  financial_results: Finanční výsledky
+  overview_of_financial_results: Přehled finančních výsledků
+
+fieldset:
+  basic_data: Základní údaje
+
+label:
+  from: Období od
+  to: Období do
+  odpisy: Odpisy
+  odcitatelne_polozky: Odčitatelné položky
+  dary: Dary
+  sleva_na_dani_fo: Sleva na dani FO
+  danove_zvyhodneni_na_deti: Daňové zvýhodnění na děti
+
+menu:
+  financial_results: Finanční výsledky
+  overview: Přehled
+
+placeholder:
+  from: Nastavte počáteční období
+  to: Nastavte koncové období
+  odpisy: Zadejte odpisy
+  odcitatelne_polozky: Zadejte odčitatelné položky
+  dary: Zadejte dary
+  sleva_na_dani_fo: Zadejte slevu na dani FO
+  danove_zvyhodneni_na_deti: Nastavte daňové zvýhodnění na děti
+  select: Zvolte

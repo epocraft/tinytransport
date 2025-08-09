@@ -1,0 +1,28 @@
+action:
+  create_new_language: Vytvořit novou jazykovou mutaci
+  edit_language: Upravit jazykovou mutaci
+
+breadcrumbs:
+  languages: Jazykové mutace
+  overview_of_languages: Přehled jazykových mutací
+  new_language: Nová jazyková mutace
+  edit_language: Úprava jazykové mutace
+  language_detail: Detail jazykové mutace
+
+label:
+  id: Id
+  name: Název
+  language: Jazyková mutace
+  url_alias: URL alias
+  locale: Locale
+  translate: Translate
+
+menu:
+  languages: Jazykové mutace
+  overview: Přehled
+
+placeholder:
+  name: Název
+  url_alias: Zadejte URL alias
+  locale: Zadejte locale
+  translate: Zadejte translate

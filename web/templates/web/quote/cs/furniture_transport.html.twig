@@ -1,0 +1,139 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	<div class="container mt-4">
+
+        <h1>Nová poptávka</h1>
+
+        <h2>Přeprava nábytku</h2>
+
+		<div class="row mb-4">
+
+			<div class="col-lg-12">
+
+				{{ form_start(form) }}
+
+                    {{ include('web/quote/' ~ lang ~ '/_form.html.twig') }}
+
+                    <div class="float-start">
+                        <button class="btn btn-success">{{ 'action.save'|trans }}</button>
+                    </div>
+
+				{{ form_end(form) }}
+
+			</div>
+
+		</div>
+
+	</div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+	{{ parent() }}
+    <!-- Stimulus -->
+    <script type="module" src="{{ asset('assets/web/js/app.js') }}"></script>
+
+	<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const list = document.getElementById('quote-quote-items-fields-list');
+        const addButton = document.querySelector('.add-item');
+
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+
+        // Funkce pro přeindexování všech položek
+        const reindexCollection = () => {
+            let newIndex = 0;
+            list.querySelectorAll('li').forEach(item => {
+                const newIdPrefix = `quote_quoteQuoteItems_${newIndex}`;
+                const newNamePrefix = `quote[quoteQuoteItems][${newIndex}]`;
+
+                // Update input and select IDs and names
+                item.querySelectorAll('[id*="quote_quoteQuoteItems_"]').forEach(element => {
+                    const oldId = element.id;
+                    const oldName = element.name;
+                    const fieldName = oldId.substring(oldId.lastIndexOf('_') + 1);
+
+                    if (oldId) {
+                        element.id = `${newIdPrefix}_${fieldName}`;
+                    }
+                    if (oldName) {
+                        element.name = `${newNamePrefix}[${fieldName}]`;
+                    }
+                });
+
+                newIndex++;
+            });
+        };
+
+        const addDeleteButton = (item) => {
+            let removeButton = item.querySelector('.remove-item');
+            if (!removeButton) {
+                // Kód pro přidání tlačítka
+                removeButton = document.createElement('button');
+                removeButton.type = 'button';
+                removeButton.className = 'btn btn-danger remove-item mt-3 mb-0';
+                removeButton.textContent = 'Odebrat položku';
+                item.querySelector('.text-end').appendChild(removeButton);
+            }
+
+            // Důležité: po odebrání položky se zavolá přeindexování
+            removeButton.addEventListener('click', () => {
+                item.remove();
+                reindexCollection();
+            });
+        };
+
+        const addFormToCollection = () => {
+            const index = list.children.length; // Získání aktuálního indexu
+            const prototypeHtml = list.dataset.prototype.replace(/__name__/g, index);
+            const tempLi = document.createElement('li');
+            tempLi.innerHTML = prototypeHtml;
+            const li = tempLi.querySelector('li');
+            
+            list.appendChild(li);
+            addDeleteButton(li);
+            
+            // Inicializace popoverů pro nově přidanou položku
+            const newPopoverTriggers = li.querySelectorAll('[data-bs-toggle="popover"]');
+            [...newPopoverTriggers].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+            
+            reindexCollection(); // Zavoláme přeindexování i po přidání, aby se udržela konzistence
+        };
+
+        // Přidání mazacího tlačítka ke všem existujícím položkám a přeindexování při startu
+        list.querySelectorAll('li').forEach(addDeleteButton);
+        reindexCollection();
+
+        if (addButton) {
+            addButton.addEventListener('click', addFormToCollection);
+        }
+    });
+</script>
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}

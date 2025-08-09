@@ -1,0 +1,88 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/mail/_form.html.twig') }}
+
+                <div class="float-start">
+                    <button type="submit" class="btn btn-success" name="submit">{{ 'action.submit'|trans }}</button>
+                    <button type="submit" class="btn btn-info" name="preview">{{ 'action.preview'|trans }}</button>
+                    <a href="{{ path('app_admin_source_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+                </div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/source/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+    
+    var input = '#mail_text';
+    {{ include('admin/inc/body-javascript-function/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+	{{ parent() }}
+
+    $("#mail_emailTemplate").change(function() {
+        var url = "{{ path('app_admin_get_email_template_content', {'sourceId': 'SOURCE_ID', 'id': 0}) }}"
+        .replace('SOURCE_ID', "{{ sourceId }}")
+        .replace('/0', '/' + $(this).val());
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(data => {
+                    throw new Error(data.message || 'An unexpected error occurred');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.status == 'ok') {
+                if (typeof tinymce !== 'undefined' && tinymce.get('mail_text')) {
+                    const editor = tinymce.get('mail_text');
+                    if (editor) {
+                        editor.setContent(data.text);
+                    }
+                } else {
+                    console.warn('TinyMCE editor is not yet initialized.');
+                }
+            }
+        })
+        .catch((error) => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    });
+
+{% endblock %}

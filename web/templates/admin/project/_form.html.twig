@@ -1,0 +1,464 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="mb-4">
+    <div class="input-group input-group-lg">
+
+        <input
+            id="{{ form.aresIco.vars.id }}" 
+            name="{{ field_name(form.aresIco) }}"
+            value="{{ field_value(form.aresIco) }}"
+            placeholder="{{ field_label(form.aresIco) }}"
+            class="form-control"
+        >
+
+        <button 
+            type="button" 
+            id="{{ form.aresSend.vars.id }}" 
+            name="{{ field_name(form.aresSend) }}" 
+            value="1" 
+            class="btn btn-secondary">{{ field_label(form.aresSend) }}
+        </button>
+
+    </div>
+
+    <div id="ico-error-message" class="mt-2 error-message"></div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.company_information'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.ciName) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.ciIn) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.ciTin) }}
+			</div>
+
+            <div class="col-4 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.ciVatPayer, {}) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.company_registration'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <p>Pokud jsou údaje vyplněny, bude na webu uveden text v tomto znění:<br>
+
+        {% set register = '...' %}
+        {% set office = '...' %}
+        {% set prefix = null %}
+
+        {% if project.ciRegisteredRegister == 'or' %}
+            {% set register = 'obchodním rejstříku' %}
+            {% set prefix = 'v' %}
+        {% endif %}
+        {% if project.ciRegisteredRegister == 'zr' %}
+            {% set register = 'živnostenském rejstříku' %}
+            {% set prefix = 'pod' %}
+        {% endif %}
+
+        {% if project.ciRegisteredOffice == 'ks' %}
+            {% set office = 'Krajského soudu' %}
+        {% endif %}
+        {% if project.ciRegisteredOffice == 'mu' %}
+            {% set office = 'Městského úřadu' %}
+        {% endif %}
+        {% if project.ciRegisteredOffice == 'ou' %}
+            {% set office = 'Obecního úřadu' %}
+        {% endif %}
+
+        <em>Zapsaný v {{ register }} u {{ office }} {{ project.ciRegisteredCity }}, {{ prefix }} {{ project.ciRegisteredFileNumber }}</em></p>
+
+        <div class="row">
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredRegister) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredOffice) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredCity) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.ciRegisteredFileNumber) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.contact_information'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">
+                {{ form_row(form.ciPhoneCode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciPhone) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciMobile) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciFax) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciEmail) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciWeb) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciDuns) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciDataBox) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.bank_information'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">
+                {{ form_row(form.ciBa) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciBc) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciIban) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.ciSwift) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.billing_information'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.biName) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biStreet) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biCity) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biZipcode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.biCountry) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.delivery_information'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.diName) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diStreet) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diCity) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diZipcode) }}
+            </div>
+
+            <div class="col-3">
+                {{ form_row(form.diCountry) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.image_data'|trans([], 'image') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+
+                {% if (image is defined) and (image is not null) %}
+        
+                    <div class="table-responsive image-detail">
+
+                        <table class="table table-striped table-hover table-nowrap align-middle">
+
+                            <tbody>
+                                <tr>
+                                    <th class="w-25">{{ 'label.name'|trans({}, 'image')|lower }}</th>
+                                    <td class="w-25">{{ image.name }}</td>
+                                    <td rowspan="9" class="w-50">
+                                        {% if fileExists(project_directory ~ image.filePath ~ image.fileName ~ '.' ~ image.fileType) %}
+                                            <figure class="figure img-thumbnail text-center">
+                                                <img src="{{ asset(image.filePath ~ image.fileName ~ '.' ~ image.fileType) }}" class="img-fluid" style="max-height: 250px;">
+                                                <figcaption class="figure-caption">{{ image.fileName }}.{{ image.fileType }} ({{ image.width }} x {{ image.height }} px, {{ image.fileSize // 1024|round(1, 'floor') }} kB)</figcaption>
+                                            </figure>
+                                            <button type="button" class="btn btn-danger btn-delete-image d-block" data-id="{{ image.id }}">Smazat</button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.description'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.description|raw }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.version'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.version }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.file_name'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.fileName }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.file_type'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.fileType }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.file_path'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.filePath }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.file_size'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.fileSize }} b</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.width'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.width }} px</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ 'label.height'|trans({}, 'image')|lower }}</th>
+                                    <td>{{ image.height }} px</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% endif %}
+
+                {{ form_row(form.photo) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.social_site'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+				{{ form_row(form.discord) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.facebook) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.instagram) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.linkedin) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.pinterest) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.snapchat) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.telegram) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.tiktok) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.tumblr) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.whatsapp) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.x) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.youtube) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.maintenance'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-4 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg mb-3 ps-4" dir="ltr">
+                    {{ form_widget(form.maintenance, {}) }}
+                </div>
+            </div>
+
+            <div class="col-12">
+                {{ form_row(form.maintenanceText) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans([], 'project') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

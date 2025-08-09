@@ -1,0 +1,53 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.name) }}
+			</div>
+
+            <div class="col-12">
+				<div class="col-12">
+                {{ form_label(form.surcharge, null, {'label_attr': {'class': 'form-label'}}) }}
+                <div class="input-group mb-3">
+                    {{ form_widget(form.surcharge, {
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': form.surcharge.vars.attr.placeholder,
+                            'aria-label': form.surcharge.vars.attr.placeholder,
+                            'aria-describedby': 'number-postfix'
+                        }
+                    }) }}
+                    <span class="input-group-text" id="surcharge-postfix">%</span>
+                </div>
+                {{ form_errors(form.surcharge) }}
+			</div>
+			</div>
+
+            <div class="col-12 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.setSurcharge, {}) }}
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center">
+                <div class="form-check form-switch form-switch-lg" dir="ltr">
+                    {{ form_widget(form.copySettings, {}) }}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

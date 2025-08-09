@@ -1,0 +1,42 @@
+<tr id="document-table-row-{{ document.id }}">
+    <td class="text-center move"><i class="ri-drag-move-fill"></i></td>
+    <td class="text-center">{{ document.id }}</td>
+    <td>
+        <a href="{{ document.filePath }}{{ document.fileName }}.{{ document.fileType }}" title="{{ document.name }}" target="_blank">
+            {% set fileType = document.filetype %}
+            {% if fileType == '' %}
+                ?
+            {% endif %}
+            {% if fileType == 'pdf' %}
+                <i class="mdi mdi-file-pdf-box display-6"></i>
+            {% endif %}
+            {% if fileType == 'docx' %}
+                <i class="mdi mdi-file-document display-6"></i>
+            {% endif %}
+            {% if fileType == 'xlsx' %}
+                <i class="mdi mdi-file-excel display-6"></i>
+            {% endif %}
+        </a>
+    </td>
+    <td>{{ document.name }}<br><small class="fst-italic">{{ document.description }}</small><br><smal>{{ document.version }}</small></td>
+    <td>{{ document.fileName }}<br><small class="fst-italic">{{ document.filePath }}</small></td>
+    <td class="text-center">{{ document.fileType }}</td>
+    <td class="text-center">{{ document.fileSize }}</td>
+    <td class="text-center">
+        {% set publication = document.publication %}
+        {% if publication == '' %}
+            {{ 'publication.select'|trans|lower }}
+        {% endif %}
+        {% if publication == 0 %}
+            <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+        {% endif %}
+        {% if publication == 1 %}
+            <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+        {% endif %}
+    </td>
+    <td class="text-center">
+        <a href="#" onclick="documentShow({{ document.id }}, event)" title="{{ 'action.show'|trans|lower }}"><i class="mdi mdi-eye"></i></a>
+        <a href="#" onclick="documentEdit({{ document.id }}, event)" title="{{ 'action.edit'|trans|lower }}"><i class="mdi mdi-lead-pencil"></i></a>
+        <a href="#" onclick="documentDelete({{ document.id }}, event)" title="{{ 'action.delete'|trans|lower }}"><i class="mdi mdi-delete text-danger"></i></a>
+    </td>
+</tr>

@@ -1,0 +1,33 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}

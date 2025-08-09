@@ -1,0 +1,187 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+                    <tbody>
+                        <tr>
+                            <th>{{ 'label.id'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.name'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.description'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.description|raw }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.source'|trans({}, 'enquiry')|lower }}</th>
+                            <td>
+                                {% set source_mapping = {
+                                    1: 'source.email'|trans({}, 'enquiry')|lower,
+                                    2: 'source.phone'|trans({}, 'enquiry')|lower,
+                                    3: 'source.oral'|trans({}, 'enquiry')|lower,
+                                    4: 'source.web'|trans({}, 'enquiry')|lower,
+                                } %}
+                                {{ source_mapping[enquiry.source] }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.priority'|trans({}, 'enquiry')|lower }}</th>
+                            <td>
+                                {% set priority_mapping = {
+                                    1: {'text': 'priority.low'|trans([], 'enquiry')|lower, 'class': 'bg-info'},
+                                    2: {'text': 'priority.normal'|trans([], 'enquiry')|lower, 'class': 'bg-success'},
+                                    3: {'text': 'priority.high'|trans([], 'enquiry')|lower, 'class': 'bg-danger'},
+                                } %}
+                                <span class="badge {{ priority_mapping[enquiry.priority].class }}">{{ priority_mapping[enquiry.priority].text }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.deadline'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.deadline|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.customer'|trans({}, 'customer')|lower }}</th>
+                            <td>{% if enquiry.customer.ciName is defined and enquiry.customer.ciName is not null %}{{ enquiry.customer.ciName }}{% else %}{{ enquiry.person }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.person'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.person }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.phone'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.mobile'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.mobile }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.email'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.manager'|trans({}, 'enquiry')|lower }}</th>
+                            <td>{{ enquiry.manager.user.getFullName() }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.status'|trans({}, 'enquiry')|lower }}</th>
+                            <td>
+                                {% set status_mapping = {
+                                    1: {'text': 'status.accepted'|trans([], 'enquiry')|lower, 'class': 'text-black bg-warning'},
+                                    2: {'text': 'status.in_progress'|trans([], 'enquiry')|lower, 'class': 'bg-info'},
+                                    3: {'text': 'status.done'|trans([], 'enquiry')|lower, 'class': 'bg-success'},
+                                } %}
+                                <span class="badge {{ status_mapping[enquiry.status].class }}">{{ status_mapping[enquiry.status].text }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.publication'|trans|lower }}</th>
+                            <td>
+                                {% set publication = enquiry.publication %}
+                                {% if publication == '' %}
+                                {{ 'publication.select'|trans|lower }}
+                                {% endif %}
+                                {% if publication == 0 %}
+                                <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+                                {% endif %}
+                                {% if publication == 1 %}
+                                <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+		{% if dateLogs %}
+
+			<div class="col-12">
+
+				<div class="card">
+
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.history_of_modifications'|trans }}</h4>
+                        <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInvoiceHistoryOfModifications" aria-expanded="false" aria-controls="collapseInvoiceHistoryOfModifications"><i class="mdi mdi-information-outline"></i></button>
+                    </div>
+
+					<div class="card-body collapse" id="collapseInvoiceHistoryOfModifications">
+
+						<div class="table-responsive">
+
+							<table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+								<tbody>
+
+									{% for dateLog in dateLogs %}
+
+										<tr>
+
+											{% set date = dateLog.updatedAt|date('Y-m-d H:i:s') %}
+
+											{% if date == '1000-01-01 00:00:00' %}
+
+												<th>{{ 'label.created_at'|trans|lower }}</th>
+												<td>{{ enquiry.createdAt|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% else %}
+
+												<th>{{ 'label.updated_at'|trans|lower }}</th>
+												<td>{{ date|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% endif %}
+
+											<td>{{ dateLog.user.userUserContact.firstname }}
+												{{ dateLog.user.userUserContact.surname }}</td>
+
+										</tr>
+
+									{% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+	</div>
+    
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{{ path('app_admin_enquiry_edit', {'id': enquiry.id}) }}" title="{{ 'action.edit_enquiry'|trans({}, 'enquiry') }}" class="btn btn-success">{{ 'action.edit_enquiry'|trans({}, 'enquiry') }}</a>
+            <a href="{{ path('app_admin_enquiry_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-info">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+        <div>
+            {{ include('admin/enquiry/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

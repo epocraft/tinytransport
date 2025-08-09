@@ -1,0 +1,232 @@
+{% import _self as formMacros %}
+
+{% macro addRow(priceCalculationItem, index) %}
+
+    <div class="row mb-2">
+
+        {{ form_widget(priceCalculationItem.priceList) }}
+        {{ form_widget(priceCalculationItem.purchasePrice) }}
+        {{ form_widget(priceCalculationItem.surcharge) }}
+
+        <div class="col-3">
+            {{ form_widget(priceCalculationItem.name) }}
+            <ul class="suggestions" id="suggestions-{{ priceCalculationItem.vars.name }}"></ul>
+            {{ form_help(priceCalculationItem.name) }}
+            {{ form_errors(priceCalculationItem.name) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.ammount) }}
+            {{ form_help(priceCalculationItem.ammount) }}
+            {{ form_errors(priceCalculationItem.ammount) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.sellingPrice) }}
+            {{ form_help(priceCalculationItem.sellingPrice) }}
+            {{ form_errors(priceCalculationItem.sellingPrice) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.sellingCurrencyUnit) }}
+            {{ form_help(priceCalculationItem.sellingCurrencyUnit) }}
+            {{ form_errors(priceCalculationItem.sellingCurrencyUnit) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.sellingMeasureUnit) }}
+            {{ form_help(priceCalculationItem.sellingMeasureUnit) }}
+            {{ form_errors(priceCalculationItem.sellingMeasureUnit) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.sellingVatOfRate) }}
+            {{ form_help(priceCalculationItem.sellingVatOfRate) }}
+            {{ form_errors(priceCalculationItem.sellingVatOfRate) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.priceWithoutVat) }}
+            {{ form_help(priceCalculationItem.priceWithoutVat) }}
+            {{ form_errors(priceCalculationItem.priceWithoutVat) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.vat) }}
+            {{ form_help(priceCalculationItem.vat) }}
+            {{ form_errors(priceCalculationItem.vat) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(priceCalculationItem.priceWithVat) }}
+            {{ form_help(priceCalculationItem.priceWithVat) }}
+            {{ form_errors(priceCalculationItem.priceWithVat) }}
+        </div>
+
+        <div class="col-1 d-flex justify-content-center align-items-start">
+            <!-- Vždy zobrazit tlačítko pro přidání řádku -->
+            <button type="button" class="btn btn-success add_item_link me-2"><i class="mdi mdi-plus-circle-outline"></i></button>
+            
+            <!-- Tlačítko pro odstranění řádku se zobrazí pro všechny řádky kromě prvního -->
+            <button type="button" class="btn btn-danger delete-item"><i class="mdi mdi-trash-can-outline"></i></button>
+        </div>
+
+    </div>
+
+{% endmacro %}
+
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+           <div class="col-6">
+                {{ form_label(form.number, null, {'label_attr': {'class': 'form-label'}}) }}
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="number-prefix">{{ priceCalculationSettings.documentPrefix is defined and priceCalculationSettings.documentPrefix is not empty ? priceCalculationSettings.documentPrefix : 'CK' }}</span>
+                    {{ form_widget(form.number, {
+                        'attr': {
+                            'class': 'form-control',
+                            'placeholder': form.number.vars.attr.placeholder,
+                            'aria-label': form.number.vars.attr.placeholder,
+                            'aria-describedby': 'number-prefix'
+                        }
+                    }) }}
+                </div>
+                {{ form_errors(form.number) }}
+			</div>
+
+            <div class="col-12">
+				{{ form_row(form.name) }}
+			</div>
+
+            <div class="col-12">
+                {{ form_row(form.description) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.contractor'|trans({}, 'price_calculation') }} / {{ 'fieldset.customer'|trans({}, 'price_calculation') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+                {{ form_row(form.contractor) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.price_calculation_items'|trans({}, 'price_calculation') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">název</div>
+            <div class="col-1 text-center">{{ 'label.ammount'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_price'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_currency_unit'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_measure_unit'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_vat_of_rate'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_price_without_vat'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_vat'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.selling_price_with_vat'|trans({}, 'price_calculation')|lower }}</div>
+            <div class="col-1"></div>
+
+        </div>
+
+        <hr>
+
+        <!-- generování formu --> 
+        <ul data-index="{{ form.priceCalculationPriceCalculationItems|length > 0 ? form.priceCalculationPriceCalculationItems|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.addRow(form.priceCalculationPriceCalculationItems.vars.prototype)|e('html_attr') }}" class="price-calculation-items" style="list-style-type: none; padding-left: 0;">
+
+            {% for priceCalculationItem in form.priceCalculationPriceCalculationItems %}
+
+                {{ formMacros.addRow(priceCalculationItem, loop.index0) }}
+
+            {% endfor %}
+
+        </ul>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-8 d-flex align-self-center"><strong>CELKEM</strong></div>
+            <div class="col-1">
+                {{ form_widget(form.totalPriceWithoutVat) }}
+                {{ form_help(form.totalPriceWithoutVat) }}
+                {{ form_errors(form.totalPriceWithoutVat) }}
+            </div>
+            <div class="col-1">
+                {{ form_widget(form.totalVat) }}
+                {{ form_help(form.totalVat) }}
+                {{ form_errors(form.totalVat) }}
+            </div>
+            <div class="col-1">
+                {{ form_widget(form.totalPriceWithVat) }}
+                {{ form_help(form.totalPriceWithVat) }}
+                {{ form_errors(form.totalPriceWithVat) }}
+            </div>
+            <div class="col-1"></div>
+
+        </div>
+
+        <hr>
+
+        <button type="button" class="btn btn-success global-add-item-link"><i class="mdi mdi-plus-circle-outline"></i> Přidat řádek</button>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex bg-primary">
+		<h4 class="card-title mb-0 flex-grow-1 text-white">{{ 'fieldset.status'|trans({}, 'invoice_status') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.status) }}
+            </div>
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,73 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Platba za odemknutí | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+    <h1 class="h3 mb-3">Odemknutí kontaktu dopravce</h1>
+
+    <p class="text-muted">
+        Vybral jsi nabídku <strong>{{ offer.serviceProvider.name }}</strong> za <strong>{{ offer.price }} {{ offer.currency }}</strong>.
+        Pro zobrazení kontaktu dopravce prosím uhraďte poplatek platformě.
+    </p>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h2 class="h5 mb-3">Souhrn platby</h2>
+            <dl class="row mb-0">
+                <dt class="col-sm-4">Provize</dt>
+                <dd class="col-sm-8">{{ ratePercent }}&nbsp;% z ceny, min. {{ minTotal }}&nbsp;CZK (s DPH)</dd>
+
+                <dt class="col-sm-4">Základ</dt>
+                <dd class="col-sm-8">{{ amountBase }} {{ payment.currency }}</dd>
+
+                <dt class="col-sm-4">DPH ({{ vatRate }}&nbsp;%)</dt>
+                <dd class="col-sm-8">{{ amountVat }} {{ payment.currency }}</dd>
+
+                <dt class="col-sm-4">K úhradě</dt>
+                <dd class="col-sm-8"><strong>{{ payment.amountTotal }} {{ payment.currency }}</strong></dd>
+            </dl>
+        </div>
+    </div>
+
+    <h2 class="h5 mt-4">Platba převodem / QR</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Účet</dt>
+                <dd class="col-sm-8">{{ payment.bankAccount ?: projectService.ciIban ?: '—' }}</dd>
+
+                <dt class="col-sm-4">Příjemce</dt>
+                <dd class="col-sm-8">{{ payment.bankAccountName ?: projectService.ciName }}</dd>
+
+                <dt class="col-sm-4">VS</dt>
+                <dd class="col-sm-8"><code>{{ payment.vs }}</code></dd>
+
+                <dt class="col-sm-4">Částka</dt>
+                <dd class="col-sm-8">{{ payment.amountTotal }} {{ payment.currency }}</dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            {% if qrImageDataUri %}
+                <img alt="QR platba" src="{{ qrImageDataUri }}" class="img-fluid mb-2"/>
+            {% endif %}
+            <p class="mb-1">SPAYD (pro QR):</p>
+            <pre class="bg-light p-2">{{ payment.qrPayload }}</pre>
+            <small class="text-muted">Většina bank umí QR – stačí naskenovat.</small>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex gap-2">
+        <form action="{{ path('app_web_payment_mark_settled', { id: payment.id, _locale: app.request.locale }) }}" method="post">
+            <button class="btn btn-success" type="submit">Označit jako zaplaceno (MVP)</button>
+        </form>
+        <a class="btn btn-outline-secondary" href="{{ path('app_web_quote_show', { id: quote.id, _locale: app.request.locale }) }}">Zpět na poptávku</a>
+    </div>
+
+    <hr class="my-4"/>
+
+    <p class="text-muted small mb-0">
+        Po připsání platby se kontakt dopravce automaticky odemkne (v této verzi zatím manuální potvrzení).
+    </p>
+</div>
+{% endblock %}

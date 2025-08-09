@@ -1,0 +1,62 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}SMTP Tester{% endblock %}
+
+{% block body_content %}
+
+    <div class="container mt-5">
+        <h1>SMTP Tester</h1>
+
+        {% if message %}
+            <div class="alert alert-{{ messageType }}" role="alert">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.host) }}
+                {{ form_widget(form.host, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.host) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.port) }}
+                {{ form_widget(form.port, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.port) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.username) }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.username) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.password) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.password) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.fromEmail) }}
+                {{ form_widget(form.fromEmail, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.fromEmail) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.toEmail) }}
+                {{ form_widget(form.toEmail, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.toEmail) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.subject) }}
+                {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.subject) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.body) }}
+                {{ form_widget(form.body, {'attr': {'class': 'form-control', 'rows': 5}}) }}
+                {{ form_errors(form.body) }}
+            </div>
+
+            {{ form_widget(form.send, {'attr': {'class': 'btn btn-primary'}}) }}
+        {{ form_end(form) }}
+    </div>
+    
+{% endblock %}

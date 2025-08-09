@@ -1,0 +1,66 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_css %}
+
+    {{ parent() }}
+
+    {{ include('web/inc/head-css/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+	{{ include('web/inc/head-stylesheet/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	{% if article %}
+
+		<div class="container-fluid mt-4">
+
+			<p><a href="{{ path('app_web_quote_new') }}" title="Nová poptávka" class="btn btn-primary" target="_self">Nová poptávka</a></p>
+
+			<div id="data-table">{{ 'status.loading_data'|trans }}...</div>
+
+		</div>
+
+	{% endif %}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+	{{ include('web/inc/body-javascript/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+
+    var dataTableElement = "data-table";
+    {{ include('web/inc/body-javascript-document-ready/datatables.html.twig') }}
+
+{% endblock %}

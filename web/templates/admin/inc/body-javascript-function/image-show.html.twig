@@ -1,0 +1,100 @@
+function imageShow(imageId, event) {
+    event.preventDefault();
+
+    //console.log('imageId:', imageId);
+    //console.log('imageShowUrl:', imageShowUrl);
+
+    var url = imageShowUrl.replace(/0(?=\/|$)/, imageId);
+
+    //console.log('Generated URL:', url);
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(data) {
+
+            var modalBody = $('#imageShowModal .modal-body');
+            
+            var html = "";
+            html += '<div class="table-responsive">';
+                html += '<table class="table table-striped table-hover table-nowrap align-middle mb-0">';
+                    html += '<thead>';
+                        html += '<tr>';
+                            html += '<td colspan="2">';
+                                html += '<img src="' + data.image.filePath + '/' + data.image.fileName + '.' + data.image.fileType + '" alt="' + data.image.name + '" class="img-fluid">';
+                                html += '</td>';
+                            html += '<tr>';
+                        html += '</thead>';
+                        html += '<tbody>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.id'|trans|lower }}</td>';
+                            html += '<td>' + data.image.recordId + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.name'|trans|lower }}</td>';
+                            html += '<td>' + data.image.name + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.description'|trans|lower }}</td>';
+                            html += '<td>' + data.image.description + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.version'|trans|lower }}</td>';
+                            html += '<td>' + data.image.version + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.file_name'|trans|lower }}</td>';
+                            html += '<td>' + data.image.fileName + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.file_path'|trans|lower }}</td>';
+                            html += '<td>' + data.image.filePath + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.file_type'|trans|lower }}</td>';
+                            html += '<td>' + data.image.fileType + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.file_size'|trans|lower }}</td>';
+                            html += '<td>' + data.image.fileSize + ' [b]</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.width'|trans|lower }}</td>';
+                            html += '<td>' + data.image.width + ' [px]</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.height'|trans|lower }}</td>';
+                            html += '<td>' + data.image.height + ' [px]</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.position'|trans|lower }}</td>';
+                            html += '<td>' + data.image.position + '</td>';
+                        html += '<tr>';
+                        html += '<tr>';
+                            html += '<td>{{ 'label.publication'|trans|lower }}</td>';
+                            if (data.image.publication == '') {
+                            html += '<td>{{ 'publication.select'|trans|lower }}</td>';
+                            }
+                            if (data.image.publication == 0) {
+                            html += '<td><span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span></td>';
+                            }
+                            if (data.image.publication == 1) {
+                            html += '<td><span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span></td>';
+                            }
+                        html += '</tr>';
+                    html += '</tbody>';
+                html += '</table>';
+            html += '</div>';
+
+            modalBody.html(html);
+
+            $('#imageShowModal').modal('show');
+
+        },
+        error: function() {
+
+            alert('Nepodařilo se načíst informace o obrázku.');
+
+        }
+    });
+}

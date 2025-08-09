@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header align-items-center d-flex">
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.social_site'|trans({}, 'customer') }}</h4>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            {% for field in [
+                'discord', 'facebook', 'instagram', 'linkedin', 'pinterest', 'snapchat',
+                'telegram', 'tiktok', 'tumblr', 'whatsapp', 'x', 'youtube'
+            ] %}
+                <div class="col-4">
+                    {{ form_label(attribute(form, field)) }}
+                    <div class="input-group mb-3">
+                        {% do attribute(form, field).setRendered() %}
+                        <input 
+                            type="text" 
+                            name="{{ attribute(form, field).vars.full_name }}" 
+                            value="{{ attribute(form, field).vars.value }}" 
+                            class="form-control" 
+                            id="{{ field }}" 
+                            placeholder="{{ attribute(form, field).vars.attr.placeholder|default('Vložte URL') }}" 
+                            aria-label="{{ field|capitalize }}"
+                        >
+                        <button 
+                            class="btn btn-primary" 
+                            type="button" 
+                            id="button-{{ field }}" 
+                            {% if not attribute(form, field).vars.value %}disabled{% endif %}
+                            onclick="openLink('{{ field }}')"
+                        >
+                            <i class="mdi mdi-link-variant"></i>
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

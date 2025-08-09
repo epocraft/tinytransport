@@ -1,0 +1,127 @@
+action:
+  create_new_supplier: Vytvořit nového dodavatele
+  create_new_supplier_contact: Vytvořit nový kontakt dodavatele
+  edit_supplier: Upravit dodavatele
+  edit_supplier_contact: Upravit kontakt dodavatele
+
+breadcrumbs:
+  overview_of_suppliers: Přehled dodavatelů
+  overview_of_supplier_contacts: Přehled kontaktů dodavatele
+  suppliers: Dodavatelé
+  supplier_contacts: Kontakty dodavatele
+  supplier_detail: Detail dodavatele
+  supplier_contact_detail: Detail kontaktu dodavatele
+  edit_supplier: Úprava dodavatele
+  edit_supplier_contact: Úprava kontaktu dodavatele
+  new_supplier: Nový dodavatel
+  new_supplier_contact: Nový kontakt dodavatele
+  invoice_received_index: Přijaté faktury dodavatele
+
+fieldset:
+  company_information: Údaje o společnosti
+  contact_information: Kontaktní údaje
+  bank_information: Bankovní údaje
+  billing_information: Fakturační údaje
+  delivery_information: Dodací údaje
+  social_site: Sociální sítě
+  customer: Zákazník
+  documents: Dokumenty
+  supplier: Dodavatel
+  unpaid_invoices: Neuhrazené faktury
+  annual_purchase_summary: Roční přehled nákupů
+
+help:
+  supplier: "<i class='mdi mdi-tooltip-edit-outline'></i> Potřebujete <a href='%insert_supplier%' title='%breadcrumbs_new_supplier%' target='_blank'>přidat</a>/<a href='%edit_supplier%' title='%breadcrumbs_edit_supplier%' target='_blank'>upravit</a> dodavatele?"
+  new_supplier: "<i class='mdi mdi-tooltip-edit-outline'></i> Potřebujete <a href='%insert_supplier%' title='%breadcrumbs_new_supplier%' target='_blank'>přidat</a> dodavatele?"
+  edit_supplier: "<i class='mdi mdi-tooltip-edit-outline'></i> Potřebujete <a href='%insert_supplier%' title='%breadcrumbs_new_supplier%' target='_blank'>přidat</a>/<a href='%edit_supplier%' title='%breadcrumbs_edit_supplier%' target='_blank'>upravit</a> dodavatele, nebo zobrazit všechny jeho <a href='%invoice_received_index%' title='%breadcrumbs_invoice_received_index%' target='_blank'>přijaté</a> faktury?"
+
+label:
+  id: Id
+  ci_name: Název společnosti
+  ci_in: IČO
+  ci_tin: DIČ
+  ci_vat_payer: Plátce DPH
+  ci_phone: Telefon
+  ci_mobile: Mobil
+  ci_fax: Fax
+  ci_email: E-mail
+  ci_invoicing_email: Fakturační e-mail
+  ci_web: Web
+  ci_duns: DUNS
+  ci_data_box: Datová schránka
+  ci_ba: Číslo bankovního účtu
+  ci_bc: Kód banky
+  ci_iban: IBAN
+  ci_swift: SWIFT
+  bi_name: Název společnosti / kontaktní osoba
+  bi_street: Ulice
+  bi_city: Město
+  bi_zipcode: PSČ
+  bi_country: Stát
+  di_name: Název společnosti / kontaktní osoba
+  di_street: Ulice
+  di_city: Město
+  di_country: Stát
+  di_zipcode: PSČ
+  customer_account: Zákaznické číslo
+  customer_section: Přihlášení do zákaznické sekce
+  sending_invoices_to_billing_email: Dodavatel informován o zasílání faktur na fakturační e-mail
+  search_in_ares: Hledat v ARES
+  supplier: Dodavatel
+  title_before: Titul před jménem
+  firstname: Křestní jméno
+  surname: Příjmení
+  title_after: Titul za jménem
+  job_position: Pracovní pozice
+  phone: Telefon
+  mobile: Mobil
+  email: Email
+
+menu:
+  suppliers: Dodavatelé
+  overview: Přehled
+
+placeholder:
+  ci_name: Zadejte název společnosti
+  ci_in: Zadejte IČO
+  ci_tin: Zadejte DIČ
+  ci_vat_payer: Uveďte, zda je společnost plátcem DPH
+  ci_phone: Zadejte telefon
+  ci_mobile: Zadejte mobil
+  ci_fax: Zadejte fax
+  ci_email: Zadejte e-mail
+  ci_web: Zadejte URL webu
+  ci_duns: Zadejte DUNS
+  ci_data_box: Zadejte id datové schránky
+  ci_ba: Zadejte číslo bankovního účtu
+  ci_bc: Zadejte kód banky
+  ci_iban: Zadejte IBAN
+  ci_swift: Zadejte SWIFT
+  bi_name: Zadejte název společnosti / kontaktní osoby
+  bi_street: Zadejte název ulice
+  bi_city: Zadejte město
+  bi_zipcode: Zadejte PSČ
+  bi_country: Zadejte stát
+  di_name: Zadejte název společnosti / kontaktní osoby
+  di_street: Zadejte název ulice
+  di_city: Zadejte město
+  di_country: Zadejte stát
+  di_zipcode: Zadejte PSČ
+  customer_account: Zadejte zákaznické číslo
+  customer_section: Zadejte URL pro přihlášení do zákaznické sekce
+  title_before: Zadejte titul před jménem
+  firstname: Zadejte křestní jméno
+  surname: Zadejte příjmení
+  title_after: Zadejte titul za jménem
+  job_position: Zadejte pracovní pozici
+  phone: Zadejte telefon
+  mobile: Zadejte mobil
+  email: Zadejte email
+
+table:
+  invoice_number: Č. dokladu
+  due_date: Datum splatnosti
+  total_without_vat: Celková cena bez DPH
+  vat: Celkové DPH
+  total_with_vat: Celková cena s DPH
+  total_sum: Celkem

@@ -1,0 +1,31 @@
+action:
+  create_new_web_access: Vytvořit nový webový přístup
+  edit_web_access: Upravit webový přístup
+
+breadcrumbs:
+  edit_web_access: Úprava webového přístupu
+  web_accesses: Webové přístupy
+  web_access_detail: Detail webového přístupu
+  new_web_access: Nový webový přístup
+  overview_of_web_accesses: Přehled webových přístupů
+
+fieldset:
+  basic_data: Základní údaje
+  web_access: Přístupové údaje
+
+label:
+  id: Id
+  name: Název
+  url: URL adresa
+  username: Uživatelské jméno
+  password: Heslo
+
+menu:
+  web_accesses: Webové přístupy
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  url: Zadejte URL adresu
+  username: Zadejte uživatelské jméno
+  password: Zadejte heslo

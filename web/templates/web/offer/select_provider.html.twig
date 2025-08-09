@@ -1,0 +1,36 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Vyberte poskytovatele | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+    <h1 class="h3 mb-3">Vyberte poskytovatele</h1>
+    <p>Máte přiřazeno více poskytovatelů. Zvolte, za koho chcete podat nabídku k poptávce <strong>{{ quote.name }}</strong>:</p>
+
+    <div class="list-group my-3">
+        {% for sp in providers %}
+            <a class="list-group-item list-group-item-action"
+               href="{{ path('app_web_offer_new', { id: quote.id, sp: sp.id, _locale: app.request.locale }) }}">
+                <div class="d-flex w-100 justify-content-between">
+                    <strong>{{ sp.name }}</strong>
+                    {% set primaryAddr = sp.addresses|filter(a => a.isPrimary)|first %}
+                    <small class="text-muted">
+                        {% if primaryAddr %}
+                            {{ primaryAddr.city }}
+                        {% else %}
+                            &nbsp;
+                        {% endif %}
+                    </small>
+                </div>
+                {% if sp.categories|length > 0 %}
+                    <small class="text-muted">
+                        Kategorie: {{ sp.categories|map(c => c.name)|join(', ') }}
+                    </small>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+
+    <a class="btn btn-link" href="{{ path('app_web_quote_show', { id: quote.id, _locale: app.request.locale }) }}">Zpět na poptávku</a>
+</div>
+{% endblock %}

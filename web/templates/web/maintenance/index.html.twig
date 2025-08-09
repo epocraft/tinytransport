@@ -1,0 +1,14 @@
+{% extends 'web/blank.html.twig' %}
+
+{% block body_content %}
+    
+    {{ parent() }}
+
+    <div class="container-fluid w-100 h-100 maintenance-wrapper-fluid">
+        <div class="container w-100 h-100 d-flex flex-column justify-content-center align-items-center maintenance-wrapper">
+            <p><img src="assets/web/media/illustrations/maintenance.webp" alt="Maintenance" class="shadow rounded"></p>
+            {{ maintenanceText|raw }}
+        </div>
+    </div>
+
+{% endblock %}

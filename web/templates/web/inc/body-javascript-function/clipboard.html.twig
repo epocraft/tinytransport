@@ -1,0 +1,13 @@
+var clipboard = new ClipboardJS('.btn');
+
+clipboard.on('success', function(e) {
+    e.clearSelection();
+});
+
+const toastTrigger = document.getElementById('copy-gps');
+if (toastTrigger) {
+    toastTrigger.addEventListener('click', () => {
+        const toast = new bootstrap.Toast(document.getElementById('gpsToast'));
+        toast.show()
+    });
+}

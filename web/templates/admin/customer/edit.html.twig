@@ -1,0 +1,118 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/head-stylesheet/dropzone.html.twig') }}
+
+	{{ include('admin/inc/head-stylesheet/jquery-ui.html.twig') }}
+
+{% endblock %}
+
+{% block head_css %}
+
+	{{ parent() }}
+
+	<style type="text/css">
+
+		.ph {
+			height: 74px; /* Nastaví výšku placeholderu podle výšky řádku */
+			background-color: #f0f0f0; /* Šedé pozadí pro zřetelné zobrazení */
+			border: 1px dashed #ccc; /* Ohraničení */
+		}
+
+	</style>
+
+{% endblock %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <h1 class="fs-2 d-flex justify-content-between">
+		<span>{{ customer.ciName }}</span>
+		<span></span>
+	</h1>
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/customer/_form.html.twig') }}
+
+                <div class="float-start">
+					<button type="submit" class="btn btn-success" name="submit_update">{{ 'action.update'|trans }}</button>
+					<button type="submit" class="btn btn-success" name="submit_update_and_back">{{ 'action.update_and_back'|trans }}</button>
+					<a href="{{ path('app_admin_customer_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+				</div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/customer/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    {{ include('admin/inc/modals/document-show.html.twig') }}
+    {{ include('admin/inc/modals/document-edit.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/jquery-ui.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/dropzone.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/lightbox2.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/slugify.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    var dropzoneUploadUrl = "{{ path('app_admin_customer_dropzone_upload') }}";
+    var dropzoneDeleteUrl = "{{ path('app_admin_customer_dropzone_delete', {'id': 0}) }}".replace('/0', '/FILE_ID');
+    var dropzoneParamId = {{ customer.id }};
+	{{ include('admin/inc/body-javascript-function/dropzone-file.html.twig') }}
+
+    var documentShowUrl = "{{ path('app_admin_customer_document_show', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/document-show.html.twig') }}
+
+    var documentEditUrl = "{{ path('app_admin_customer_document_edit', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/document-edit.html.twig') }}
+
+    var documentDeleteUrl = "{{ path('app_admin_customer_document_delete', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/document-delete.html.twig') }}
+
+    {{ include('admin/inc/body-javascript-function/customer.html.twig') }}
+
+    {{ include('admin/inc/body-javascript-function/social-sites.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+    
+    var sortableElement = "customer";
+	var sortableUrl = "{{ path('app_admin_customer_reorder', {'iid': 1}) }}";
+    {{ include('admin/inc/body-javascript-document-ready/sortable.html.twig') }}
+
+	{{ include('admin/inc/body-javascript-document-ready/view-grid-table.html.twig') }}
+
+    var module = "customer";
+    var moduleUrl = "{{ path('app_admin_customer_new_ares') }}";
+    {{ include('admin/inc/body-javascript-document-ready/ares.html.twig') }}
+
+{% endblock %}

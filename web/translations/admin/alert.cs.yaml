@@ -1,0 +1,35 @@
+action:
+  create_new_alert: Vytvořit nové upozornění
+  edit_alert: Upravit upozornění
+
+breadcrumbs:
+  edit_alert: Úprava upozornění
+  alerts: Upozornění
+  alert_detail: Detail upozornění
+  new_alert: Nové upozornění
+  overview_of_alerts: Přehled upozornění
+
+help:
+  cookie_expire: v hodinách (výchozí hodnota je 1 den)
+  delay: v sekundách (výchozí hodnota je 1 sekunda)
+
+label:
+  id: Id
+  delay: Prodleva zobrazení upozornění
+  cookie_expire: Expirace cookie
+  name: Název
+  url_alias: URL alias
+  valid_from: platnost od
+  valid_to: platnost do
+  description: Text upozornění
+
+menu:
+  alerts: Upozornění
+  overview: Přehled
+
+placeholder:
+  delay: Zadejte prodlevu zobrazení upozornění
+  cookie_expire: Zadejte expiraci cookie
+  name: Zadejte název
+  url_alias: Zadejte URL alias
+  description: Zadejte text upozornění

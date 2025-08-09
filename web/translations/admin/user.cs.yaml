@@ -1,0 +1,56 @@
+action:
+  create_new_user: Vytvořit nového uživatele
+  edit_user: Upravit uživatele
+
+breadcrumbs:
+  overview_of_users: Přehled uživatelů
+  users: Uživatelé
+  user_detail: Detail uživatele
+  edit_user: Úprava uživatele
+  new_user: Nový uživatel
+
+fieldset:
+  password_and_security: Heslo a zabezpečení
+  publication: Publikace
+  roles: Uživatelské role
+  contact: Kontaktní údaje
+  settings: Nastavení
+
+help:
+  password: Ponechte prázdné, pokud nechcete měnit své heslo
+  confirm_password: Opište zadané heslo pro potvrzení
+
+label:
+  id: Id
+  email: E-mail
+  password: Heslo
+  confirm_password: Potvrzení hesla
+  roles: Uživatelská role
+  title_before: Titul před jménem
+  title_after: Titul za jménem
+  firstname: Jméno
+  surname: Příjmení
+  job_position: Pracovní pozice
+  phone: Telefon
+  mobile: Mobil
+  html_signature: HTML podpis
+  preffered_language: Preferovaný jazyk
+  separator_of_thousands: Oddělovač tisíců
+  decimal_point: Desetinná čárka
+  date_format: Formát datumu
+  date_time_format: Formát data a času
+
+menu:
+  users: Uživatelé
+  overview: Přehled
+
+placeholder:
+  title_before: Zadejte titul před jménem
+  title_after: Zadejte titul za jménem
+  firstname: Zadejte jméno
+  surname: Zadejte příjmení
+  job_position: Zadejte pracovní pozici
+  phone: Zadejte telefonní číslo
+  mobile: Zadejte mobilní číslo
+  separator_of_thousands: Zadejte oddělovač tisíců
+  decimal_point: Zadejte desetinnou čárku

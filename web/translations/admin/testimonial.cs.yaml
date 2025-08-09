@@ -1,0 +1,32 @@
+action:
+  create_new_testimonial: Vytvořit nové hodnocení
+  edit_testimonial: Upravit hodnocení
+
+breadcrumbs:
+  edit_testimonial: Úprava hodnocení
+  testimonials: Články
+  testimonial_detail: Detail hodnocení
+  new_testimonial: Nové hodnocení
+  overview_of_testimonials: Přehled hodnocení
+
+fieldset:
+  basic_data: Základní údaje
+  content_data: Obsah
+
+help:
+  rating: Vyjádřete hodnocení známkou, např. 1-5
+ 
+label:
+  id: Id
+  name: Název
+  rating: Známka
+  text: Text hodnocení
+
+menu:
+  testimonials: Hodnocení
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  rating: Zadejte známku
+  text: Zadejte text hodnocení

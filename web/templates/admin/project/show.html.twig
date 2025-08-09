@@ -1,0 +1,207 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+                    <tbody>
+                        <tr>
+                            <th>{{ 'label.id'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_name'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciName }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_in'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciIn }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_tin'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciTin }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_vat_payer'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciVatPayer }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_ba'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciBa }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_bc'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciBc }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_iban'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciIban }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_swift'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciSwift }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_registered'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciRegistered }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_duns'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciDuns }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_data_box'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciDataBox }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_web'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciWeb }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_phone'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_mobile'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciMobile }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_fax'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciFax }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.ci_email'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.ciEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.bi_name'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.biName }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.bi_street'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.biStreet }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.bi_city'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.biCity }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.bi_zipcode'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.biZipcode }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.bi_country'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.biCountry }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.di_name'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.diName }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.di_street'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.diStreet }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.di_city'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.diCity }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.di_zipcode'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.diZipcode }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.di_country'|trans({}, 'project')|lower }}</th>
+                            <td>{{ project.diCountry }}</td>
+                        </tr>
+                        <tr>
+                            <th>Discord</th>
+                            <td>{{ project.discord }}</td>
+                        </tr>
+                        <tr>
+                            <th>Facebook</th>
+                            <td>{{ project.facebook }}</td>
+                        </tr>
+                        <tr>
+                            <th>Instagram</th>
+                            <td>{{ project.instagram }}</td>
+                        </tr>
+                        <tr>
+                            <th>Linkedin</th>
+                            <td>{{ project.linkedin }}</td>
+                        </tr>
+                        <tr>
+                            <th>Pinterest</th>
+                            <td>{{ project.pinterest }}</td>
+                        </tr>
+                        <tr>
+                            <th>Snapchat</th>
+                            <td>{{ project.snapchat }}</td>
+                        </tr>
+                        <tr>
+                            <th>Telegram</th>
+                            <td>{{ project.telegram }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tiktok</th>
+                            <td>{{ project.tiktok }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tumblr</th>
+                            <td>{{ project.tumblr }}</td>
+                        </tr>
+                        <tr>
+                            <th>X</th>
+                            <td>{{ project.x }}</td>
+                        </tr>
+                        <tr>
+                            <th>Whatsapp</th>
+                            <td>{{ project.whatsapp }}</td>
+                        </tr>
+                        <tr>
+                            <th>Youtube</th>
+                            <td>{{ project.youtube }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.publication'|trans|lower }}</th>
+                            <td>
+                                {% set publication = project.publication %}
+                                {% if publication == '' %}
+                                    {{ 'publication.select'|trans|lower }}
+                                {% endif %}
+                                {% if publication == 0 %}
+                                    <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+                                {% endif %}
+                                {% if publication == 1 %}
+                                    <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{{ path('app_admin_project_edit', {'id': project.id}) }}" title="{{ 'action.edit_project'|trans({}, 'project') }}" class="btn btn-success">{{ 'action.edit_project'|trans({}, 'project') }}</a>
+            <a href="{{ path('app_admin_project_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-info">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+        <div>
+            {{ include('admin/project/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

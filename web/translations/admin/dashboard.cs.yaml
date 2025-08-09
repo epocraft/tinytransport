@@ -1,0 +1,9 @@
+breadcrumbs:
+  dashboard: Dashboard
+  select_project: Vyberte projekt
+
+menu:
+  dashboard: Dashboard
+  unpaid_invoices_received_with_vat: Neuhrazené faktury přijaté s DPH
+  unpaid_invoices_issued_with_vat: Neuhrazené faktury vydané s DPH
+  unpaid_invoices_issued_without_vat: Neuhrazené faktury vydané bez DPH

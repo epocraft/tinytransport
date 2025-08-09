@@ -1,0 +1,80 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.name) }}
+			</div>
+
+            <div class="col-12">
+                {{ form_label(form.url) }}
+                <div class="input-group mb-3">
+                    {% do form.url.setRendered() %}
+                        <input 
+                            type="text" 
+                            name="{{ form.url.vars.full_name }}" 
+                            value="{{ form.url.vars.value }}" 
+                            class="form-control" 
+                            id="url" 
+                            placeholder="{{ form.url.vars.attr.placeholder|default('Vložte URL') }}" 
+                            aria-label="URL webu"
+                        >
+                        <button 
+                            class="btn btn-primary" 
+                            type="button" 
+                            id="button-url" 
+                            {% if not form.url.vars.value %}disabled{% endif %}
+                            onclick="openLink('url')"
+                        >
+                            <i class="mdi mdi-link-variant"></i>
+                        </button>
+                </div>
+            </div>
+
+            <div class="col-6">
+				{{ form_row(form.username) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.password) }}
+			</div>
+
+            <div class="col-12">
+				{{ form_row(form.supplier) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

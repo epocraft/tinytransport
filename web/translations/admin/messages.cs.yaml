@@ -1,0 +1,76 @@
+action:
+    back_to_list: Zpět na přehled
+    close: Zavřít
+    delete: Smazat
+    save: Uložit
+    update: Upravit a zpět na přehled
+    update_and_back: Upravit a vrátit se 
+    submit: Odeslat
+    show: Zobrazit
+    edit: Upravit
+    mail: Odeslat
+    import_isdoc: Import isdoc
+    generate_pdf: Generovat PDF
+    send_pdf: Odeslat
+
+alert:
+    are_you_sure_you_want_to_delete_this_item: Opravdu chcete tuto položku smazat?
+
+breadcrumbs:
+
+fieldset:
+    basic_data: Základní údaje
+    content_data: Obsah
+    publication: Publikace
+    history_of_modifications: Historie úprav
+    history_of_mailing: Historie odeslání
+    price_of_modifications: Historie cen
+    settings_data: Nastavení
+    contractor: Zadavatel
+    items: Položky
+
+help:
+
+label:
+    actions: Akce
+    created_at: Vytvořeno
+    publication: Publikace
+    updated_at: Upraveno
+    status: Stav
+
+menu:
+    title:
+        management: Správa
+        web: Web
+        invoicing: Fakturace
+        business: Business
+        tools: Nástroje
+    account_balance: FIO banka - stav bankovního účtu k datu
+
+message:
+    data_has_been_successfully_changed: Data byla úspěšně změněna
+    data_has_been_successfully_deleted: Data byla úspěšně odstraněna
+    data_has_been_successfully_inserted: Data byla úspěšně uložena
+    no_records_found: Nenalezen žádný záznam
+    you_have_been_logged_out: Byli jste odhlášeni
+
+paginator:
+
+placeholder:
+    select: Zvolte
+
+post:
+
+publication:
+    publish: Publikováno
+    select: Zvolte
+    unpublish: Nepublikováno
+
+status:
+    loading_data: Nahrávám...
+
+text:
+    yes: Ano
+    no: Ne
+
+title:

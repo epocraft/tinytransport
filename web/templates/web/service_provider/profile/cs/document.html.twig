@@ -1,0 +1,204 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}title | {{ projectService.ciName }}{% endblock %}
+{% block meta_description %}{% endblock %}
+{% block meta_keywords %}{% endblock %}
+
+{% block og_title %}title | {{ projectService.ciName }}{% endblock %}
+{% block og_meta_description %}{% endblock %}
+{% block og_meta_keywords %}{% endblock %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	{#{% if article %}#}
+
+		<div class="container mt-4">
+
+			<div class="row">
+
+				{{ include('web/service_provider/profile/cs/header.html.twig') }}
+
+				{{ include('web/service_provider/profile/cs/nav.html.twig') }}
+
+				<div class="col-md-10">
+
+					{{ form_start(form) }}
+
+						<div class="row">
+
+							<div class="col-4">
+								{{ form_row(form.idCardFront) }}
+								{% if userDocument.idCardFront %}
+									<p class="mt-2">
+										Aktuální soubor: <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.idCardFront) }}" target="_blank">Zobrazit</a>
+									</p>
+								{% endif %}
+							</div>
+
+							<div class="col-4">
+								{{ form_row(form.idCardBack) }}
+								{% if userDocument.idCardBack %}
+									<p class="mt-2">
+										Aktuální soubor: <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.idCardBack) }}" target="_blank">Zobrazit</a>
+									</p>
+								{% endif %}
+							</div>
+
+							<div class="col-3">
+								{{ form_row(form.idCardValidTo) }}
+							</div>
+
+							<div class="col-1">
+								{% if userDocument.idCardChecked %}
+									<i class="fa fa-check text-success" title="Dokument ověřen"></i>
+								{% else %}
+									<i class="fa fa-times text-danger" title="Dokument neověřen"></i>
+								{% endif %}
+							</div>
+
+							<div class="col-4">
+    {% if userDocument.driverLicenseFront %}
+	{{ form_label(form.driverLicenseFront) }}
+        <p class="mt-2">
+            Aktuální soubor:
+            <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.driverLicenseFront) }}"
+               target="_blank">Zobrazit</a>
+            {# tlačítko pro smazání; předpokládáme, že máte v routách např. user_document_delete_front #}
+            
+			
+
+			<form method="post"
+                  action="{{ path('app_web_service_provider_profile_document_delete', {'id': userDocument.id, 'field': 'driverLicenseFront'}) }}"
+                  style="display:inline"
+                  onsubmit="return confirm('Opravdu smazat přední stranu ŘP?');">
+                <input type="hidden" name="_token"
+                       value="{{ csrf_token('delete_front_' ~ userDocument.id) }}">
+                <button type="submit" class="btn btn-sm btn-danger">Smazat</button>
+            </form>
+        </p>
+    {% else %}
+        {{ form_row(form.driverLicenseFront) }}
+    {% endif %}
+</div>
+
+							<div class="col-4">
+								{{ form_row(form.driverLicenseBack) }}
+								{% if userDocument.driverLicenseBack %}
+									<p class="mt-2">
+										Aktuální soubor: <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.driverLicenseBack) }}" target="_blank">Zobrazit</a>
+									</p>
+								{% endif %}
+							</div>
+
+							<div class="col-3">
+								{{ form_row(form.driverLicenseValidTo) }}
+							</div>
+
+							<div class="col-1">
+								{% if userDocument.driverLicenseChecked %}
+									<i class="fa fa-check text-success" title="Dokument ověřen"></i>
+								{% else %}
+									<i class="fa fa-times text-danger" title="Dokument neověřen"></i>
+								{% endif %}
+							</div>
+							
+							<div class="col-8">
+								{{ form_row(form.tradeLicense) }}
+								{% if userDocument.tradeLicense %}
+									<p class="mt-2">
+										Aktuální soubor: <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.tradeLicense) }}" target="_blank">Zobrazit</a>
+									</p>
+								{% endif %}
+							</div>
+
+							<div class="col-3">
+								{{ form_row(form.tradeLicenseValidTo) }}
+							</div>
+
+							<div class="col-1">
+								{% if userDocument.tradeLicenseChecked %}
+									<i class="fa fa-check text-success" title="Dokument ověřen"></i>
+								{% else %}
+									<i class="fa fa-times text-danger" title="Dokument neověřen"></i>
+								{% endif %}
+							</div>
+
+							<div class="col-8">
+								{{ form_row(form.insuranceLiability) }}
+								{% if userDocument.insuranceLiability %}
+									<p class="mt-2">
+										Aktuální soubor: <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.insuranceLiability) }}" target="_blank">Zobrazit</a>
+									</p>
+								{% endif %}
+							</div>
+
+							<div class="col-3">
+								{{ form_row(form.insuranceLiabilityValidTo) }}
+							</div>
+
+							<div class="col-1">
+								{% if userDocument.insuranceLiabilityChecked %}
+									<i class="fa fa-check text-success" title="Dokument ověřen"></i>
+								{% else %}
+									<i class="fa fa-times text-danger" title="Dokument neověřen"></i>
+								{% endif %}
+							</div>
+							
+							<div class="col-8">
+								{{ form_row(form.insuranceTransport) }}
+								{% if userDocument.insuranceTransport %}
+									<p class="mt-2">
+										Aktuální soubor: <a href="{{ asset('assets/web/media/documents/' ~ app.user.id ~ '/' ~ userDocument.insuranceTransport) }}" target="_blank">Zobrazit</a>
+									</p>
+								{% endif %}
+							</div>
+
+							<div class="col-3">
+								{{ form_row(form.insuranceTransportValidTo) }}
+							</div>
+
+							<div class="col-1">
+								{% if userDocument.insuranceTransportChecked %}
+									<i class="fa fa-check text-success" title="Dokument ověřen"></i>
+								{% else %}
+									<i class="fa fa-times text-danger" title="Dokument neověřen"></i>
+								{% endif %}
+							</div>
+							
+						</div>
+
+						<div class="float-start">
+							<button class="btn btn-success">{{ 'action.save'|trans }}</button>
+						</div>
+
+					{{ form_end(form) }}
+
+				</div>
+
+			</div>
+
+		</div>
+
+	{#{% endif %}#}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+{% endblock %}

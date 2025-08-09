@@ -1,0 +1,104 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/head-stylesheet/dropzone.html.twig') }}
+
+	{{ include('admin/inc/head-stylesheet/select2.html.twig') }}
+
+{% endblock %}
+
+{% block head_css %}
+
+	{{ parent() }}
+
+	<style type="text/css">
+
+		.suggestions {
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+			position: absolute; /* Aby seznam neovlivňoval layout stránky */
+			background-color: #fff;
+			border: 1px solid #ccc;
+			z-index: 1000; /* Aby byl seznam vidět nad ostatními prvky */
+		}
+
+		.suggestions li {
+			padding: 8px;
+			cursor: pointer;
+		}
+
+		.suggestions li:hover {
+			background-color: #eee;
+		}
+
+		.select2-selection,
+        .select2-results__option {
+            font-size: .825rem !important;
+        }
+
+	</style>
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+	
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            	{{ include('admin/invoice_received/_form.html.twig') }}
+
+				<div class="float-start">
+					<button class="btn btn-success">{{ 'action.save'|trans }}</button>
+					<a href="{{ path('app_admin_invoice_received_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+				</div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/body-javascript/dropzone.html.twig') }}
+
+	{{ include('admin/inc/body-javascript/select2.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+	var dropzoneUploadUrl = "{{ path('app_admin_invoice_received_dropzone_upload') }}";
+	var dropzoneDeleteUrl = "{{ path('app_admin_invoice_received_dropzone_delete', {'id': 0}) }}".replace('/0', '/FILE_ID');
+	{{ include('admin/inc/body-javascript-function/dropzone-file.html.twig') }}
+
+	{{ include('admin/inc/body-javascript-function/invoice-received.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/body-javascript-document-ready/select2.html.twig') }}
+
+	{{ include('admin/inc/body-javascript-document-ready/invoice-received.html.twig') }}
+
+	{{ include('admin/inc/body-javascript-document-ready/view-grid-table.html.twig') }}
+
+{% endblock %}

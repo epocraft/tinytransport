@@ -1,0 +1,50 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Moje poptávky | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 m-0">Moje poptávky</h1>
+    <a class="btn btn-primary" href="{{ path('app_web_quote_new', {'_locale': app.request.locale}) }}">Zadat poptávku</a>
+  </div>
+
+  <div class="mb-3">
+    <div class="btn-group" role="group">
+      {% set statuses = {
+        '': 'Vše',
+        'open': 'Otevřené ('~ (counts.open ?? 0) ~')',
+        'selected': 'Vybraná nabídka ('~ (counts.selected ?? 0) ~')',
+        'closed': 'Uzavřené ('~ (counts.closed ?? 0) ~')',
+        'cancelled': 'Zrušené ('~ (counts.cancelled ?? 0) ~')'
+      } %}
+      {% for key, label in statuses %}
+        <a class="btn btn-sm {{ (activeStatus|default('') == key) ? 'btn-secondary' : 'btn-outline-secondary' }}"
+           href="{{ path('app_web_my_quotes', {'_locale': app.request.locale, 'status': key}) }}">{{ label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if quotes is empty %}
+    <div class="alert alert-info">Zatím žádné záznamy.</div>
+  {% else %}
+    <div class="list-group">
+      {% for q in quotes %}
+        <a class="list-group-item list-group-item-action" href="{{ path('app_web_quote_show', {id: q.id, _locale: app.request.locale}) }}">
+          <div class="d-flex w-100 justify-content-between">
+            <div>
+              <strong>{{ q.name }}</strong>
+              <small class="text-muted ms-2">{{ q.category.name }}</small>
+            </div>
+            <small class="text-muted">{{ q.createdAt|date('d.m.Y H:i') }}</small>
+          </div>
+          <div class="mt-1">
+            <small class="text-muted">Stav: {{ q.status }}</small>
+            <span class="ms-2">Nakládka: {{ q.loadingAddress }} → Vykládka: {{ q.unloadingAddress }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

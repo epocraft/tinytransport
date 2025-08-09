@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            {{ include('admin/market/_form.html.twig') }}
+
+            <div class="float-start">
+                <button type="submit" class="btn btn-success" name="submit_update">{{ 'action.update'|trans }}</button>
+				<button type="submit" class="btn btn-success" name="submit_update_and_back">{{ 'action.update_and_back'|trans }}</button>
+                <a href="{{ path('app_admin_market_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/market/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/slugify.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/tinymce.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    var inputSlugify = document.getElementById('market_name');
+    var outputSlugify = document.getElementById('market_urlAlias');
+    if (inputSlugify && outputSlugify) {
+        {{ include('admin/inc/body-javascript-function/slugify.html.twig') }}
+    } else {
+        console.error('market name or URL alias elements not found');
+    }
+
+    var input = '#market_perex, #market_text';
+    {{ include('admin/inc/body-javascript-function/tinymce.html.twig') }}
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_css %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/head-css/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block head_stylesheet %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/head-stylesheet/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="card">
+
+        <div class="card-body">
+
+            <div id="data-table">{{ 'status.loading_data'|trans }}...</div>
+
+        </div>
+
+    </div>
+
+    <a href="{{ path('app_admin_invoice_received_new') }}" title="{{ 'action.create_new_invoice_received'|trans({}, 'invoice_received') }}" class="btn btn-success">{{ 'action.create_new_invoice_received'|trans({}, 'invoice_received') }}</a>
+    <a href="{{ path('app_admin_invoice_received_import_isdoc') }}" title="{{ 'action.import_isdoc'|trans }}" class="btn btn-secondary">{{ 'action.import_isdoc'|trans }}</a>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/datatables.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+
+    const today = new Date("{{ today }}"); // Předáno z kontroleru
+    var dataTableElement = "data-table";
+    {{ include('admin/inc/body-javascript-document-ready/datatables.html.twig') }}
+
+{% endblock %}

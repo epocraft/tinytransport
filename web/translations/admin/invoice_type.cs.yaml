@@ -1,0 +1,29 @@
+action:
+  create_new_invoice_typ: Vytvořit nový typ faktury
+  edit_invoice_typ: Upravit typ faktury
+
+breadcrumbs:
+  edit_invoice_typ: Úprava typu faktury
+  invoice_typ_detail: Detail typu faktury
+  invoice_types: Typy faktur
+  new_invoice_typ: Nový typ faktury
+  overview_of_invoice_types: Přehled typů faktur
+
+fieldset:
+  typ: Typ
+
+label:
+  bg_color: Barva pozadí
+  id: Id
+  name: Název
+  text_color: Barva textu
+  typ: Typ
+
+menu:
+  invoice_types: Typy faktur
+  overview: Přehled
+
+placeholder:
+  bg_color: Zadejte barvu pozadí
+  name: Zadejte název
+  text_color: Zadejte barvu textu

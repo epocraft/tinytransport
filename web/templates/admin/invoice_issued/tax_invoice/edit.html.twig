@@ -1,0 +1,83 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_stylesheet %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/head-stylesheet/select2.html.twig') }}
+
+{% endblock %}
+
+{% block head_css %}
+
+	{{ parent() }}
+
+	<style type="text/css">
+
+		.select2-selection,
+        .select2-results__option {
+            font-size: .825rem !important;
+        }
+
+	</style>
+
+{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+	
+    <h1 class="fs-2 d-flex justify-content-between">
+		<span>{{ invoiceIssued.number }}</span>
+		<span>{{ invoiceIssued.customer.ciName }}</span>
+	</h1>
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+			{{ form_start(form) }}
+
+				{{ include('admin/invoice_issued/tax_invoice/_form.html.twig') }}
+
+				<div class="float-start">
+					<button type="submit" class="btn btn-success" name="submit_update">{{ 'action.update'|trans }}</button>
+					<button type="submit" class="btn btn-success" name="submit_update_and_back">{{ 'action.update_and_back'|trans }}</button>
+					<a href="{{ path('app_admin_invoice_issued_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+				</div>
+
+			{{ form_end(form) }}
+
+			{{ include('admin/invoice_issued/tax_invoice/_delete_form.html.twig') }}
+
+		</div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/body-javascript/select2.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/body-javascript-function/invoice-issued/tax-invoice/invoice-issued.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+	{{ parent() }}
+
+	{{ include('admin/inc/body-javascript-document-ready/select2.html.twig') }}
+
+	{{ include('admin/inc/body-javascript-document-ready/invoice-issued/tax-invoice/invoice-issued.html.twig') }}
+
+{% endblock %}

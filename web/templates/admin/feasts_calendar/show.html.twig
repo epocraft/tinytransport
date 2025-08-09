@@ -1,0 +1,138 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    <div class="card">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+                    <tbody>
+                        <tr>
+                            <th>{{ 'label.id'|trans({}, 'feasts_calendar')|lower }}</th>
+                            <td>{{ feastsCalendar.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.date'|trans({}, 'feasts_calendar')|lower }}</th>
+                            <td>{{ feastsCalendar.date|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateFormat ? app.request.attributes.get('user').userUserSettings.dateFormat : 'Y-m-d') }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.name'|trans({}, 'feasts_calendar')|lower }}</th>
+                            <td>{{ feastsCalendar.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.status'|trans({}, 'feasts_calendar')|lower }}</th>
+                            <td>
+                                {% set status = feastsCalendar.status %}
+                                {% if status == 1 %}
+                                    <span class="badge bg-danger">{{ 'status.must_be_closed'|trans({}, 'feasts_calendar')|lower }}</span>
+                                {% endif %}
+                                {% if status == 2 %}
+                                    <span class="badge bg-danger">{{ 'status.can_be_opened'|trans({}, 'feasts_calendar')|lower }}</span>
+                                {% endif %}
+                                {% if status == 3 %}
+                                    <span class="badge bg-danger">{{ 'status.may_be_open_until_noon'|trans({}, 'feasts_calendar')|lower }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'label.publication'|trans|lower }}</th>
+                            <td>
+                                {% set publication = feastsCalendar.publication %}
+                                {% if publication == '' %}
+                                {{ 'publication.select'|trans|lower }}
+                                {% endif %}
+                                {% if publication == 0 %}
+                                <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+                                {% endif %}
+                                {% if publication == 1 %}
+                                <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+		{% if dateLogs %}
+
+			<div class="col-12">
+
+				<div class="card">
+
+                    <div class="card-header align-items-center d-flex">
+                        <h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.history_of_modifications'|trans }}</h4>
+                        <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInvoiceHistoryOfModifications" aria-expanded="false" aria-controls="collapseInvoiceHistoryOfModifications"><i class="mdi mdi-information-outline"></i></button>
+                    </div>
+
+					<div class="card-body collapse" id="collapseInvoiceHistoryOfModifications">
+
+						<div class="table-responsive">
+
+							<table class="table table-striped table-hover table-nowrap align-middle mb-0">
+
+								<tbody>
+
+									{% for dateLog in dateLogs %}
+
+										<tr>
+
+											{% set date = dateLog.updatedAt|date('Y-m-d H:i:s') %}
+
+											{% if date == '1000-01-01 00:00:00' %}
+
+												<th>{{ 'label.created_at'|trans|lower }}</th>
+												<td>{{ feastsCalendar.createdAt|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% else %}
+
+												<th>{{ 'label.updated_at'|trans|lower }}</th>
+												<td>{{ date|date(app.request.attributes.get('user').userUserSettings and app.request.attributes.get('user').userUserSettings.dateTimeFormat ? app.request.attributes.get('user').userUserSettings.dateTimeFormat : 'Y-m-d H:i:s') }}</td>
+
+											{% endif %}
+
+											<td>{{ dateLog.user.userUserContact.firstname }}
+												{{ dateLog.user.userUserContact.surname }}</td>
+
+										</tr>
+
+									{% endfor %}
+
+								</tbody>
+
+							</table>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		{% endif %}
+
+	</div>
+    
+    <div class="d-flex justify-content-between">
+        <div>
+            <a href="{{ path('app_admin_feasts_calendar_edit', {'id': feastsCalendar.id}) }}" title="{{ 'action.edit_feast_calendar'|trans({}, 'feasts_calendar') }}" class="btn btn-success">{{ 'action.edit_feast_calendar'|trans({}, 'feasts_calendar') }}</a>
+            <a href="{{ path('app_admin_feasts_calendar_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-info">{{ 'action.back_to_list'|trans }}</a>
+        </div>
+        <div>
+            {{ include('admin/feasts_calendar/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+{% endblock %}

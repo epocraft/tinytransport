@@ -1,0 +1,32 @@
+{% if alerts.getAlerts is not null and alerts.getAlerts is defined %}
+
+	{% for alert in alerts.getAlerts %}
+
+		{% set now = "now"|date("Y-m-d H:i:s") %}
+
+		{% if (alert.validFrom is null or now >= alert.validFrom|date("Y-m-d H:i:s")) and (alert.validTo is null or now <= alert.validTo|date("Y-m-d H:i:s")) %}
+
+			{% if not app.request.cookies.get(alert.urlAlias ~ '_shown') %}
+
+				<!-- Modal -->
+				<div class="modal fade" id="{{ alert.urlAlias }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<h1 class="modal-title fs-5" id="exampleModalLabel">{{ alert.name }}</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								{{ alert.description|raw }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+			{% endif %}
+
+		{% endif %}
+
+	{% endfor %}
+
+{% endif %}

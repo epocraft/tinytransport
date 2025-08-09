@@ -1,0 +1,29 @@
+tinymce.init({
+  selector: input,
+  language: '{{ lang }}',
+  directionality: 'ltr',
+  /*plugins: [
+    'a11ychecker', 'advcode', 'advlist', 'advtable', 'advtemplate', 'ai', 'anchor', 'autocorrect', 'autolink', 'casechange', 'charmap', 'checklist', 'code', 'codesample', 'editimage', 'emoticons', 'export', 'footnotes', 'formatpainter', 'fullscreen', 'help', 'image', 'inlinecss', 'insertdatetime', 'link', 'linkchecker', 'lists', 'markdown', 'media', 'mediaembed', 'mentions', 'mergetags', 'pagebreak', 'pageembed', 'permanentpen', 'powerpaste', 'preview', 'searchreplace', 'table', 'tableofcontents', 'tinycomments', 'tinymcespellchecker', 'typography', 'visualblocks', 'visualchars', 'wordcount'
+  ],*/
+  /*lplugins: [
+    'linkchecker'
+  ],*/
+  plugins: [
+    'advlist', 'anchor', 'autolink', 'charmap', 'code', 'codesample', 'emoticons', 'fullscreen', 'help', 'image', 'insertdatetime', 'link', 'lists', 'media', 'pagebreak', 'preview', 'searchreplace', 'table', 'visualblocks', 'visualchars', 'wordcount'
+  ],
+  toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat | alignleft aligncenter alignright alignjustify | print preview fullscreen | forecolor backcolor styles | help',
+  menu: {
+    favs: { title: 'Oblíbené', items: 'code visualaid | searchreplace | emoticons' }
+  },
+  menubar: 'favs file edit view insert format tools table help',
+  entity_encoding: 'raw',
+  tinycomments_mode: 'embedded',
+  tinycomments_author: '°SAUNEO',
+  mergetags_list: [
+    { value: 'First.Name', title: 'First Name' },
+    { value: 'Email', title: 'Email' },
+  ],
+  ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+  valid_elements: '*[*]',
+  extended_valid_elements: 'i[class=myclass|title]'
+});

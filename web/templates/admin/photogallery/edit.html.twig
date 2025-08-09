@@ -1,0 +1,117 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block head_css %}
+
+    {{ parent() }}
+
+    <style type="text/css">
+
+        .ph {
+    background-color: #f0f0f0; /* Světle šedé pozadí */
+    border: 1px dashed #ccc;   /* Přerušovaná šedá hranice */
+    /* Zde již NEBUDE pevná výška (height: 50px;) */
+    visibility: visible !important; 
+    box-sizing: border-box;    
+    opacity: 0.7;              
+    transition: background-color 0.2s ease-in-out; 
+}
+
+    </style>
+
+{% endblock %}
+
+{% block head_stylesheet %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/head-stylesheet/dropzone.html.twig') }}
+
+    {{ include('admin/inc/head-stylesheet/lightbox2.html.twig') }}
+
+{% endblock %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            {{ include('admin/photogallery/_form.html.twig') }}
+
+            <div class="float-start">
+                <button class="btn btn-success">{{ 'action.update'|trans }}</button>
+                <a href="{{ path('app_admin_photogallery_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+            {{ form_end(form) }}
+
+            {{ include('admin/photogallery/_delete_form.html.twig') }}
+
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    {{ include('admin/inc/modals/image-show.html.twig') }}
+    {{ include('admin/inc/modals/image-edit.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript %}
+
+    {{ parent() }}
+
+    {{ include('admin/inc/body-javascript/jquery-ui.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/slugify.html.twig') }}
+
+    {{ include('admin/inc/body-javascript/dropzone.html.twig') }}
+
+    {{ include('admin/inc/body-javascript//lightbox2.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    var inputSlugify = document.getElementById('photogallery_name');
+    var outputSlugify = document.getElementById('photogallery_urlAlias');
+    if (inputSlugify && outputSlugify) {
+        {{ include('admin/inc/body-javascript-function/slugify.html.twig') }}
+    } else {
+        console.error('Alert name or URL alias elements not found');
+    }
+
+    var dropzoneUploadUrl = "{{ path('app_admin_photogallery_dropzone_upload') }}";
+    var dropzoneDeleteUrlBase = "{{ path('app_admin_photogallery_dropzone_delete', {'id': 0}) }}".replace('/0', '/FILE_ID');
+    var dropzoneParamId = {{ photogallery.id }};
+	{{ include('admin/inc/body-javascript-function/dropzone-image.html.twig') }}
+
+    {{ include('admin/inc/body-javascript-function/lightbox2.html.twig') }}
+
+    var imageShowUrl = "{{ path('app_admin_photogallery_image_show', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/image-show.html.twig') }}
+
+    var imageEditUrl = "{{ path('app_admin_photogallery_image_edit', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/image-edit.html.twig') }}
+
+    var imageDeleteUrl = "{{ path('app_admin_photogallery_image_delete', {'id': 0}) }}";
+    {{ include('admin/inc/body-javascript-function/image-delete.html.twig') }}
+
+{% endblock %}
+
+{% block body_javascript_document_ready %}
+
+    {{ parent() }}
+    
+    {{ include('admin/inc/body-javascript-document-ready/view-grid-table.html.twig') }}
+
+    var sortableUrl = "{{ path('app_admin_photogallery_reorder', {'iid': 1}) }}";
+    {{ include('admin/inc/body-javascript-document-ready/sortable.html.twig') }}
+
+{% endblock %}

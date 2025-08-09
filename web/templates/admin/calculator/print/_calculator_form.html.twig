@@ -1,0 +1,48 @@
+{# templates/print/_calculator_form.html.twig #}
+{# Tato šablona je určena pro includování do hlavního layoutu #}
+{# Očekává proměnnou 'form' obsahující objekt formuláře (PrintCalculatorType) #}
+
+<div class="form-errors">
+    {# Vykreslí globální chyby formuláře (např. chyby, které se netýkají konkrétního pole) #}
+    {{ form_errors(form) }}
+</div>
+
+{# Struktura s kartami a sloupci podle vašeho vzoru #}
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+        {# Použijte vaši translaci pro nadpis sekce formuláře #}
+        <h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans([], 'calculator') }}</h4>
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            {# Pole pro výběr barvy #}
+            <div class="col-12"> {# Můžete upravit šířku sloupce dle potřeby (col-md-6 atd.) #}
+                {{ form_row(form.color) }}
+            </div>
+
+            {# Pole pro výběr formátu #}
+            <div class="col-12"> {# Můžete upravit šířku sloupce dle potřeby (col-md-6 atd.) #}
+                {{ form_row(form.format) }}
+            </div>
+
+            {# Pole pro výběr papíru #}
+            <div class="col-12"> {# Můžete upravit šířku sloupce dle potřeby #}
+                {{ form_row(form.paper) }}
+            </div>
+
+            {# Pole pro zadání množství #}
+            <div class="col-12"> {# Můžete upravit šířku sloupce dle potřeby #}
+                {{ form_row(form.quantity) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{# Pokud byste měli další skupiny polí, přidali byste další <div class="print"> zde #}

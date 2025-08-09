@@ -1,0 +1,45 @@
+action:
+  create_new_article: Vytvořit nový článek
+  edit_article: Upravit článek
+
+breadcrumbs:
+  edit_article: Úprava článku
+  articles: Články
+  article_detail: Detail článku
+  new_article: Nový článek
+  overview_of_articles: Přehled článků
+
+fieldset:
+  basic_data: Základní údaje
+  meta_data: Meta data
+  content_data: Obsah
+  photogalleries: Fotogalerie
+
+label:
+  id: Id
+  name: Název
+  short_name: Krátký název
+  url_alias: URL alias
+  title: Titulek článku
+  meta_description: Meta description
+  meta_keywords: Meta keywords
+  perex: Perex článku
+  text: Text článku
+  tag: Tagy článku
+  paid_text: Placený obsah
+
+menu:
+  articles: Články
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  short_name: Zadejte krátký název
+  url_alias: Zadejte URL alias
+  title: Zadejte titulek článku
+  meta_description: Zadejte meta description
+  meta_keywords: Zadejte meta keywords
+  perex: Zadejte perex článku
+  text: Zadejte text článku
+  tag: Zadejte tagy článku
+  paid_text: Zadejte placený text článku

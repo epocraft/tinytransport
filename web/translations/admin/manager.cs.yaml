@@ -1,0 +1,26 @@
+action:
+  create_new_manager: Vytvořit nového manažera
+  edit_manager: Upravit manažera
+
+breadcrumbs:
+  overview_of_managers: Přehled manažerů
+  managers: Manažeři
+  manager_detail: Detail manažera
+  edit_manager: Úprava manažera
+  new_manager: Nový manažer
+
+fieldset:
+  
+
+label:
+  id: Id
+  user: Uživatel
+  
+
+menu:
+  managers: Manažeři
+  overview: Přehled
+
+placeholder:
+  firstname: Zadejte křestní jméno
+  surname: Zadejte příjmení

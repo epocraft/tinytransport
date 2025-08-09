@@ -1,0 +1,35 @@
+action:
+  create_new_document: Vytvořit nový dokument
+  edit_document: Upravit dokument
+
+breadcrumbs:
+  edit_document: Úprava dokumentu
+  documents: Obrázky
+  document_detail: Detail dokumentu
+  new_document: Nový dokument
+  overview_of_documents: Přehled dokumentů
+
+fieldset:
+  basic_data: Základní údaje
+
+label:
+  id: Id
+  name: Název
+  document: dokument
+  description: Popis
+  version: Verze
+  file_name: Název souboru
+  file_size: Datový objem
+  file_path: Cesta k souboru
+  file_type: Typ souboru
+  position: Pozice
+
+menu:
+  documents: Dokumenty
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  version: Zadejte verzi
+  file_name: Zadejte název souboru

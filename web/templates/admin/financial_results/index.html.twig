@@ -1,0 +1,77 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+                {{ include('admin/financial_results/_form.html.twig') }}
+
+                <div class="float-start">
+                    <button type="submit" class="btn btn-success" name="submit_update">Spočítat</button>
+                </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+    {% if prijmy.total is defined and prijmy.total is not null and vydaje.total is defined and vydaje.total is not null %}
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-6">
+
+                <h2>Daň z příjmů FO</h2>
+
+                <p>
+                    Příjmy: {{ prijmy.total|number_format(2, ',', ' ') }} Kč<br>
+                    Výdaje:  {{ vydaje.total|number_format(2, ',', ' ') }} Kč<br>
+                    Odpisy: {{ odpisy|number_format(2, ',', ' ') }} Kč<br>
+                    Dílčí základ daně: {{ dilciZakladDane|number_format(2, ',', ' ') }} Kč
+                </p>
+
+                <p>
+                    Odčitatelné položky: {{ odcitatelnePolozky|number_format(2, ',', ' ') }} Kč<br>
+                    Dary: {{ dary|number_format(2, ',', ' ') }} Kč
+                </p>
+
+                <p><strong>Základ daně celkem: {{ zakladDaneCelkem|number_format(2, ',', ' ') }} Kč</strong></p>
+
+                <p>Daň: {{ dan|number_format(2, ',', ' ') }} Kč</p>
+
+                <p>
+                    Sleva na dani FO: {{ slevaNaDaniFO|number_format(2, ',', ' ') }} Kč<br>
+                    Daňové zvýhodnění dětí: {{ danoveZvyhodneniNaDeti|number_format(2, ',', ' ') }} Kč
+                </p>
+
+                <p><strong>Nedoplatek na dani: {{ nedoplatekNaDani|number_format(2, ',', ' ') }} Kč</strong></p>
+
+            </div>
+
+            <div class="col-6">
+
+                <h2>DPH</h2>
+                
+                <p>
+                    Příjmy: {{ prijmy.totalVat|number_format(2, ',', ' ') }} Kč<br>
+                    Výdaje: {{ vydaje.totalVat|number_format(2, ',', ' ') }} Kč
+                </p>
+
+                <p><strong>Daň z přidané hodnoty: {{ odvodDPH|number_format(2, ',', ' ') }} Kč</strong></p>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}

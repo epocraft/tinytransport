@@ -1,0 +1,8 @@
+{{ form_start(form, {
+    'attr': {'id': 'documentEditForm'},
+    'action': path('app_admin_supplier_document_edit', {'id': document.id})
+}) }}
+
+    {{ form_widget(form) }}
+
+{{ form_end(form) }}

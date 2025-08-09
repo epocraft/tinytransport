@@ -1,0 +1,24 @@
+var pusher = new Pusher('{{ pusherPublicKey }}', {
+    cluster: '{{ pusherCluster}}',
+    useTLS: true
+});
+
+var channelInvoices = pusher.subscribe('channelInvoices');
+
+channelInvoices.bind('eventInvoicePaid', function(data) {
+    // Určíme, jakou šablonu použít
+    let templateId;
+    if (data.toastType) {
+        templateId = 'toast' + data.toastType; // např. "toastSuccess", "toastDanger", "toastWarning"
+    } else {
+        templateId = 'toastSuccess'; // defaultní
+    }
+    // Nastavíme obsah hlavičky a těla toastu dle předaných dat
+    const headerText = data.toastHeader;
+    const bodyText = data.toastBody;
+    const delay = data.toastDelay ? parseInt(data.toastDelay, 10) : 5000;
+    const autoHide = (data.toastAutoHide !== undefined) ? data.toastAutoHide : true;
+                            
+    // Voláme naši univerzální funkci, která vytvoří a zobrazí toast
+    createToast(templateId, headerText, bodyText, 'právě teď', delay, autoHide);
+});

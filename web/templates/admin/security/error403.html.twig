@@ -1,0 +1,86 @@
+{% extends 'admin/blank.html.twig' %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+	<div class="auth-page-wrapper pt-5">
+
+		<!-- auth page bg -->
+		<div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+			<div class="bg-overlay"></div>
+
+			<div class="shape">
+				<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewbox="0 0 1440 120">
+					<path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+				</svg>
+			</div>
+		</div>
+
+		<!-- auth page content -->
+		<div class="auth-page-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="text-center mt-sm-5 mb-4 text-white-50">
+							<div>
+								<a href="/" class="d-inline-block auth-logo">
+									<img src="assets/admin/media/logos/svg/logo-sauneo.svg" alt="" width="150">
+								</a>
+							</div>
+							<p class="mt-3 fs-15 fw-medium">Vypotíme to za Vás!</p>
+						</div>
+					</div>
+				</div>
+				<!-- end row -->
+
+				<div class="row justify-content-center">
+					<div class="col-md-8 col-lg-6 col-xl-5">
+						<div class="card mt-4">
+
+							<div class="card-body p-4 text-center">
+								
+								<h1 class="fs-1">403</h1>
+                                <h2>Přístup odepřen</h2>
+                                <p>Nemáte oprávnění k zobrazení této stránky.</p>
+                                <p><a href="{{ path('app_admin_dashboard') }}">Zpět na hlavní stránku</a></p>
+
+							</div>
+							<!-- end card body -->
+						</div>
+						<!-- end card -->
+
+						<div class="mt-4 text-center">
+							<p class="mb-0">{{ 'text.dont_have_an_account'|trans([], 'security') }}? 
+								<a href="#" title="{{ 'sign up'|trans }}" class="fw-semibold text-primary text-decoration-underline">
+									{{ 'text.sign_up'|trans([], 'security') }}
+								</a>
+							</p>
+						</div>
+
+					</div>
+				</div>
+				<!-- end row -->
+			</div>
+			<!-- end container -->
+		</div>
+		<!-- end auth page content -->
+
+		<!-- footer -->
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="text-center">
+							<p class="mb-0 text-muted">&copy;2013-<script>document.write(new Date().getFullYear())</script> °SAUNEO</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- end Footer -->
+
+	</div>
+	<!-- end auth-page-wrapper -->
+
+{% endblock %}

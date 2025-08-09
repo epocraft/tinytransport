@@ -1,0 +1,103 @@
+action:
+  create_new_contractor: Vytvořit nového zhotovitele
+  edit_contractor: Upravit zhotovitele
+
+breadcrumbs:
+  overview_of_contractors: Přehled zhotovitelů
+  contractors: Zhotovitelé
+  contractor_detail: Detail zhotovitele
+  edit_contractor: Úprava zhotovitele
+  new_contractor: Nový zhotovitel
+
+fieldset:
+  company_information: Údaje o společnosti
+  contact_information: Kontaktní údaje
+  bank_information: Bankovní údaje
+  billing_information: Fakturační údaje
+  delivery_information: Dodací údaje
+  contractor: Odběratel
+
+help:
+  contractor: "<i class='mdi mdi-tooltip-edit-outline'></i> Potřebujete <a href='%insert_contractor%' title='%breadcrumbs_new_contractor%' target='_blank'>přidat</a>/<a href='%edit_contractor%' title='%breadcrumbs_edit_contractor%' target='_blank'>upravit</a> zhotovitele?"
+  ci_registered_city: Název města zadejte v prvním pádu jednotného čísla
+  ci_registered_file_number: Číslo jednací pro OR zadejte ve tvaru např. "odd. C, vl. 15324", pro ŽR "č.j. ŽÚ/001/01/ABC"
+
+label:
+  id: Id
+  ci_name: Název společnosti
+  ci_in: IČO
+  ci_tin: DIČ
+  ci_vat_payer: Plátce DPH
+  ci_phone: Telefon
+  ci_mobile: Mobil
+  ci_fax: Fax
+  ci_email: E-mail
+  ci_web: Web
+  ci_duns: DUNS
+  ci_data_box: Datová schránka
+  ci_ba: Číslo bankovního účtu
+  ci_bc: Kód banky
+  ci_iban: IBAN
+  ci_swift: SWIFT
+  bi_name: Název společnosti / kontaktní osoba
+  bi_street: Ulice
+  bi_city: Město
+  bi_zipcode: PSČ
+  bi_country: Stát
+  di_name: Název společnosti / kontaktní osoba
+  di_street: Ulice
+  di_city: Město
+  di_country: Stát
+  di_zipcode: PSČ
+  search_in_ares: Hledat v ARES
+  contractor: Odběratel
+  ci_registered_register: Rejstřík
+  ci_registered_office: Úřad
+  ci_registered_city: Město
+  ci_registered_file_number: Číslo jednací
+
+menu:
+  contractors: Zhotovitelé
+  overview: Přehled
+
+placeholder:
+  ci_name: Zadejte název společnosti
+  ci_in: Zadejte IČO
+  ci_tin: Zadejte DIČ
+  ci_vat_payer: Uveďte, zda je společnost plátcem DPH
+  ci_phone: Zadejte telefon
+  ci_mobile: Zadejte mobil
+  ci_fax: Zadejte fax
+  ci_email: Zadejte e-mail
+  ci_web: Zadejte URL webu
+  ci_duns: Zadejte DUNS
+  ci_data_box: Zadejte id datové schránky
+  ci_ba: Zadejte číslo bankovního účtu
+  ci_bc: Zadejte kód banky
+  ci_iban: Zadejte IBAN
+  ci_swift: Zadejte SWIFT
+  bi_name: Zadejte název společnosti / kontaktní osoby
+  bi_street: Zadejte název ulice
+  bi_city: Zadejte město
+  bi_zipcode: Zadejte PSČ
+  bi_country: Zadejte stát
+  di_name: Zadejte název společnosti / kontaktní osoby
+  di_street: Zadejte název ulice
+  di_city: Zadejte město
+  di_country: Zadejte stát
+  di_zipcode: Zadejte PSČ
+  ci_registered_register: Zvolte typ rejstříku
+  ci_registered_office: Zvolte druh úřadu
+  ci_registered_city: Zadejte město
+  ci_registered_file_number: Zadejte číslo jednací
+
+register:
+  select: zvolte
+  or: Obchodní rejstřík
+  zr: Živnostenský rejstřík
+
+office:
+  select: zvolte
+  ks: Krajský soud
+  mu: Městský úřad
+  ou: Obecní úřad

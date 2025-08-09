@@ -1,0 +1,97 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.name) }}
+			</div>
+
+			{# ---- Začíná nově přidaný blok pro CSV (není součástí formu) ---- #}
+            <div class="col-12 mb-3">
+                <label for="csvInput"><strong>CSV pro jazyky (sk;de;en;...)</strong></label>
+                <textarea class="form-control" id="csvInput" rows="3"></textarea>
+                <button type="button" class="btn btn-primary mt-2" id="convertCsvButton">
+                    Převést
+                </button>
+                <small class="text-muted d-block mt-2">
+                    Sem vložte překlady oddělené středníkem, např. <br>
+                    <code>Text ve slovenštině;Text v němčině;Text v angličtině;...</code>
+                </small>
+            </div>
+            {# ---- Konec nového bloku pro CSV ---- #}
+			
+            <div class="col-4">
+				{{ form_row(form.cz) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.sk) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.de) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.en) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.fr) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.se) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.lv) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.si) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.hr) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.ru) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.pl) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.ee) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.fi) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.lt) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.hu) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>

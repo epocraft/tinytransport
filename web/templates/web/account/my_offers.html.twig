@@ -1,0 +1,59 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Moje nabídky | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+  <h1 class="h3 mb-3">Moje nabídky</h1>
+
+  <div class="mb-3">
+    {% set keys = ['active','accepted','rejected','withdrawn','expired'] %}
+    <div class="btn-group" role="group">
+      <a class="btn btn-sm {{ activeStatus ? 'btn-outline-secondary' : 'btn-secondary' }}"
+         href="{{ path('app_web_my_offers', {'_locale': app.request.locale}) }}">Vše</a>
+      {% for k in keys %}
+        <a class="btn btn-sm {{ (activeStatus == k) ? 'btn-secondary' : 'btn-outline-secondary' }}"
+           href="{{ path('app_web_my_offers', {'_locale': app.request.locale, 'status': k}) }}">
+          {{ k }} ({{ counts[k]|default(0) }})
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if offers is empty %}
+    <div class="alert alert-info">Zatím žádné záznamy.</div>
+  {% else %}
+    <div class="list-group">
+      {% for o in offers %}
+        <div class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="me-3">
+            <div>
+              <strong>{{ o.quote.name }}</strong>
+              <small class="text-muted"> ({{ o.quote.category.name }})</small>
+            </div>
+            <div class="text-muted small">
+              Poptávka #{{ o.quote.id }} • {{ o.quote.loadingAddress }} → {{ o.quote.unloadingAddress }}
+            </div>
+            {% if o.message %}
+              <div class="mt-1 small">{{ o.message|nl2br }}</div>
+            {% endif %}
+          </div>
+          <div class="text-end">
+            <div><strong>{{ o.price }} {{ o.currency }}</strong></div>
+            <div class="small text-muted">stav: {{ o.status }}</div>
+            <div class="mt-2">
+              <a class="btn btn-sm btn-outline-primary"
+                 href="{{ path('app_web_quote_show', { id: o.quote.id, _locale: app.request.locale }) }}">Detail poptávky</a>
+              {% if o.status == 'active' %}
+                <form action="{{ path('app_web_offer_withdraw', { id: o.id, _locale: app.request.locale }) }}" method="post" class="d-inline">
+                  <button class="btn btn-sm btn-outline-danger" type="submit">Stáhnout</button>
+                </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

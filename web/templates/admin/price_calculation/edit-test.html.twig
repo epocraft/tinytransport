@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    {{ parent() }}
+    
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+                {{ form_row(form.priceList) }}
+                {{ form_row(form.name) }}
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+

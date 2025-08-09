@@ -1,0 +1,38 @@
+var clipboard = new ClipboardJS('.btn', {
+    text: function(trigger) {
+        // Získání vybrané hodnoty z select elementu
+        return document.getElementById('photogallery').value;
+    }
+});
+
+clipboard.on('success', function(e) {
+    // Nastavení názvu zdroje do nadpisu toastu
+    var source = e.trigger.getAttribute('data-source');
+    var toastHeader = document.querySelector('#copyToast .toast-header strong');
+    toastHeader.textContent = source;
+
+    // Zobrazení toastu
+    var toast = new bootstrap.Toast(document.getElementById('copyToast'));
+    toast.show();
+
+    e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+    console.error('Nepodařilo se zkopírovat hodnotu.');
+});
+
+// Posluchač události pro zobrazení toastu při kliknutí (nezávisle na úspěchu kopírování)
+const toastTrigger = document.getElementById('copy-data');
+if (toastTrigger) {
+    toastTrigger.addEventListener('click', () => {
+        // Aktualizace názvu zdroje v nadpisu toastu
+        var source = toastTrigger.getAttribute('data-source');
+        var toastHeader = document.querySelector('#copyToast .toast-header strong');
+        toastHeader.textContent = source;
+
+        // Zobrazení toastu
+        const toast = new bootstrap.Toast(document.getElementById('copyToast'));
+        toast.show();
+    });
+}

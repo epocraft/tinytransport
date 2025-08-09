@@ -1,0 +1,48 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.name) }}
+			</div>
+
+        </div>
+
+        {% if (app.request.attributes.get('_route') == 'app_admin_source_edit' and app.request.attributes.get('_route_params').id is defined) %}
+            <hr>
+            <a href="admin/source/{{ source.id }}/item" class="btn btn-primary"><i class="mdi mdi-clipboard-list-outline"></i> Všechny odečty</a> <a href="admin/source/{{ source.id }}/item/new" class="btn btn-primary"><i class="mdi mdi-clipboard-plus-outline"></i> Přidat odečet</a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

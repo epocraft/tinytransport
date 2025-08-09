@@ -1,0 +1,27 @@
+{% extends 'web/error.html.twig' %}
+
+{% block title %}404 - page not found{% endblock %}
+{% block meta_description %}404 - page not found{% endblock %}
+{% block meta_keywords %}404 - page not found{% endblock %}
+
+{% block og_title %}404 - page not found{% endblock %}
+{% block og_meta_description %}404 - page not found{% endblock %}
+{% block og_meta_keywords %}404 - page not found{% endblock %}
+
+{% block body_content %}
+
+	{{ parent() }}
+
+    <div class="container-fluid h-100">
+
+        <div class="container d-flex justify-content-center align-items-center flex-column h-100">
+
+            <h1 class="fs-1">404</h1>
+            <h2>Stránka nenalezena</h2>
+            <p>Stránka, kterou hledáte nebyla nalezena. Mohla být dočasně zrušena, nebo zcela odstraněna.</p>
+
+        </div>
+
+  </div>
+
+{% endblock %}

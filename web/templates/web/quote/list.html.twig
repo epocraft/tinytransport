@@ -1,0 +1,35 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}Poptávky | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 m-0">Aktuální poptávky</h1>
+        <a class="btn btn-primary" href="{{ path('app_web_quote_new') }}">Zadat poptávku</a>
+    </div>
+
+    {% if quotes is empty %}
+        <div class="alert alert-info">Zatím tu nic není.</div>
+    {% else %}
+        <div class="list-group">
+            {% for q in quotes %}
+                <a href="{{ path('app_web_quote_show', {id: q.id}) }}" class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h2 class="h5 mb-1">{{ q.name }}</h2>
+                        <small class="text-muted">{{ q.createdAt|date('d.m.Y H:i') }}</small>
+                    </div>
+                    <div class="mb-1">
+                        <strong>Kategorie:</strong> {{ q.category.name }}
+                        &nbsp;|&nbsp;
+                        <strong>Nakládka:</strong> {{ q.loadingAddress }}
+                        &nbsp;→&nbsp;
+                        <strong>Vykládka:</strong> {{ q.unloadingAddress }}
+                    </div>
+                    <small class="text-muted">Stav: {{ q.status }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

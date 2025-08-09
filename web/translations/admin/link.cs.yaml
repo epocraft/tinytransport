@@ -1,0 +1,30 @@
+action:
+  create_new_link: Vytvořit nový odkaz
+  edit_link: Upravit odkaz
+
+breadcrumbs:
+  edit_link: Úprava odkazu
+  links: Obrázky
+  link_detail: Detail odkazu
+  new_link: Nový odkaz
+  overview_of_links: Přehled odkazů
+
+fieldset:
+  basic_data: Základní údaje
+
+label:
+  id: Id
+  name: Název
+  link: Odkaz
+  description: Popis
+  version: Verze
+
+menu:
+  links: Odkazy
+  overview: Přehled
+
+placeholder:
+  name: Zadejte název
+  description: Zadejte popis
+  version: Zadejte verzi
+  link: Zadejte URL odkazu

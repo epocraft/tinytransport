@@ -1,0 +1,370 @@
+{% import _self as formMacros %}
+
+{% macro addRow(invoiceReceivedItem, index) %}
+
+    <div class="row mb-2">
+
+        <div class="col-3">
+            {{ form_widget(invoiceReceivedItem.name) }}
+            <ul class="suggestions" id="suggestions-{{ invoiceReceivedItem.vars.name }}"></ul>
+            {{ form_help(invoiceReceivedItem.name) }}
+            {{ form_errors(invoiceReceivedItem.name) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.ammount) }}
+            {{ form_help(invoiceReceivedItem.ammount) }}
+            {{ form_errors(invoiceReceivedItem.ammount) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.purchasePrice) }}
+            {{ form_help(invoiceReceivedItem.purchasePrice) }}
+            {{ form_errors(invoiceReceivedItem.purchasePrice) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.purchaseCurrencyUnit) }}
+            {{ form_help(invoiceReceivedItem.purchaseCurrencyUnit) }}
+            {{ form_errors(invoiceReceivedItem.purchaseCurrencyUnit) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.purchaseMeasureUnit) }}
+            {{ form_help(invoiceReceivedItem.purchaseMeasureUnit) }}
+            {{ form_errors(invoiceReceivedItem.purchaseMeasureUnit) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.purchaseVatOfRate) }}
+            {{ form_help(invoiceReceivedItem.purchaseVatOfRate) }}
+            {{ form_errors(invoiceReceivedItem.purchaseVatOfRate) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.priceWithoutVat) }}
+            {{ form_help(invoiceReceivedItem.priceWithoutVat) }}
+            {{ form_errors(invoiceReceivedItem.priceWithoutVat) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.vat) }}
+            {{ form_help(invoiceReceivedItem.vat) }}
+            {{ form_errors(invoiceReceivedItem.vat) }}
+        </div>
+
+        <div class="col-1">
+            {{ form_widget(invoiceReceivedItem.priceWithVat) }}
+            {{ form_help(invoiceReceivedItem.priceWithVat) }}
+            {{ form_errors(invoiceReceivedItem.priceWithVat) }}
+        </div>
+
+        <div class="col-1 d-flex justify-content-center align-items-start">
+            <!-- Vždy zobrazit tlačítko pro přidání řádku -->
+            <button type="button" class="btn btn-success add_item_link me-2"><i class="mdi mdi-plus-circle-outline"></i></button>
+            
+            <!-- Tlačítko pro odstranění řádku se zobrazí pro všechny řádky kromě prvního -->
+            <button type="button" class="btn btn-danger delete-item"><i class="mdi mdi-trash-can-outline"></i></button>
+        </div>
+
+    </div>
+
+{% endmacro %}
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.number) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.contractor'|trans({}, 'contractor') }} / {{ 'fieldset.supplier'|trans({}, 'supplier') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-6">
+                {{ form_row(form.contractor) }}
+            </div>
+
+            <div class="col-6">
+                {{ form_row(form.supplier) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.invoice_terms'|trans({}, 'invoice_received') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-4">
+                {{ form_row(form.issueDate) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.dueDate) }}
+            </div>
+
+            <div class="col-4">
+                {{ form_row(form.performanceDate) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.invoice_items'|trans({}, 'invoice_received') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-3">název</div>
+            <div class="col-1 text-center">{{ 'label.ammount'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_price'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_currency_unit'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_measure_unit'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_vat_of_rate'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_price_without_vat'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_vat'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1 text-center">{{ 'label.purchase_price_with_vat'|trans({}, 'invoice_received')|lower }}</div>
+            <div class="col-1"></div>
+
+        </div>
+
+        <hr>
+
+        <!-- generování formu --> 
+        <ul data-index="{{ form.invoiceReceivedInvoiceReceivedItems|length > 0 ? form.invoiceReceivedInvoiceReceivedItems|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.addRow(form.invoiceReceivedInvoiceReceivedItems.vars.prototype)|e('html_attr') }}" class="invoice-received-items" style="list-style-type: none; padding-left: 0;">
+
+            {% for invoiceReceivedItem in form.invoiceReceivedInvoiceReceivedItems %}
+
+                {{ formMacros.addRow(invoiceReceivedItem, loop.index0) }}
+
+            {% endfor %}
+
+        </ul>
+
+        <hr>
+
+        <div class="row">
+
+            <div class="col-8 d-flex align-self-center"><strong>CELKEM</strong></div>
+            <div class="col-1">
+                {{ form_widget(form.totalPriceWithoutVat) }}
+                {{ form_help(form.totalPriceWithoutVat) }}
+                {{ form_errors(form.totalPriceWithoutVat) }}
+            </div>
+            <div class="col-1">
+                {{ form_widget(form.totalVat) }}
+                {{ form_help(form.totalVat) }}
+                {{ form_errors(form.totalVat) }}
+            </div>
+            <div class="col-1">
+                {{ form_widget(form.totalPriceWithVat) }}
+                {{ form_help(form.totalPriceWithVat) }}
+                {{ form_errors(form.totalPriceWithVat) }}
+            </div>
+            <div class="col-1"></div>
+
+        </div>
+
+        <hr>
+
+        <button type="button" class="btn btn-success global-add-item-link"><i class="mdi mdi-plus-circle-outline"></i> Přidat řádek</button>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex justify-content-between">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.documents'|trans({}, 'invoice_received') }}</h4>
+        {{ include('admin/inc/layout/view-grid-table.html.twig') }}
+	</div>
+
+    <div class="card-body">
+      
+        {% if documents is defined and documents is not empty %}
+
+            <div id="grid-view" class="d-none">
+
+                <div class="row">
+
+                    {% for document in documents %}
+
+                        <div class="col-1">
+
+                            <figure id="document-figure-row-{{ document.id }}" class="figure">
+                                <a href="{{ document.filePath }}{{ document.fileName }}.{{ document.fileType }}" title="{{ document.name }}" target="_blank">
+                                    {% set fileType = document.filetype %}
+                                    {% if fileType == '' %}
+                                        ?
+                                    {% endif %}
+                                    {% if fileType == 'pdf' %}
+                                        <i class="mdi mdi-file-pdf-box display-6"></i>
+                                    {% endif %}
+                                    {% if fileType == 'docx' %}
+                                        <i class="mdi mdi-file-document display-6"></i>
+                                    {% endif %}
+                                    {% if fileType == 'xlsx' %}
+                                        <i class="mdi mdi-file-excel display-6"></i>
+                                    {% endif %}
+                                </a>
+                                <figcaption class="figure-caption">{{ document.name }}<br><small class="fst-italic">{{ document.description }}</small><br><small>{{ document.version }}</small></figcaption>
+                            </figure>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div id="table-view" class="d-block">
+
+                <div class="row">
+
+                    <table id="sortable-table" class="table table-striped table-hover table-nowrap align-middle">
+
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col" class="text-center">{{ 'label.id'|trans({}, 'document')|lower }}</th>
+                                <th scope="col"></th>
+                                <th scope="col">{{ 'label.name'|trans({}, 'document')|lower }} / {{ 'label.description'|trans({}, 'document')|lower }}</th>
+                                <th scope="col">{{ 'label.file_name'|trans({}, 'document')|lower }} / {{ 'label.file_path'|trans({}, 'document')|lower }}</th>
+                                <th scope="col" class="text-center">{{ 'label.file_type'|trans({}, 'document')|lower }}</th>
+                                <th scope="col" class="text-center">{{ 'label.file_size'|trans({}, 'document')|lower }} [b]</th>
+                                <th scope="col" class="text-center">{{ 'label.publication'|trans|lower }}</th>
+                                <th scope="col" class="text-center">{{ 'label.actions'|trans|lower }}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for document in documents %}
+                            <tr id="document-table-row-{{ document.id }}" data-id="{{ document.id }}">
+                                <td class="text-center move"><i class="ri-drag-move-fill drag-handle"></i></td>
+                                <td class="text-center">{{ document.id }}</td>
+                                <td>
+                                    <a href="{{ document.filePath }}{{ document.fileName }}.{{ document.fileType }}" title="{{ document.name }}" target="_blank">
+                                        {% set fileType = document.filetype %}
+                                        {% if fileType == '' %}
+                                            ?
+                                        {% endif %}
+                                        {% if fileType == 'pdf' %}
+                                            <i class="mdi mdi-file-pdf-box display-6"></i>
+                                        {% endif %}
+                                        {% if fileType == 'docx' %}
+                                            <i class="mdi mdi-file-document display-6"></i>
+                                        {% endif %}
+                                        {% if fileType == 'xlsx' %}
+                                            <i class="mdi mdi-file-excel display-6"></i>
+                                        {% endif %}
+                                    </a>
+                                </td>
+                                <td>{{ document.name }}<br><small class="fst-italic">{{ document.description }}</small><br><small>{{ document.version }}</small></td>
+                                <td>{{ document.fileName }}<br><small class="fst-italic">{{ document.filePath }}</small></td>
+                                <td class="text-center">{{ document.fileType }}</td>
+                                <td class="text-center">{{ document.fileSize }}</td>
+                                <td class="text-center">
+                                    {% set publication = document.publication %}
+                                    {% if publication == '' %}
+                                        {{ 'publication.select'|trans|lower }}
+                                    {% endif %}
+                                    {% if publication == 0 %}
+                                        <span class="badge bg-danger">{{ 'publication.unpublish'|trans|lower }}</span>
+                                    {% endif %}
+                                    {% if publication == 1 %}
+                                        <span class="badge bg-success">{{ 'publication.publish'|trans|lower }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" onclick="documentShow({{ document.id }}, event)" title="{{ 'action.show'|trans|lower }}"><i class="mdi mdi-eye"></i></a>
+                                    <a href="#" onclick="documentEdit({{ document.id }}, event)" title="{{ 'action.edit'|trans|lower }}"><i class="mdi mdi-lead-pencil"></i></a>
+                                    <a href="#" onclick="documentDelete({{ document.id }}, event)" title="{{ 'action.delete'|trans|lower }}"><i class="mdi mdi-delete text-danger"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+        <div class="row">
+            
+            <div class="col-12">
+                <div class="dropzone"></div>
+                <div class="form-text mb-0 help-text"><i class="mdi mdi-tooltip-edit-outline"></i> Jako první vždy nahrajte daňový doklad a pak ostatní dokumenty (nabídky, objednávky, zálohové faktury, apod.)</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.status'|trans({}, 'invoice_status') }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.payment) }}
+            </div>
+
+            <div class="col-12">
+                {{ form_row(form.status) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,72 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body_content %}
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            {{ form_start(form) }}
+
+            {{ include('admin/abx/text/_form.html.twig') }}
+
+            <div class="float-start">
+                <button class="btn btn-success">{{ 'action.save'|trans }}</button>
+                <a href="{{ path('app_admin_abx_text_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-secondary">{{ 'action.back_to_list'|trans }}</a>
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body_javascript_function %}
+
+    {{ parent() }}
+
+    document.addEventListener('DOMContentLoaded', () => {
+    // Najdeme tlačítko a textarea
+    const convertButton = document.getElementById('convertCsvButton');
+    const csvInput = document.getElementById('csvInput');
+
+    // Definujeme POŘADÍ jazyků pro CSV: parts[0] => SK, parts[1] => DE, parts[2] => EN, ...
+    //  => A k nim přiřadíme ID inputů v HTML
+    const fieldsOrder = [
+        'text_sk',
+        'text_de',
+        'text_en',
+        'text_fr',
+        'text_se',
+        'text_lv',
+        'text_si',
+        'text_hr',
+        'text_ru',
+        'text_pl',
+        'text_ee',
+        'text_fi',
+        'text_lt',
+        'text_hu',
+    ];
+
+    convertButton.addEventListener('click', function() {
+        // Získáme obsah textarey
+        const csvValue = csvInput.value.trim();
+        // Rozdělíme podle středníku
+        const parts = csvValue.split(';');
+
+        // Projdeme definovaná ID polí
+        fieldsOrder.forEach((fieldId, index) => {
+            // Najdeme element podle ID, např. "text_sk"
+            const fieldElement = document.getElementById(fieldId);
+            // Pokud existuje a v CSV je odpovídající hodnota, zapíšeme
+            if (fieldElement && typeof parts[index] !== 'undefined') {
+                fieldElement.value = parts[index].trim();
+            }
+        });
+    });
+});
+
+{% endblock %}

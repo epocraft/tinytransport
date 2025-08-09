@@ -1,0 +1,139 @@
+<div class="form-errors">
+	{{ form_errors(form) }}
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.basic_data'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+				{{ form_row(form.email) }}
+			</div>
+
+            <div class="col-6">
+				{{ form_row(form.password) }}
+			</div>
+
+            <div class="col-6">
+                {{ form_row(form.confirmPassword) }}
+            </div>
+
+            <div class="col-12">
+				{{ form_row(form.roles) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.contact'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-2">
+				{{ form_row(form.contact.titleBefore) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.contact.firstname) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.contact.surname) }}
+			</div>
+
+            <div class="col-2">
+				{{ form_row(form.contact.titleAfter) }}
+			</div>
+
+            <div class="col-12">
+				{{ form_row(form.contact.jobPosition) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.contact.phone) }}
+			</div>
+
+            <div class="col-4">
+				{{ form_row(form.contact.mobile) }}
+			</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.settings'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-6">
+                {{ form_row(form.settings.dateFormat) }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form_row(form.settings.dateTimeFormat) }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form_row(form.settings.separatorOfThousands) }}
+            </div>
+
+            <div class="col-md-6">
+                {{ form_row(form.settings.decimalPoint) }}
+            </div>
+
+            <div class="col-md-12">
+                {{ form_row(form.settings.htmlSignature) }}
+            </div>
+
+            <div class="col-md-12">
+                {{ form_row(form.settings.language) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header align-items-center d-flex">
+		<h4 class="card-title mb-0 flex-grow-1">{{ 'fieldset.publication'|trans }}</h4>
+	</div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-12">
+                {{ form_row(form.publication) }}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

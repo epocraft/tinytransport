@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_admin_language_delete', {'id': language.id}) }}" onsubmit="return confirm('{{ 'alert.are_you_sure_you_want_to_delete_this_item'|trans }}');" class="d-inline-block float-end">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ language.id) }}">
+    <button class="btn btn-danger">{{ 'action.delete'|trans }}</button>
+</form>

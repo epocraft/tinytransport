@@ -1,0 +1,162 @@
+{% set lang = language.urlAlias %}
+{% set locale = language.locale %}
+{% set BASE = twig_base %}
+
+<!doctype html>
+<html lang="{{ lang }}">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>{% block title %}{{ article.title }} | {{ project.ciName }}{% endblock %}</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<meta name="description" lang="{{ lang }}" content="{% block meta_description %}{{ article.metaDescription }}{% endblock %}">
+		<meta name="keywords" lang="{{ lang }}" content="{% block meta_keywords %}{{ article.metaKeywords }}{% endblock %}">
+
+		<meta name="author" content="°Sauneo, vypotíme to za Vás!">
+		<meta name="robots" content="index,follow">
+
+		<link rel="apple-touch-icon" sizes="180x180" href="assets/web/media/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="assets/web/media/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="assets/web/media/favicon/favicon-16x16.png">
+		<link rel="manifest" href="assets/web/media/favicon/site.webmanifest">
+		<link rel="mask-icon" href="assets/web/media/favicon/safari-pinned-tab.svg" color="#5bbad5">
+		<link rel="shortcut icon" href="assets/web/media/favicon/favicon.ico">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-config" content="assets/web/media/favicon/browserconfig.xml">
+		<meta name="theme-color" content="#ffffff">
+
+		<meta property="og:url" content="{{ BASE }}">
+		<meta property="og:type" content="article">
+		<meta property="og:title" content="{% block og_title %}{{ article.title }} | {{ project.ciName }}{% endblock %}">
+		<meta property="og:description" content="{% block og_meta_description %}{{ article.metaDescription }}{% endblock %}">
+		<meta property="og:image" content="assets/web/media/logos/svg/logo-horizontal.svg">
+		<meta property="og:image:width" content="222">
+		<meta property="og:image:height" content="79">
+		<meta property="og:site_name" content="{{ project.ciName }}">
+		<meta property="og:locale" content="{{ locale }}">
+
+		<base href="{{ BASE }}">
+
+		{% block head_css %}
+
+			<!-- Bootstrap -->
+			<link href="assets/web/src/node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+
+			<!-- Fontawesome -->
+			<link href="assets/web/src/node_modules/@fortawesome/fontawesome-free/css/all.min.css" type="text/css" rel="stylesheet" media="screen">
+
+			<!-- Custom style -->
+			<link href="assets/web/css/style.css?v={{ 'now'|date('U') }}" type="text/css" rel="stylesheet" media="screen">
+
+		{% endblock %}
+
+        {% block head_stylesheet %}{% endblock %}
+
+		{% block head_javascript %}{% endblock %}
+
+    </head>
+
+    <body>
+
+        {% if app.environment == 'prod' %}
+			
+		{% else %}
+			<div class="mq"></div>
+		{% endif %}
+
+		<div id="preloader-wrapper">
+			<div class="preloader">
+				<p class="logo"><img src="assets/web/media/logos/svg/logo-horizontal.svg"></p>
+				<p class="indicator"><img src="assets/web/media/icons/svg/preloader.svg"></p>
+			</div>
+		</div>
+
+        <div class="page-wrapper h-100">
+
+            {% block body %}
+
+				{% include "web/navigation/navigation.html.twig" %}
+
+	            {% block body_content %}{% endblock %}
+
+		    {% endblock %}
+
+        </div>
+
+		<!--begin::Back to top page -->
+    	<a id="top-button"></a>
+    	<!-- end::Back to top page -->
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="assets/web/src/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+		<!-- jQuery -->
+		<script type="text/javascript" src="assets/web/src/node_modules/jquery/dist/jquery.min.js"></script>
+
+		<!--begin::Javascript function -->
+		{% block wrapper_body_javascript_function %}
+
+			<script type="text/javascript">
+
+				{% block body_javascript_function %}
+
+					$(window).on("load", function() {
+						$('#preloader-wrapper').fadeOut(1000, function() {
+							$(".page-wrapper").fadeIn(1000).removeClass('d-none').addClass('d-block');
+						});
+					});
+
+					var tbtn = $('#top-button');
+					var opc = $('#open_preferences_center');
+
+					$(window).scroll(function() {
+						if ($(window).scrollTop() > 300) {
+							tbtn.addClass('show');
+							opc.addClass('show');
+						} else {
+							tbtn.removeClass('show');
+							opc.removeClass('show');
+						}
+					});
+
+					tbtn.on('click', function(e) {
+						e.preventDefault();
+						$('html, body').animate({scrollTop:0}, '300');
+					});
+
+				{% endblock %}
+
+			</script>
+
+		{% endblock %}
+		<!--end::Javascript function -->
+
+		<!-- begin::Document ready -->
+		{% block wrapper_body_javascript_document_ready %}
+
+        <script type="text/javascript">
+
+				$(document).ready(function() {
+
+					{% block body_javascript_document_ready %}
+
+
+
+                    {% endblock %}
+
+				});
+
+			</script>
+
+		{% endblock %}
+		<!-- end::Document ready -->
+
+    </body>
+
+</html>

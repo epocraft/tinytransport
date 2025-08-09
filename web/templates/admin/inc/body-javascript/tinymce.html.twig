@@ -1,0 +1,9 @@
+{% set apiKey = "" %}
+{% for api in projectService.projectProjectApis %}
+    {% if api.name == "tinymce" %}
+        {% set apiKey = api.apiKey %}
+    {% endif %}
+{% endfor %}
+<script src="https://cdn.tiny.cloud/1/{{ apiKey }}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+<!--<script src="assets\admin\src\node_modules\tinymce\tinymce.min.js" referrerpolicy="origin"></script>-->
+<script src="../vendor/tinymce/tinymce/langs/{{ lang }}.js" referrerpolicy="origin"></script>

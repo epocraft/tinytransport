@@ -1,0 +1,41 @@
+<div class="container-fluid footer-wrapper-fluid">
+
+    <div class="container footer-wrapper">
+
+   		<section class="footer">
+
+			{% if image is defined and fileExists(image.filePath ~ image.fileName ~ '.' ~ image.FileType) %}
+   			<div class="logo">
+    			<a href="{{ languageService.urlAlias }}/" title="{{ projectService.ciName }}">
+	  				<img src="{{ image.filePath }}{{ image.fileName }}.{{ image.FileType }}" alt="{{ projectService.ciName }}">
+				</a>
+			</div>
+			{% endif %}
+
+    		<div class="contact">
+	    		<p class="header">Kontakt</p>
+				<address>
+           			<strong>{{ projectService.ciName }}</strong><br>
+					<i class="fa-solid fa-location-dot fa-fw"></i> {{ projectService.biStreet }}, {{ projectService.biZipcode }} {{ projectService.biCity }}<br>
+                    <i class="fa-solid fa-mobile-screen fa-fw"></i> <a href="tel: {{ projectService.ciMobile }}" title="tel.: {{ projectService.ciMobile }}">{{ projectService.ciMobile }}</a><br>
+                    <i class="fa-solid fa-envelope fa-fw"></i> <a href="mailto:{{ projectService.ciEmail }}" title="{{ projectService.ciEmail }}">{{ projectService.ciEmail }}</a>
+				</address>
+			</div>
+
+       		<div class="social-sites">
+				<p class="header">Sociální sítě</p>
+				<div>
+       				{% if projectService.facebook is not null and projectService.facebook is not empty %}<p><a href="{{ projectService.facebook }}" title="Facebook" target="_blank"><i class="fa-brands fa-facebook fa-2x fa-fw"></i></a></p>{% endif %}
+       				{% if projectService.instagram is not null and projectService.instagram is not empty %}<p><a href="{{ projectService.instagram }}" title="Instagram" target="_blank"><i class="fa-brands fa-instagram fa-2x fa-fw"></i></a></p>{% endif %}
+       				{% if projectService.linkedin is not null and projectService.linkedin is not empty %}<p><a href="{{ projectService.linkedin }}" title="LinkedIn" target="_blank"><i class="fa-brands fa-linkedin fa-2x fa-fw"></i></a></p>{% endif %}
+       				{% if projectService.pinterest is not null and projectService.pinterest is not empty %}<p><a href="{{ projectService.pinterest }}" title="Pinterest" target="_blank"><i class="fa-brands fa-pinterest fa-2x fa-fw"></i></a></p>{% endif %}
+      				{% if projectService.snapchat is not null and projectService.snapchat is not empty %}<p><a href="{{ projectService.snapchat }}" title="Snapchat" target="_blank"><i class="fa-brands fa-snapchat fa-2x fa-fw"></i></a></p>{% endif %}
+       				{% if projectService.youtube is not null and projectService.youtube is not empty %}<p><a href="{{ projectService.youtube }}" title="You Tube" target="_blank"><i class="fa-brands fa-youtube fa-2x fa-fw"></i></a></p>{% endif %}
+       			</div>
+        	</div> 
+
+        </section>
+
+    </div>
+	
+</div>

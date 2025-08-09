@@ -1,0 +1,43 @@
+$(function () {
+    $("#sortable-table tbody").sortable({
+
+        helper: function (e, tr) {
+            var $originals = tr.children();
+            var $helper = tr.clone();
+            $helper.children().each(function (index) {
+                $(this).outerWidth($originals.eq(index).outerWidth(true));
+            });
+            return $helper;
+        },
+
+        placeholder: "ph",
+        handle: ".move",
+        axis: "y",
+
+        start: function(event, ui) {
+            // Nastaví výšku placeholderu na výšku právě přetahovaného elementu
+            ui.placeholder.height(ui.item.height()); 
+        },
+
+        update: function (event, ui) {
+            var sortedIDs = $(this).sortable("toArray");
+
+            $.ajax({
+                url: sortableUrl,
+                type: 'POST',
+                data: {
+                    sortedIDs: sortedIDs
+                },
+                success: function (response) {
+                    //console.log(response.message);
+                },
+                error: function (xhr, status, error) {
+                    //console.error("An error occurred: " + status + ", " + error);
+                }
+            });
+
+        }
+
+    });
+    $("#sortable-table tbody").disableSelection();
+});

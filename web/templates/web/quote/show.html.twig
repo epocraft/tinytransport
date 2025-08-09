@@ -1,0 +1,160 @@
+{% extends 'web/base.html.twig' %}
+
+{% set isOwner = isOwner|default(false) %}
+{% set unlockActive = unlockActive|default(false) %}
+
+{% block title %}{{ quote.name }} | {{ projectService.ciName }}{% endblock %}
+
+{% block body_content %}
+<div class="container my-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h3 mb-3">{{ quote.name }}</h1>
+        <a class="btn btn-outline-secondary" href="{{ path('app_web_search', {'_locale': app.request.locale}) }}">Zpět na poptávky</a>
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Kategorie</dt><dd class="col-sm-9">{{ quote.category.name }}</dd>
+        <dt class="col-sm-3">Nakládka</dt><dd class="col-sm-9">{{ quote.loadingAddress }}</dd>
+        <dt class="col-sm-3">Vykládka</dt><dd class="col-sm-9">{{ quote.unloadingAddress }}</dd>
+        <dt class="col-sm-3">Časové okno</dt><dd class="col-sm-9">{{ quote.deliveryTimeframe ?: '—' }}</dd>
+        <dt class="col-sm-3">Vytvořeno</dt><dd class="col-sm-9">{{ quote.createdAt|date('d.m.Y H:i') }}</dd>
+        <dt class="col-sm-3">Stav</dt><dd class="col-sm-9">{{ quote.status }}</dd>
+    </dl>
+
+    <h2 class="h5 mt-4">Položky</h2>
+    {% if quote.items|length == 0 %}
+        <p>Žádné položky.</p>
+    {% else %}
+        <ul class="list-group">
+            {% for i in quote.items %}
+                <li class="list-group-item">
+                    {{ i.description ?: 'bez popisu' }}
+                    {% set dims = [] %}
+                    {% if i.height %}{% set dims = dims|merge(['V ' ~ i.height ~ ' cm']) %}{% endif %}
+                    {% if i.width %}{% set dims = dims|merge(['Š ' ~ i.width ~ ' cm']) %}{% endif %}
+                    {% if i.depth %}{% set dims = dims|merge(['H ' ~ i.depth ~ ' cm']) %}{% endif %}
+                    {% if i.weight %}{% set dims = dims|merge(['' ~ i.weight ~ ' kg']) %}{% endif %}
+                    {% if dims is not empty %}<small class="text-muted"> ({{ dims|join(', ') }})</small>{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="mt-4">
+        {% if app.user and (not isOwner) and quote.status == 'open' %}
+            <a class="btn btn-primary" href="{{ path('app_web_offer_new', {id: quote.id, _locale: app.request.locale}) }}">
+                Podat nabídku
+            </a>
+        {% endif %}
+    </div>
+
+    <hr class="my-4"/>
+
+    <h2 class="h5">Nabídky</h2>
+    {% if quote.offers|length == 0 %}
+        <p>Zatím žádné nabídky.</p>
+    {% else %}
+        <div class="list-group">
+        {% for o in quote.offers %}
+
+            {% set canChooseThis =
+                isOwner
+                and o.status == 'active'
+                and (
+                    quote.status == 'open'
+                    or (
+                        quote.status == 'selected'
+                        and not unlockActive
+                        and (quote.chosenOffer is null or quote.chosenOffer.id != o.id)
+                    )
+                )
+            %}
+
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                    <div>
+                        <strong>
+                            {% set label = (isOwner and unlockActive and quote.chosenOffer and quote.chosenOffer.id == o.id)
+                                ? o.serviceProvider.name
+                                : o.serviceProvider.alias %}
+                            {{ label }}
+                        </strong>
+                        <span class="ms-2">{{ o.price }} {{ o.currency }}</span>
+                        <small class="text-muted ms-2">stav: {{ o.status }}</small>
+                    </div>
+
+                    {# === ACTIONS: srovnané vedle sebe vpravo === #}
+                    <div class="ms-auto d-flex align-items-center justify-content-end gap-2 flex-wrap">
+                        {# Vlastník může vybrat/přepnout nabídku #}
+                        {% if canChooseThis %}
+                            <form action="{{ path('app_web_quote_choose_offer', { id: quote.id, offerId: o.id, _locale: app.request.locale }) }}"
+                                  method="post" class="m-0 d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('choose_offer_' ~ o.id) }}">
+                                <button class="btn btn-success btn-sm" type="submit">
+                                    {% if quote.status == 'selected' %}Přepnout na tuto nabídku{% else %}Vybrat nabídku{% endif %}
+                                </button>
+                            </form>
+                        {% endif %}
+
+                        {# Úprava nabídky Poskytovatele #}
+                        {% if app.user and o.status == 'active' and quote.status == 'open' and o.serviceProvider.owner and o.serviceProvider.owner.id == app.user.id %}
+                            <a class="btn btn-sm btn-outline-secondary" href="{{ path('app_web_offer_edit', { id: o.id, _locale: app.request.locale }) }}">Upravit</a>
+                        {% endif %}
+
+                        {# Zrušit výběr (jen když není odemčeno) #}
+                        {% if isOwner and quote.status == 'selected' and not unlockActive %}
+                            <form action="{{ path('app_web_quote_unselect_offer', { id: quote.id, _locale: app.request.locale }) }}"
+                                  method="post" class="m-0 d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('unselect_quote_' ~ quote.id) }}">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">Zrušit výběr nabídky</button>
+                            </form>
+                        {% endif %}
+
+                        {# Poskytovatel může stáhnout svou aktivní nabídku #}
+                        {% if app.user and o.status == 'active' and o.serviceProvider.owner and o.serviceProvider.owner.id == app.user.id %}
+                            <form action="{{ path('app_web_offer_withdraw', { id: o.id, _locale: app.request.locale }) }}" method="post" class="m-0 d-inline">
+                                <button class="btn btn-outline-danger btn-sm" type="submit">Stáhnout</button>
+                            </form>
+                        {% endif %}
+
+                        {# Zaplatit (jen když není odemčeno) #}
+                        {% if app.user and isOwner and quote.status == 'selected' and not unlockActive %}
+                            <a class="btn btn-warning btn-sm"
+                               href="{{ path('app_web_unlock_pay', { id: quote.id, _locale: app.request.locale }) }}">
+                                Zaplatit odemknutí kontaktu
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if isOwner and unlockActive and quote.chosenOffer %}
+                    <div class="alert alert-success mt-3">
+                        <h3 class="h6 mb-2">Kontakt na dopravce</h3>
+                        <div><strong>{{ quote.chosenOffer.serviceProvider.name }}</strong></div>
+                        {% if revealContact %}
+                            <div class="small">
+                                {% if revealContact and revealContact.type == 'email' %}
+                                    E-mail: <a href="mailto:{{ revealContact.value }}">{{ revealContact.value }}</a>
+                                {% endif %}
+                                {% if revealContact and revealContact.type == 'phone' %}
+                                    Telefon: {{ revealContact.value }}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        {% if revealAddress %}
+                            <div class="small mt-2">
+                                Adresa: {{ revealAddress.street }}, {{ revealAddress.city }} {{ revealAddress.zipcode }}{% if revealAddress.country %}, {{ revealAddress.country }}{% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if o.message %}
+                    <div class="mt-2">{{ o.message|nl2br }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

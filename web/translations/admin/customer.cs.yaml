@@ -1,0 +1,119 @@
+action:
+  create_new_customer: Vytvořit nového zákazníka
+  create_new_customer_contact: Vytvořit nový kontakt zákazníka
+  edit_customer: Upravit zákazníka
+  edit_customer_contact: Upravit kontakt zákazníka
+
+breadcrumbs:
+  overview_of_customers: Přehled zákazníků
+  overview_of_customer_contacts: Přehled kontaktů zákazníka
+  customers: Zákazníci
+  customer_contacts: Kontakty zákazníka
+  customer_detail: Detail zákazníka
+  customer_contact_detail: Detail kontaktu zákazníka
+  edit_customer: Úprava zákazníka
+  edit_customer_contact: Úprava kontaktu zákazníka
+  new_customer: Nový zákazník
+  new_customer_contact: Nový kontakt zákazníka
+
+fieldset:
+  company_information: Údaje o společnosti
+  contact_information: Kontaktní údaje
+  bank_information: Bankovní údaje
+  billing_information: Fakturační údaje
+  delivery_information: Dodací údaje
+  social_site: Sociální sítě
+  customer: Zákazník
+  documents: Dokumenty
+  unpaid_invoices: Neuhrazené faktury
+  annual_spending_summary: Roční přehled útraty
+
+help:
+  customer: "<i class='mdi mdi-tooltip-edit-outline'></i> Potřebujete <a href='%customer%' title='%breadcrumbs_new_customer%' target='_blank'>přidat</a>/<a href='%edit_customer%' title='%breadcrumbs_edit_customer%' target='_blank'>upravit</a> zákazníka?"
+
+label:
+  id: Id
+  ci_name: Název společnosti
+  ci_in: IČO
+  ci_tin: DIČ
+  ci_vat_payer: Plátce DPH
+  ci_phone: Telefon
+  ci_mobile: Mobil
+  ci_fax: Fax
+  ci_email: E-mail
+  ci_invoicing_email: Fakturační e-mail
+  ci_web: Web
+  ci_duns: DUNS
+  ci_data_box: Datová schránka
+  ci_ba: Číslo bankovního účtu
+  ci_bc: Kód banky
+  ci_iban: IBAN
+  ci_swift: SWIFT
+  bi_name: Název společnosti / kontaktní osoba
+  bi_street: Ulice
+  bi_city: Město
+  bi_zipcode: PSČ
+  bi_country: Stát
+  di_name: Název společnosti / kontaktní osoba
+  di_street: Ulice
+  di_city: Město
+  di_country: Stát
+  di_zipcode: PSČ
+  search_in_ares: Hledat v ARES
+  customer: Zákazník
+  title_before: Titul před jménem
+  firstname: Křestní jméno
+  surname: Příjmení
+  title_after: Titul za jménem
+  job_position: Pracovní pozice
+  phone: Telefon
+  mobile: Mobil
+  email: Email
+
+menu:
+  customers: Zákazníci
+  overview: Přehled
+
+placeholder:
+  ci_name: Zadejte název společnosti
+  ci_in: Zadejte IČO
+  ci_tin: Zadejte DIČ
+  ci_vat_payer: Uveďte, zda je společnost plátcem DPH
+  ci_phone: Zadejte telefon
+  ci_mobile: Zadejte mobil
+  ci_fax: Zadejte fax
+  ci_email: Zadejte e-mail
+  ci_invoicing_email: Zadejte fakturační e-mail
+  ci_web: Zadejte URL webu
+  ci_duns: Zadejte DUNS
+  ci_data_box: Zadejte id datové schránky
+  ci_ba: Zadejte číslo bankovního účtu
+  ci_bc: Zadejte kód banky
+  ci_iban: Zadejte IBAN
+  ci_swift: Zadejte SWIFT
+  bi_name: Zadejte název společnosti / kontaktní osoby
+  bi_street: Zadejte název ulice
+  bi_city: Zadejte město
+  bi_zipcode: Zadejte PSČ
+  bi_country: Zadejte stát
+  di_name: Zadejte název společnosti / kontaktní osoby
+  di_street: Zadejte název ulice
+  di_city: Zadejte město
+  di_country: Zadejte stát
+  di_zipcode: Zadejte PSČ
+  title_before: Zadejte titul před jménem
+  firstname: Zadejte křestní jméno
+  surname: Zadejte příjmení
+  title_after: Zadejte titul za jménem
+  job_position: Zadejte pracovní pozici
+  phone: Zadejte telefon
+  mobile: Zadejte mobil
+  email: Zadejte email
+
+table:
+  invoice_number: Č. dokladu
+  due_date: Datum splatnosti
+  total_without_vat: Celková cena bez DPH
+  vat: Celkové DPH
+  total_with_vat: Celková cena s DPH
+  total_sum: Celkem

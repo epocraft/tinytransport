@@ -1,0 +1,29 @@
+action:
+  create_new_invoice_status: Vytvořit nový status faktury
+  edit_invoice_status: Upravit status faktury
+
+breadcrumbs:
+  edit_invoice_status: Úprava statusu faktury
+  invoice_status_detail: Detail statusu faktury
+  invoice_statuses: Statusy faktur
+  new_invoice_status: Nový status faktury
+  overview_of_invoice_statuses: Přehled statusů faktur
+
+fieldset:
+  status: Status
+
+label:
+  bg_color: Barva pozadí
+  id: Id
+  name: Název
+  text_color: Barva textu
+  status: Status
+
+menu:
+  invoice_statuses: Statusy faktur
+  overview: Přehled
+
+placeholder:
+  bg_color: Zadejte barvu pozadí
+  name: Zadejte název
+  text_color: Zadejte barvu textu

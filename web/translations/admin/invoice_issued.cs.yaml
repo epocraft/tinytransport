@@ -1,0 +1,115 @@
+action:
+  create_new_invoice_issued: Vytvořit FV DPH
+  create_new_invoice_issued_tax_invoice: Vytvořit DDPP
+  create_new_invoice_issued_billing_invoice: Vytvořit VF
+  create_new_invoice_issued_advance_invoice: Vytvořit ZF
+  create_new_invoice_issued_without_vat: Vytvořit FV
+  edit_invoice_issued: Upravit FV DPH
+  edit_advance_invoice: Upravit ZF
+  edit_tax_invoice: Upravit DDPP
+  edit_billing_invoice: Upravit VF
+  edit_invoice_issued_without_vat: Upravit FV
+  create_new_invoice_issued_settings: Vytvořit nové nastavení faktur
+  edit_invoice_issued_settings: Upravit nastavení faktur
+
+breadcrumbs:
+  advance_invoice_detail: Detail zálohové faktury
+  advance_invoices: Zálohové faktury
+  billing_invoice_detail: Detail vyúčtovací faktury
+  billing_invoices: Výúčtovaí faktury
+  edit_advance_invoice: Úprava zálohové faktury
+  edit_billing_invoice: Úprava vyúčtovací faktury
+  edit_invoice_issued_without_vat: Úprava vydané faktury bez DPH
+  edit_invoice_issued: Úprava vydané faktury s DPH
+  edit_tax_invoice: Úprava daňového dokladu k přijaté platbě
+  invoice_issued_detail: Detail vydané faktury s DPH
+  invoice_issued_without_vat_detail: Detail vydané faktury bez DPH
+  invoice_issued: Vydaná faktura
+  invoices_issued: Vydané faktury s DPH
+  invoices_issued_without_vat: Vydané faktury bez DPH
+  new_advance_invoice: Nová zálohová faktura
+  new_billing_invoice: Nová vyúčtovací faktura
+  new_invoice_issued_without_vat: Nová vydaná faktura bez DPH
+  new_invoice_issued: Nová vydaná faktura s DPH
+  new_tax_invoice: Nový daňový doklad k přijaté platbě
+  overview_of_advance_invoices: Přehled zálohových faktur
+  overview_of_invoices_issued: Přehled vydaných faktur
+  tax_invoice_detail: Detail daňového dokladu k přijaté platbě
+  tax_invoices: Daňové doklady k přijaté platbě
+  send_pdf: Odeslat fakturu
+  overview_of_invoice_issued_settings: Přehled nastavení faktur
+  invoice_issued_settings: Nastavení faktur
+  new_invoice_issued_settings: Nové nastavení faktur
+  edit_invoice_issued_settings: Úprava nastavení faktur
+  invoice_issued_settings_detail: Detail nastavení faktur
+
+fieldset:
+  invoice_terms: Nastavení fakturačních termínů
+  invoice_items: Položky faktury
+  contractor: Zhotovitel
+  customer: Zákazník
+
+label:
+  address_bcc: Skrytá kopie
+  address_cc: Kopie
+  address_from: Od
+  address_to: Komu
+  ammount: Množství
+  command: Číslo objednávky
+  contractor: Zhotovitel
+  customer: Zákazník
+  date_opened: Datum přijetí
+  date_sent: Datum odeslání
+  due_date: Splatnost
+  id: Id
+  issue_date: Vydáno
+  number: Č. dokladu
+  performance_date: DUZP
+  priority: Priorita
+  selling_currency_unit: Prodejní měna
+  selling_measure_unit: Měrná jednotka
+  selling_price_with_vat: Cena s DPH
+  selling_price_without_vat: Cena bez DPH
+  selling_price: Prodejní cena
+  selling_vat_of_rate: Sazba DPH
+  selling_vat: DPH
+  status: Status
+  subject: Předmět zprávy
+  total_price_with_vat: Cena s DPH
+  total_price_without_vat: Cena bez DPH
+  total_price: Celková cena
+  total_vat: DPH
+  type: Typ
+  user: Odesilatel
+  document_prefix: Prefix dokumentu
+  name: Název
+
+menu:
+  invoices_issued: Vydané faktury
+  overview: Přehled
+  advance_invoices_overview: Přehled ZF
+  tax_invoices_overview: Přehled DDPP
+  settings: Nastavení
+
+message:
+  number_already_exists: Číslo dokladu už existuje
+
+placeholder:
+  number: Zadejte číslo dokladu
+  name: Zadejte název
+  ammount: Zadejte množství
+  selling_price: Zadejte prodejní cenu
+  selling_currency_unit: Zadejte prodejní měnu
+  selling_measure_unit: Zadejte měrnou jednotku
+  selling_vat_of_rate: Zadejte sazbu DPH
+  selling_price_without_vat: Zadejte cenu bez DPH
+  selling_vat: zadejte DPH
+  selling_price_with_vat: Zadejte cenu s DPH
+  command_text: Zadejte vlastní číslo objednávky
+
+title:
+  create_new_invoice_issued: Vytvořit fakturu s DPH
+  create_new_invoice_issued_tax_invoice: Vytvořit daňový doklad k přijaté platbě
+  create_new_invoice_issued_billing_invoice: Vytvořit vyúčtovací fakturu
+  create_new_invoice_issued_advance_invoice: Vytvořit zálohovou fakturu
+  create_new_invoice_issued_without_vat: Vytvořit fakturu bez DPH
