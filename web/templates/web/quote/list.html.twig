@@ -10,7 +10,9 @@
     </div>
 
     {% if quotes is empty %}
+
         <div class="alert alert-info">Zatím tu nic není.</div>
+        
     {% else %}
         <div class="list-group">
             {% for q in quotes %}
